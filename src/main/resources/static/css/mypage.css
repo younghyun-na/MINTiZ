@@ -1,0 +1,100 @@
+:root{
+    --mintiz-mint: #BDE4DC;
+    --mintiz-brown: #817171;
+}
+
+.line{
+    color:#d1c3c3;
+    border-style:dashed;
+    margin-top: 13px;
+}
+
+/*개인 정보 관련*/
+.profile-layout{
+    display: grid;
+    place-content: center;
+}
+
+/*메뉴 바*/
+.layout{
+    text-align: center;
+    align-items: center;
+    align-content: center;
+}
+
+.btn-1 {
+    letter-spacing: 0;
+    -webkit-transition: all .28s ease-in-out;
+    transition: all .28s ease-in-out;
+}
+.btn-1:hover,
+.btn-1:focus,
+.btn-1:active {
+    letter-spacing: 5px;
+}
+.btn-1:after,
+.btn-1:before {
+    border: 1px solid rgba(255, 255, 255, 0);
+    bottom: 0;
+    content: " ";
+    display: block;
+    margin: 0 auto;
+    position: relative;
+    -webkit-transition: all .28s ease-in-out;
+    transition: all .28s ease-in-out;
+    width: 0;
+}
+.btn-1:hover:after,
+.btn-1:hover:before {
+    border-color: #fff;
+    -webkit-transition: width 350ms ease-in-out;
+    transition: width 350ms ease-in-out;
+    width: 70%;
+}
+.btn-1:hover:before {
+    bottom: auto;
+    top: 0;
+}
+
+ul{
+    background-color: var(--mintiz-mint);
+    padding: auto;
+}
+
+li{
+    display: inline-block;
+    background-color: var(--mintiz-mint);
+    padding: 10px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    color:white;
+    border-radius: 5px;
+}
+
+a{
+    text-decoration-line: none;
+    color:white;
+}
+
+
+
+/*버튼 - 수정*/
+.basic-button{
+    background-color:white;
+    border-radius:6px;
+    border:1px solid #dcdcdc;
+    color:var(--mintiz-brown);
+    font-size:15px;
+    font-weight:bold;
+    padding:4px 30px;
+}
+
+.basic-button:hover{
+    background-color:#dcdcdc;
+}
+
+
+.basic-text{
+    margin: 13px;
+    color:var(--mintiz-brown);
+}

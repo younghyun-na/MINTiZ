@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>MINTiZ</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <script type="text/javascript" src="/static/js/calendar.js"></script>
+    <link rel="stylesheet" type="text/css" href="/static/css/profile.css">
+    <link rel="stylesheet" type="text/css" href="/static/css/calendar.css">
+    <link rel="stylesheet" type="text/css" href="/static/css/mypage.css">
+</head>
+
+<body onload="build();" >
+<div id="page-wrapper">
+    <!--고정 헤더-->
+    <header id="main-header">
+        <hgroup align="center" >
+            <h1 align="center" class="master-title">MINTiZ</h1>
+            <!--
+            <img  src="../images/logo.png" width="170" height="170"/>
+            -->
+
+        </hgroup>
+    </header>
+</div>
+
+<!--화면 주요 내용-->
+<div id="content">
+    <div class="layout">
+        <!--메뉴바-->
+        <nav >
+            <ul>
+                <li><a class = "btn-1" href="MyPage.html">마이페이지</a></li>
+                <li>|</li>
+                <li><a class = "btn-1" href="WritingList.html">내가 쓴 글</a></li>
+                <li>|</li>
+                <li><a class = "btn-1" href="BookMark.html">북마크 목록</a></li>
+            </ul>
+        </nav>
+    </div>
+
+
+    <!--마이페이지-->
+    <div class="mint-calendar-font">내 정보</div>
+    <div class="profile-layout">
+        <!--프로필 사진-->
+        <img src="/static/img/profileImg.png" width="170" height="170"/>
+
+
+        <!--개인 정보-->
+        <dlv>
+            <div class="basic-text">
+                <span><b>LV. &nbsp;&nbsp</b></span>
+                <label> 민초 타노스</label>
+            </div>
+            <div class="basic-text">
+                <span><b>이름 &nbsp</b></span>
+                <label> 짐인님 </label>
+                <!--
+                    <input class="input-layout" type="text" value="이름" readonly>
+                -->
+            </div>
+            <div class="basic-text">
+                <label><b>이메일 </b></label>
+                <label> test@test.com</label>
+            </div>
+
+        </dlv>
+    </div>
+    <div class="mint-calendar-font">
+        <input class="basic-button" type="button" value="프로필 수정">
+    </div>
+    <hr class="line"/>
+
+    <!--캘린더-->
+    <div class="mint-calendar-font">Mint Day</div>
+    <div class="layout">
+        <table id="calendar" align="center">
+            <tr>
+                <td class="calendar-font"><label onclick="beforem()" id="before" ></label></td>
+                <td colspan="5" id="yearmonth"></td>
+                <td class="calendar-font" ><label onclick="nextm()" id="next"></label></td>
+            </tr>
+
+        </table>
+    </div>
+
+</div>
+</body>
+</html>

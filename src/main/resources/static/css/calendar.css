@@ -1,0 +1,22 @@
+/*캘린더*/
+table
+{
+    border:1px solid #BDE4DC;
+    text-align:center;
+    border-radius: 2px;
+    width:40%;
+    height: 200px;
+    margin-bottom: 30px;
+}
+
+.calendar-font{
+    font-size: 1%;
+    color: #B3B6B3;
+}
+
+.mint-calendar-font{
+    text-align: center;
+    color: #BDE4DC;
+    font-size: 24px;
+    margin-bottom: 10px;
+}
