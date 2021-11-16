@@ -1,6 +1,8 @@
 const main = document.querySelector("#testmain");
 const qna = document.querySelector("#qna");
 const result = document.querySelector("#result");
+const signupBtn = document.getElementById("signup");
+const retryBtn = document.getElementById("retry");
 const baseUrl = 'http://localhost:8080/';
 const endPoint = 7;
 const select = [];
@@ -50,8 +52,9 @@ function calResult() {
     return resultword;
 }
 
-let point = calResult();
+let point;
 function setResult() {
+    point = calResult();
     const resultName = document.querySelector(".resultname");
     resultName.innerHTML = infoList[point].name;
     resultName.innerHTML.fontcolor("#817171");
@@ -68,11 +71,23 @@ function setResult() {
     const resultDesc = document.querySelector(".resultDesc");
     resultDesc.innerHTML = infoList[point].desc;
     resultDesc.innerHTML.fontcolor("#817171");
+    if (point == 0 ){
+        signupBtn.style.display = "none";
+    } else{
+        retryBtn.style.display = "none";
+    }
+
 
 }
 
 function goToSignUp() {
     let link = baseUrl + 'user/signup?level=' + point;
+    console.log(link);
+    location.href = link;
+}
+
+function goToRetry() {
+    let link = baseUrl + 'test' ;
     console.log(link);
     location.href = link;
 }
@@ -88,6 +103,7 @@ function goResult() {
             result.style.display = "block";
         }, 200)})
     console.log(select);
+
     setResult();
     calResult();
 }

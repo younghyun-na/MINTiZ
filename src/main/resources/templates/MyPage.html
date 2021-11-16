@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>MINTiZ</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <script type="text/javascript" src="/static/js/calendar.js"></script>
-    <link rel="stylesheet" type="text/css" href="/static/css/profile.css">
-    <link rel="stylesheet" type="text/css" href="/static/css/calendar.css">
-    <link rel="stylesheet" type="text/css" href="/static/css/mypage.css">
+    <script type="text/javascript" th:src="@{/js/calendar.js}"></script>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/profile.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/calendar.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/mypage.css}">
 </head>
 
 <body onload="build();" >
@@ -27,15 +27,7 @@
 <div id="content">
     <div class="layout">
         <!--메뉴바-->
-        <nav >
-            <ul>
-                <li><a class = "btn-1" href="MyPage.html">마이페이지</a></li>
-                <li>|</li>
-                <li><a class = "btn-1" href="WritingList.html">내가 쓴 글</a></li>
-                <li>|</li>
-                <li><a class = "btn-1" href="BookMark.html">북마크 목록</a></li>
-            </ul>
-        </nav>
+        <nav th:replace="fragments.html :: main-nav"></nav>
     </div>
 
 

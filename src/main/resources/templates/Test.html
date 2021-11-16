@@ -1,7 +1,7 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
 <head>
-    <title>Test</title>
+    <title>MINTiZ</title>
     <script type="text/javascript"></script>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -54,12 +54,13 @@
 
         </div>
         <br>
-        <p>
 
-        </p>
-        <button type="button" class="next" onclick="goToSignUp()">회원가입</button>
+        <button id= "signup" type="button" class="next" onclick="goToSignUp()">회원가입</button>
+        <button id= "retry" type="button" class="next" onclick="goToRetry()" >재도전</button>
         <!--<a href="#" role="button" class="kakao" onclick="">공유하기</a>-->
     </section>
+
+
     <script type="text/javascript" th:src="@{/js/testData.js}"></script>
     <script type="text/javascript" th:src="@{/js/test.js}"></script>
 </div>
