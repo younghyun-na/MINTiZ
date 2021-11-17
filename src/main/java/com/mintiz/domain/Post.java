@@ -39,9 +39,9 @@ public class Post {
 
     private String location;
 
-    //@OneToMany(mappedBy = "post", orphanRemoval = true, cascade = CascadeType.PERSIST, cascade = CascadeType.REMOVE)
+    @OneToMany(mappedBy = "post", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
     //@OneToMany(mappedBy = "post", orphanRemoval = true, cascade = CascadeType.ALL)   //자식 entity 고아(NULL) 객체 삭제
-    @OneToMany(mappedBy = "post")
+    //@OneToMany(mappedBy = "post")
     @Builder.Default
     private List<ImageFile> images = new ArrayList<>();
 

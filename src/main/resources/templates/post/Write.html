@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Write</title>
+  <script type="text/javascript" th:src="@{/js/write.js}"></script>
+  <link rel="stylesheet" type="text/css" th:href="@{/css/write.css}">
+</head>
+<body>
+<div id="page-wrapper">
+  <!--고정 헤더-->
+  <header id="main-header">
+    <hgroup>
+      <h1 align="center" class="master-title">MINTiZ</h1>
+    </hgroup>
+  </header>
+</div>
+
+<div id="content">
+  <div id="WritingHeader">
+    <h2 class="title">글 작성하기</h2>
+  </div>
+  <hr>
+
+  <form th:action="@{/post/add}" th:object="${postSaveDto}" method="post">
+    <section id="tag-section">
+      <select name="tagName" id="baseTags" class="form-control" onchange="addPostScriptTag()">
+        <option value='' selected>-- 선택 --</option>
+        <option th:value="일상" value='daily'>일상</option>
+        <option th:value="후기" value='postscript'>후기</option>
+      </select>
+
+      <div id="postscript-tag" style="display:none">
+        <select name="location" class="form-control">
+          <option value='' selected>-- 지역 선택 --</option>
+          <option th:value='서울'>서울</option>
+          <option th:value='경기'>경기</option>
+          <option th:value='인천'>인천</option>
+          <option th:value='강원'>강원</option>
+          <option th:value='충북'>충북</option>
+          <option th:value='충남'>충남</option>
+          <option th:value='경북'>경북</option>
+          <option th:value='경남'>경남</option>
+          <option th:value='대구'>대구</option>
+          <option th:value='대전'>대전</option>
+          <option th:value='세종'>세종</option>
+          <option th:value='전북'>전북</option>
+          <option th:value='전남'>전남</option>
+          <option th:value='광주'>광주</option>
+          <option th:value='울산'>울산</option>
+          <option th:value='부산'>부산</option>
+          <option th:value='제주'>제주</option>
+        </select>
+
+        <div class="i-recommend">
+          <button class="btn" id="btn" type="submit"><img class="btn-img" src="../img/icon-recommended.png" width='20' height='20'></button>
+          <span>추천</span>
+        </div>
+      </div>
+    </section>
+    <div class="button">
+      <label for="chooseImg">
+        <img class="addImg" src="../img/addPicture.png" width='80' height='80'>
+      </label>
+    </div>
+    <input type="file" id="chooseImg" name="chooseImg" accept="image/*" onchange="loadFile(this)">
+    <br>
+    <textarea th:field="*{content}" class="textbox" placeholder="내용을 입력해주세요" style="resize: none;"></textarea>
+    <button class="UploadButton UploadButton--basemint size_default" type="submit" >
+      <span class="UploadButton__txt">등록</span>
+    </button>
+  </form>
+</div>
+</body>
+</html>

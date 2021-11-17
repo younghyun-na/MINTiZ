@@ -11,9 +11,11 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-//메인 POST list 에 출력하기 위한 Dto
-@Getter@Setter
-public class PostListResponseDto {
+@Getter
+@Setter
+public class PostListResDto {         //메인 페이지 dto
+
+    private long postId;
 
     private User user;
 
@@ -27,7 +29,7 @@ public class PostListResponseDto {
 
     private LocalDateTime updatedTime;
 
-    public PostListResponseDto(Post post) {
+    public PostListResDto(Post post) {
         this.user = user;
         this.content = content;
         this.location = location;

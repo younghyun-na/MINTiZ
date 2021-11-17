@@ -16,7 +16,7 @@ public class Tag {
      * 일상 소통 / 맛집 추천(장소 입력) / 맛집 후기(장소 입력)
      */
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "tag_id")
     private Long id;
 
@@ -26,4 +26,6 @@ public class Tag {
     @OneToMany(mappedBy = "tag")
     @Builder.Default
     private List<TagPost> posts = new ArrayList<>();
+
+    //태그가 후기, 추천 일 경우 region 은 필수
 }
