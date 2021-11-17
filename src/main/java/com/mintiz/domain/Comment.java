@@ -1,7 +1,8 @@
 package com.mintiz.domain;
 
-import lombok.Builder;
-import lombok.Getter;
+import lombok.*;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -12,6 +13,9 @@ import static javax.persistence.FetchType.LAZY;
 
 @Entity
 @Getter
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)   //protected Tag(){}
 public class Comment {
 
     @Id
@@ -30,13 +34,24 @@ public class Comment {
     @Column(nullable = false)
     private String content;
 
-    private LocalDateTime localDateTime;
+    @CreationTimestamp
+    @Column(name = "created_at", nullable = false, updatable = false)
+    @Builder.Default
+    private LocalDateTime createdAt = LocalDateTime.now();
 
+    @UpdateTimestamp
+    @Column(name = "updated_at", nullable = false)
+    @Builder.Default
+    private LocalDateTime updatedTime = LocalDateTime.now();
+
+    //대댓글은 나중에..시간 남으면 추가로 구현
+    /*
     @ManyToOne(fetch = LAZY)
     @JoinColumn(name = "parent_id")
-    private Comment parent;
+    private Comment parent;              //부모 댓글의 id(1개)
 
     @OneToMany(mappedBy = "parent", orphanRemoval = true)
-    private List<Comment> child = new ArrayList<>(); //대댓글
+    private List<Comment> child = new ArrayList<>();      //자식 댓글들의 id(여러개)
+    */
 }
 

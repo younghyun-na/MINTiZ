@@ -1,0 +1,80 @@
+:root{
+    --mintiz-mint: #BDE4DC;
+    --mintiz-brown: #817171;
+}
+
+#page-wrapper{
+    background:white;
+    margin:20px 0; padding: 10px 20px;
+    border-radius:5px;
+    box-shadow:0 2px 6px rgba(100, 100, 100, 0.3);
+}
+.master-title{
+    font-size:30px;
+    color:var(--mintiz-brown);
+}
+
+body{
+    width:960px; margin:0 auto;
+    background:var(--mintiz-mint);
+}
+#content{
+    overflow:hidden;
+    background:white;
+    margin:10px 0; padding: 15px 20px;
+    border-radius:5px;
+    box-shadow:0 2px 6px rgba(100, 100, 100, 0.3);
+}
+#WritingHeader{
+    position: relative;
+}
+.upload-btn{
+    position: absolute;
+    top: 5px;
+    right: 0;
+}
+div {
+    display: block;
+}
+
+.UploadButton.size_default {
+    min-width: 46px;
+    height: 36px;
+    margin-left: 10px;
+    padding: 0 12px;
+    font-size: 13px;
+    line-height: 36px;
+}
+.UploadButton--basemint {
+    background: var(--mintiz-mint);
+    color: var(--mintiz-brown);
+}
+.UploadButton {
+    display: inline-block;
+    border-radius: 6px;
+    box-sizing: border-box;
+    font-weight: 700;
+    text-align: center;
+    vertical-align: top;
+}
+
+#tag-section{
+    text-align: left;
+}
+#postscript-tag{
+    display: inline-block;
+}
+.i-recommend{
+    display: inline-block;
+}
+.i-recommend button{
+    display: inline-block;
+    border: none;
+    background-color: white;
+}
+#chooseImg {
+    visibility: hidden;
+}
+#textbox{
+    padding-top: 20px;
+}
