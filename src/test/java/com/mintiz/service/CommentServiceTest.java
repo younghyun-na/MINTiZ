@@ -3,6 +3,7 @@ package com.mintiz.service;
 import com.mintiz.domain.Comment;
 import com.mintiz.domain.Tag;
 import com.mintiz.domain.User;
+import com.mintiz.domain.dto.CommentResDto;
 import com.mintiz.domain.dto.CommentSaveDto;
 import com.mintiz.domain.dto.CommentUpdateReqDto;
 import com.mintiz.domain.dto.PostSaveDto;
@@ -40,11 +41,7 @@ public class CommentServiceTest {
         User user = createUser();
         PostSaveDto post = createPost("콘텐트", "서울");
         Long postId = postService.savePost(user.getId(), post, "후기");
-        CommentSaveDto comment = CommentSaveDto.builder()
-                .content("댓글 1")
-                .userId(user.getId())
-                .postId(postId).build();
-
+        CommentSaveDto comment = new CommentSaveDto(user.getId(), postId, "댓글 1");
         //when
         long commentId = commentService.addComment(comment);
 
@@ -60,10 +57,7 @@ public class CommentServiceTest {
         User user = createUser();
         PostSaveDto post = createPost("콘텐트", "서울");
         Long postId = postService.savePost(user.getId(), post, "후기");
-        CommentSaveDto comment = CommentSaveDto.builder()
-                .content("댓글 1")
-                .userId(user.getId())
-                .postId(postId).build();
+        CommentSaveDto comment = new CommentSaveDto(user.getId(), postId, "댓글 1");
         long commentId = commentService.addComment(comment);
 
         //when
@@ -86,14 +80,11 @@ public class CommentServiceTest {
         User user = createUser();
         PostSaveDto post = createPost("콘텐트", "서울");
         Long postId = postService.savePost(user.getId(), post, "후기");
-        CommentSaveDto comment = CommentSaveDto.builder()
-                .content("댓글 1")
-                .userId(user.getId())
-                .postId(postId).build();
+        CommentSaveDto comment = new CommentSaveDto(user.getId(), postId, "댓글 1");
         long commentId = commentService.addComment(comment);
 
         //when
-        List<Comment> commentList = commentService.getCommentListByPost(postId);
+        List<CommentResDto> commentList = commentService.getCommentListByPost(postId);
 
         //then
         Assertions.assertEquals(1, commentList.size());
@@ -107,10 +98,7 @@ public class CommentServiceTest {
         User user = createUser();
         PostSaveDto post = createPost("콘텐트", "서울");
         Long postId = postService.savePost(user.getId(), post, "후기");
-        CommentSaveDto comment = CommentSaveDto.builder()
-                .content("댓글 1")
-                .userId(user.getId())
-                .postId(postId).build();
+        CommentSaveDto comment = new CommentSaveDto(user.getId(), postId, "댓글 1");
         long commentId = commentService.addComment(comment);
 
         //when

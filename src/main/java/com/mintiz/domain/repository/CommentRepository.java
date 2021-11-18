@@ -36,7 +36,6 @@ public class CommentRepository {
         return Optional.ofNullable(commentList);
     }
 
-
     @Modifying
     @Transactional
     public void updateComment(String content, long commentId){

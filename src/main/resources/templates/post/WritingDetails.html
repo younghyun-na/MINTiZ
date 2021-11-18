@@ -25,14 +25,13 @@
 
   <nav class="categories" >
     <ol>
-      <li class="category"><span th:text="*{tagName}"></span></li>
-      <li class="category"><span th:text="*{location}"></span><a><img id="place" src="../img/category_place.jpg" width='20' height='20'/>경기도</a></li>
+      <li class="category"><span th:text="*{tagName}"><a></a></span></li>
+      <li class="category"><a><img id="place" src="../img/category_place.jpg" width='20' height='20'/><span th:text="*{location}">경기도</span></a></li>
     </ol>
   </nav>
 
 
   <div class = "body-layout">
-
     <!--사진 슬라이드-->
     <ul class="slides">
       <input type="radio" name="radio-btn" id="img-1" checked />
@@ -40,7 +39,7 @@
         <div class="slide">
           <img src="../img/writingdetails1.jpg" alt=""></div>
         <div class="nav">
-          <label for="img-6" class="prev">&#x2039;</label>
+          <label for="img-1" class="prev">&#x2039;</label>
           <label for="img-2" class="next">&#x203a;</label>
         </div>
       </li>
@@ -61,7 +60,7 @@
           <img src="../img/writingdetails3.jpg" alt=""></div>
         <div class="nav">
           <label for="img-2" class="prev">&#x2039;</label>
-          <label for="img-4" class="next">&#x203a;</label>
+          <label for="img-3" class="next">&#x203a;</label>
         </div>
       </li>
 
@@ -77,7 +76,7 @@
     <div class="writer">
       <table width = 20 height = 10>
         <tr>
-          <th rowspan="2"><img id="profile_img" src="../img/임시.png" width='50' height='50'/></th>
+          <th rowspan="2"><img id="profile_img1" src="../img/임시.png" width='50' height='50'/></th>
           <td><b><div class="writer_name" th:utext="*{user.getName()}">Younghyun</div></b>
           </td>
         </tr>
@@ -122,18 +121,37 @@
 
     <div class = "comments">
       <hr align="center" color="#9b9090">
-      <div id="form-commentInfo">
+      <div id="form-commentInfo" class = "comment-row">
         <div id="comment-count">댓글
-          <span id="count">0</span></div>
-        <input id="comment-input" placeholder="댓글을 입력해 주세요.">
-        <button id="submit" th:onclick="|location.href='@{/post/{postId}/comments/(postId=${postId})}'|">등록</button>
+          <span id = "comments-count" th:text="${commentSize}">2</span>
+          <div class = "comment-row">
+            <form role="form" th:action="@{/post/{postId}/comments(postId=${PostResDto.postId})}" method="post">
+              <textarea id = "comment-input" name = "comment-input" placeholder="댓글을 입력해 주세요."></textarea>
+              <button type = "submit" id="submit_btn" name="submit_btn">등록</button>
+            </form>
+          </div>
+          <div class = "comment-row" th:each="comment,iterStat : ${commentList}">
+            <table width = 300 height = 50>
+              <tr>
+                <th rowspan="2"><img id="profile_img" src="../img/profile.png" width='45' height='45'/></th>
+                <td>
+                  <div class="comment-name" th:text="${comment.getUserName()}">나영현</div>
+                  <div class="comment-date" th:text="${comment.getUpdateTime()}">2021-11-17 10:16</div>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <div class="comment-content" th:text="${comment.getContent()}" >Comment1</div>
+                </td>
+              </tr>
+            </table>
+          </div>
+        </div>
       </div>
-      <div id=comment> </div>
-      <script src="index.js"></script>
     </div>
-
   </div>
 
 </div>
 </body>
 </html>
+

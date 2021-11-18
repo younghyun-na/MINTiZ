@@ -1,5 +1,6 @@
 function addPostScriptTag() {
-    const key = document.getElementById("baseTags");
+    const key = document.getElementById("base" +
+        "Tags");
 
 
     //var key = baseTags.value;

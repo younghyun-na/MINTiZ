@@ -87,24 +87,32 @@ body{
 #form-commentInfo{
     width: 100%;
 }
-#comment-count{
-    margin-bottom: 10px;
+#comments-count{
+    margin-top: 10px;
 }
 #comment-input{
+    margin-top: 10px;
     width: 80%;
     height: 3.2em;
 }
-#submit{
+
+#submit_btn{
     background-color:#BDE4DC;
     border: none;
-    width: 4.5em;
-    height: 3.3em;
+    width: 4.0em;
+    height: 3.2em;
     font-weight: bold;
     color: #817171;
 }
 
 #comments{
     margin-top: 10px;
+}
+.comment-row{
+    margin-bottom: 5px;
+}
+.comment-date{
+    font-size: 5px;
 }
 .eachComment{
     width :50%;

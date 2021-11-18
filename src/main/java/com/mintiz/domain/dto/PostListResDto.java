@@ -30,20 +30,10 @@ public class PostListResDto {         //메인 페이지 dto
     private LocalDateTime updatedTime;
 
     public PostListResDto(Post post) {
-        this.user = user;
-        this.content = content;
-        this.location = location;
-        this.images = images;
-        this.tagPosts = tagPosts;
-        this.updatedTime = updatedTime;
-    }
-
-    public Post toEntity(){
-        return Post.builder()
-                .content(content)
-                .location(location)
-                .images(images)
-                .tagPosts(tagPosts)
-                .updatedTime(updatedTime).build();
+        this.user = post.getUser();
+        this.content = post.getContent();
+        this.location = post.getLocation();
+        this.tagPosts = post.getTagPosts();
+        this.updatedTime = post.getUpdatedTime();
     }
 }

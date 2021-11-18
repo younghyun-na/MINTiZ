@@ -1,7 +1,5 @@
 package com.mintiz.web.controller;
 
-import com.mintiz.domain.Comment;
-import com.mintiz.domain.Post;
 import com.mintiz.domain.dto.*;
 import com.mintiz.domain.service.CommentService;
 import com.mintiz.domain.service.PostService;
@@ -10,7 +8,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
 
@@ -26,34 +23,36 @@ public class PostController {
 
     @GetMapping("/add")
     public String addPostView(Model model){
-        model.addAttribute("postSaveDto", new PostSaveDto());
+        model.addAttribute("saveForm", new PostSaveDto());
         return "post/Write";
     }
 
     @PostMapping("/add")
     public String addPost(@RequestParam("tagName") String tagName,
-                          @RequestParam("location") String location,
-                          @RequestParam("chooseImg") String img, @ModelAttribute PostSaveDto postSaveDto){
+                          @RequestParam("location") String location, @ModelAttribute PostSaveDto postSaveDto){
         postSaveDto.setLocation(location);
         Long postId = postService.savePost(userId, postSaveDto, tagName);
 
-        log.info("img = {}", img);
-
-        return "redirect:/post/all";     //메인화면으로 가야하는데..
-    }
-
-    //게시글 상세페이지 조회
-    @GetMapping("/{postId}")
-    public String getPost(@PathVariable("postId") long postId, Model model){
-        PostResDto postResDto = postService.findPost(postId);
-        model.addAttribute("PostResDto", postResDto);
-        return "post/WritingDetails";
+        return "redirect:/post/all";
     }
 
     @GetMapping("/all")   //임시..
     public String getAllPost(){
         //List<Post> postAll = postService.findPostAll();
         return "post/Main";
+    }
+
+    //게시글 상세페이지 조회 + 댓글까지 함께 조회
+    @GetMapping("/{postId}")
+    public String getPost(@PathVariable("postId") long postId, Model model){
+        PostResDto postResDto = postService.findPost(postId);
+        List<CommentResDto> commentList = commentService.getCommentListByPost(postId);
+
+        model.addAttribute("commentSize", commentList.size());
+        model.addAttribute("PostResDto", postResDto);
+        model.addAttribute("commentList", commentList);
+
+        return "post/WritingDetails";
     }
 
     //게시글 수정
@@ -76,31 +75,22 @@ public class PostController {
 
     //댓글 등록
     @PostMapping("/{postId}/comments")
-    public void addComment(@PathVariable("commentId") long commentId,
-                           @ModelAttribute CommentSaveDto commentSaveDto){
-        commentSaveDto.setUserId(1L);
-        commentService.addComment(commentSaveDto);
-    }
+    public String addComment(@PathVariable("postId") long postId, @RequestParam("comment-input") String comment){
 
-    //댓글 조회
-    @GetMapping("/{postId}/comments")
-    public void getComments(@PathVariable("postId") long postId){
-        List<Comment> commentList = commentService.getCommentListByPost(postId);
-
+        commentService.addComment(new CommentSaveDto(1L, postId, comment));  //이게 실행이 안됌
+        return "redirect:/post/" + postId;
     }
 
     //댓글 수정
     @PostMapping("/{postId}/comments/{commentId}/update")
-    public void updateComment(@PathVariable("commentId") long commentId,
-                              @PathVariable("postId") long postId){
+    public void updateComment(@PathVariable("commentId") long commentId, @PathVariable("postId") long postId){
 
     }
 
     //댓글 삭제
     @PostMapping("/{postId}/comments/{commentId}/delete")
-    public void deleteComment(@PathVariable("commentId") long commentId,
-                              @PathVariable("postId") long postId){
-
+    public void deleteComment(@PathVariable("commentId") long commentId, @PathVariable("postId") long postId){
+        commentService.deleteComment(commentId);
     }
 
 

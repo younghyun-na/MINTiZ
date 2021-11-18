@@ -3,6 +3,7 @@ package com.mintiz.domain.service;
 import com.mintiz.domain.Comment;
 import com.mintiz.domain.Post;
 import com.mintiz.domain.User;
+import com.mintiz.domain.dto.CommentResDto;
 import com.mintiz.domain.dto.CommentSaveDto;
 import com.mintiz.domain.dto.CommentUpdateReqDto;
 import com.mintiz.domain.repository.CommentRepository;
@@ -12,7 +13,10 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional(readOnly = true)
@@ -26,6 +30,7 @@ public class CommentService {
     /**
      * 댓글 추가
      * */
+    @Transactional
     public long addComment(CommentSaveDto commentSaveDto){
         //jwt => userId
         User user = userRepository.getById(commentSaveDto.getUserId());
@@ -43,6 +48,7 @@ public class CommentService {
     /**
      * 댓글 수정
      */
+    @Transactional
     public void updateComment(CommentUpdateReqDto commentUpdateReqDto){
         Comment comment = commentRepository.findById(commentUpdateReqDto.getCommentId()).orElseThrow(
                 () -> new IllegalArgumentException("수정하려는 댓글이 존재하지 않습니다.")
@@ -54,11 +60,17 @@ public class CommentService {
     /**
      * 댓글 리스트 조회
      */
-    public List<Comment> getCommentListByPost(long postId){
-        List<Comment> comments = commentRepository.findCommentsByPostId(postId).orElseThrow(
-                () -> new IllegalArgumentException("작성된 댓글이 없습니다.")
-        );
-        return comments;
+    public List<CommentResDto> getCommentListByPost(long postId){
+        return commentRepository.findCommentsByPostId(postId).orElseThrow(
+                () -> new IllegalArgumentException("작성된 댓글이 없습니다."))
+                .stream()
+                .map((x) -> new CommentResDto(x, getFormattedTime(x.getUpdatedTime())))
+                .collect(Collectors.toList());
+    }
+
+    private String getFormattedTime(LocalDateTime localDateTime) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        return localDateTime.format(formatter);
     }
 
     /**
