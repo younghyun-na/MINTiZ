@@ -1,6 +1,6 @@
 package com.mintiz.domain;
 
-import com.mintiz.domain.dto.ImageFileDto;
+import com.mintiz.post.model.ImageFileDto;
 import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.ObjectUtils;

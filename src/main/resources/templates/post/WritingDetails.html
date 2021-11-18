@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-  <title>글 상세 페이지</title>
+  <title>MINTiZ</title>
   <script type="text/javascript" src="../js/writingdetails.js"></script>
   <link rel="stylesheet" type="text/css" href="../css/writingdetails.css">
 
@@ -10,13 +10,7 @@
 <body>
 <!--전체를 감싸는 태그-->
 <div id="page-wrapper">
-
-  <!--헤더-->
-  <header id="main-header">
-    <hgroup>
-      <h1 align="center" class="master-title">MINTiZ</h1>
-    </hgroup>
-  </header>
+  <header th:replace="fragments.html :: main-header"></header>
 </div>
 
 

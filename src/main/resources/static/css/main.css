@@ -47,12 +47,6 @@ body{
     color:var(--mintiz-brown);
 }
 
-#main-header{
-    padding:30px 50px;
-    background-repeat:no-repeat;
-    background-position:right;
-    background-size:50%;
-}
 
 #search-section{
     display: flex;
@@ -234,4 +228,15 @@ body{
     border: 1px solid rgba(0,0,0,0.09);
     border-radius: 3px;
     display: none;
+}
+
+.hideme
+{
+    opacity:0;
+}
+
+.fadeinleft {
+    opacity:0;
+    margin-left:-300px;
+    max-width:100%;
 }

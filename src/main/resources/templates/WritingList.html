@@ -10,12 +10,7 @@
 
 <body>
 <div id="page-wrapper">
-    <!--고정 헤더-->
-    <header id="main-header">
-        <hgroup>
-            <h1 align="center"class="master-title">MINTiZ</h1>
-        </hgroup>
-    </header>
+    <header th:replace="fragments.html :: main-header"></header>
 </div>
 
 <!--화면 주요 내용-->
@@ -30,7 +25,7 @@
     <div class="listlayout">
         <article class="mylist">
             <div class="title_area">
-                <h2 class="myarticlelist">내가 쓴 글</h2>
+
             </div>
             <ul class="article-container">
                 <li>

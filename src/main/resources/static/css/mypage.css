@@ -56,12 +56,12 @@
     top: 0;
 }
 
-ul{
+.menubar{
     background-color: var(--mintiz-mint);
     padding: auto;
 }
 
-li{
+.menubar li{
     display: inline-block;
     background-color: var(--mintiz-mint);
     padding: 10px;
@@ -71,7 +71,7 @@ li{
     border-radius: 5px;
 }
 
-a{
+.menubar a{
     text-decoration-line: none;
     color:white;
 }

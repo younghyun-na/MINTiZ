@@ -1,15 +1,14 @@
 package com.mintiz.service;
 
-import com.mintiz.domain.Comment;
 import com.mintiz.domain.Tag;
 import com.mintiz.domain.User;
-import com.mintiz.domain.dto.CommentResDto;
-import com.mintiz.domain.dto.CommentSaveDto;
-import com.mintiz.domain.dto.CommentUpdateReqDto;
-import com.mintiz.domain.dto.PostSaveDto;
-import com.mintiz.domain.repository.CommentRepository;
-import com.mintiz.domain.service.CommentService;
-import com.mintiz.domain.service.PostService;
+import com.mintiz.post.model.CommentResDto;
+import com.mintiz.post.model.CommentSaveDto;
+import com.mintiz.post.model.CommentUpdateReqDto;
+import com.mintiz.post.model.PostSaveDto;
+import com.mintiz.post.repository.CommentRepository;
+import com.mintiz.post.service.CommentService;
+import com.mintiz.post.service.PostService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +18,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import java.util.List;
-import java.util.NoSuchElementException;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;

@@ -1,7 +1,6 @@
 package com.mintiz.domain;
 
-import com.mintiz.domain.dto.PostSaveDto;
-import com.mintiz.domain.dto.PostUpdateDto;
+import com.mintiz.post.model.PostUpdateDto;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -19,10 +18,10 @@ import static javax.persistence.FetchType.*;
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)   //protected Tag(){}
 //@Builder(builderMethodName = "PostBuilder")
-public class Post {
+public class Post{
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "post_id")
     private Long id;
 
@@ -30,9 +29,12 @@ public class Post {
     @JoinColumn(name="user_id")
     private User user;
 
+    /*
     @OneToOne(fetch = LAZY)
     @JoinColumn(name="mint_id")
     private Mint mint;
+
+     */
 
     @Column(columnDefinition = "TEXT")
     private String content;
