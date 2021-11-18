@@ -20,13 +20,10 @@ public class PostUpdateDto {
 
     private List<ImageFile> images = new ArrayList<>();
 
-    private LocalDateTime updatedTime;
-
     public Post toEntity(){
         return Post.builder()
                 .content(content)
                 .location(location)
-                .images(images)
-                .updatedTime(updatedTime).build();
+                .images(images).build();
     }
 }

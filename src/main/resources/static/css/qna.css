@@ -1,0 +1,51 @@
+:root{
+    --mintiz-mint: #BDE4DC;
+    --mintiz-brown: #817171;
+}
+
+#qna{
+    display: none;
+}
+
+.qBox{
+    background-color: whitesmoke;
+    display: block;
+    text-align: center;
+    width: 90%;
+    margin: 40px auto;
+    padding: 15px ;
+    border-radius: 20px;
+    font-size: 24px;
+}
+
+.answerList{
+    background-color: whitesmoke;
+    border-radius: 20px;
+    display: block;
+    width: 90%;
+    height: 120%;
+    margin: 20px auto;
+    padding: 20px ;
+    border: 0px;
+    font-size: 18px;
+}
+.answerList:hover, .answerList:focus{
+    background-color: var(--mintiz-brown);
+    color: whitesmoke;
+}
+
+.status{
+    height: 15px;
+    margin-top: 3rem;
+    background-color: white;
+    border-radius: 20px;
+}
+
+.statusBar{
+    height: 100%;
+    border-radius: 20px;
+    background: #817171;
+    background: -moz-linear-gradient(top, #817171 0%, #756767 52%, #665a5a 100%);
+    background: -webkit-linear-gradient(top, #817171 0%, #756767  52%, #665a5a 100%);
+    background: linear-gradient(to bottom, #817171  0%, #756767 52%, #665a5a 100%);
+}

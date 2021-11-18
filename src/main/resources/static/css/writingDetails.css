@@ -1,0 +1,259 @@
+* {
+    box-sizing: border-box;
+}
+
+:root{
+    --mintiz-mint: #BDE4DC;
+    --mintiz-brown: #817171;
+}
+
+#page-wrapper{
+    background:white;
+    margin:20px 0; padding: 10px 20px;
+    border-radius:5px;
+    box-shadow:0 2px 6px rgba(100, 100, 100, 0.3);
+}
+.master-title{
+    font-size:30px;
+    color:var(--mintiz-brown);
+}
+
+body{
+    width:960px; margin:0 auto;
+    background:var(--mintiz-mint);
+}
+#content{
+    overflow:hidden;
+    background:white;
+    margin:10px 0; padding: 0px 20px;
+    border-radius:5px;
+    box-shadow:0 2px 6px rgba(100, 100, 100, 0.3);
+}
+
+/* 본문 내용의 레이아웃, 글씨 색*/
+.body-layout{
+    display: grid;
+    place-content: center;
+    margin: 13px;
+    color:var(--mintiz-brown);
+}
+
+.layout{
+    text-align: center;
+    align-items: center;
+    align-content: center;
+
+}
+
+/* 작성자 부분 레이아웃 */
+.writer{
+    text-align: left;
+    align-items: left;
+    align-content: left;
+    background: white;
+    box-shadow:0 2px 6px rgba(100, 100, 100, 0.3);
+}
+
+/* 카테고리 부분 레이아웃 */
+.category ol {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+.category {
+    display: inline-block;
+}
+
+.category a::after {
+    display: inline-block;
+    color: #817171;
+    content: '>';
+    font-size: 80%;
+    font-weight: bold;
+    padding: 0 3px;
+}
+
+/* 글 부분 레이아웃 */
+.writing{
+    padding: 7px;
+    width: 609px;
+    color:black;
+}
+.interaction{
+    float: right;
+}
+
+/* 댓글 레이아웃 */
+#form-commentInfo{
+    width: 100%;
+}
+#comments-count{
+    margin-top: 10px;
+}
+#comment-input{
+    margin-top: 10px;
+    width: 80%;
+    height: 3.2em;
+}
+
+#submit_btn{
+    background-color:#BDE4DC;
+    border: none;
+    width: 4.0em;
+    height: 3.2em;
+    font-weight: bold;
+    color: #817171;
+}
+
+#comments{
+    margin-top: 10px;
+}
+.comment-row{
+    margin-bottom: 5px;
+}
+.comment-date{
+    font-size: 5px;
+}
+.eachComment{
+    width :50%;
+    margin: 10px;
+    padding: 0.5em;
+    border-bottom: 1px solid #817171;
+}
+.eachComment .name{
+    font-size: 1.5em;
+    font-weight: bold;
+    margin-bottom: 0.3em;
+    display: flex;
+    justify-content: space-between;
+}
+.eachComment .inputValue{
+    font-size: 1.2em;
+}
+.eachComment .time{
+    font-size: 0.7em;
+    color: #817171;
+    font-style: oblique;
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
+}
+.eachComment .voteDiv{
+    display: flex;
+    justify-content: flex-end;
+}
+.eachComment .deleteComment{
+    background-color: papayawhip;
+    color: black;
+}
+
+
+
+/* 사진 슬라이드*/
+.slides {
+    padding: 0;
+    width: 609px;
+    height: 420px;
+    display: block;
+    margin: 0 auto;
+    position: relative;
+}
+
+.slides * {
+    user-select: none;
+    -ms-user-select: none;
+    -moz-user-select: none;
+    -khtml-user-select: none;
+    -webkit-user-select: none;
+    -webkit-touch-callout: none;
+}
+
+.slides input { display: none; }
+
+.slide-container { display: block; }
+
+.slide {
+    top: 0;
+    opacity: 0;
+    width: 609px;
+    height: 420px;
+    display: block;
+    position: absolute;
+
+    transform: scale(0);
+
+    transition: all .7s ease-in-out;
+}
+
+.slide img {
+    width: 100%;
+    height: 100%;
+}
+
+.nav label {
+    width: 200px;
+    height: 100%;
+    display: none;
+    position: absolute;
+
+    opacity: 0;
+    z-index: 9;
+    cursor: pointer;
+
+    transition: opacity .2s;
+
+    color: #FFF;
+    font-size: 156pt;
+    text-align: center;
+    line-height: 380px;
+    font-family: "Varela Round", sans-serif;
+    background-color: rgba(255, 255, 255, .3);
+    text-shadow: 0px 0px 15px rgb(119, 119, 119);
+}
+
+.slide:hover + .nav label { opacity: 0.5; }
+
+.nav label:hover { opacity: 1; }
+
+.nav .next { right: 0; }
+
+input:checked + .slide-container  .slide {
+    opacity: 1;
+    transform: scale(1);
+    transition: opacity 1s ease-in-out;
+}
+
+input:checked + .slide-container .nav label { display: block; }
+
+.nav-dots {
+    width: 100%;
+    bottom: 9px;
+    height: 11px;
+    display: block;
+    position: absolute;
+    text-align: center;
+}
+
+.nav-dots .nav-dot {
+    top: -5px;
+    width: 11px;
+    height: 11px;
+    margin: 0 4px;
+    position: relative;
+    border-radius: 100%;
+    display: inline-block;
+    background-color: rgba(0, 0, 0, 0.6);
+}
+
+.nav-dots .nav-dot:hover {
+    cursor: pointer;
+    background-color: rgba(0, 0, 0, 0.8);
+}
+
+input#img-1:checked ~ .nav-dots label#img-dot-1,
+input#img-2:checked ~ .nav-dots label#img-dot-2,
+input#img-3:checked ~ .nav-dots label#img-dot-3,
+input#img-4:checked ~ .nav-dots label#img-dot-4,
+input#img-5:checked ~ .nav-dots label#img-dot-5,
+input#img-6:checked ~ .nav-dots label#img-dot-6 {
+    background: rgba(0, 0, 0, 0.8);
+}

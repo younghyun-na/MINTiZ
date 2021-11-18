@@ -11,8 +11,8 @@ import java.util.List;
 @Entity
 @Getter @Setter
 public class User {
-
-    @Id
+    
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_id")
     private Long id;
 

@@ -28,11 +28,11 @@ public class PostSaveDto {
 
     private String location;
 
-    //private List<MultipartFile> images;
     private List<ImageFile> images = new ArrayList<>();
 
     public Post toEntity(){
         return Post.builder()
+                .user(user)
                 .content(content)
                 .location(location)
                 .build();

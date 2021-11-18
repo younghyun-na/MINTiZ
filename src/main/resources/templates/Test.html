@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+<head>
+    <title>MINTiZ</title>
+    <script type="text/javascript"></script>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Hi+Melody&display=swap" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/test.css}" href="/static/css/test.css">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/qna.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/testanimation.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/result.css}">
+</head>
+
+<body>
+<div class="content">
+    <section id="testmain">
+        <h1>나의 민초력은?</h1>
+        <div id="col-6 mx-auto">
+            <img th:src="@{/img/profileImg.png}" alt="mainTestImg" class="img-fluid">
+        </div>
+        <br>
+        <p>
+            민초단 입단에 도전해보세요!
+        </p>
+        <a href="#" role="button" class="testBtn testBtn--basemint size_default" onclick="begin()">도전하기</a>
+        <!--
+            <button type="button" class="testBtn testBtn--basemint size_default" onclick="begin()">시작하기</span></button>
+        -->
+    </section>
+
+    <section id="qna">
+        <div class="status">
+            <div class="statusBar"></div>
+        </div>
+        <div class="qBox my-5 py-3 mx-auto">
+
+        </div>
+        <div class="aBox">
+
+        </div>
+    </section>
+
+    <section id="result">
+        <h1>나의 민초력은?</h1>
+        <div class="resultname">
+
+        </div>
+        <div id="resultImg">
+
+        </div>
+        <div class="resultDesc">
+
+        </div>
+        <br>
+
+        <button id= "signup" type="button" class="next" onclick="goToSignUp()">회원가입</button>
+        <button id= "retry" type="button" class="next" onclick="goToRetry()" >재도전</button>
+        <!--<a href="#" role="button" class="kakao" onclick="">공유하기</a>-->
+    </section>
+
+
+    <script type="text/javascript" th:src="@{/js/testData.js}"></script>
+    <script type="text/javascript" th:src="@{/js/test.js}"></script>
+</div>
+
+</body>
+</html>

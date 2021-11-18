@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<!-- nav -->
+<nav th:fragment="main-nav">
+    <ul class="menubar">
+        <li><a class = "btn-1" th:href="@{/mypage}">마이페이지</a></li>
+        <li>|</li>
+        <li><a class = "btn-1" th:href="@{/writing}">내가 쓴 글</a></li>
+        <li>|</li>
+        <li><a class = "btn-1" th:href="@{/bookmark}">북마크 목록</a></li>
+    </ul>
+</nav>

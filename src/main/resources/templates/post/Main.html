@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Main</title>
+  <script type="text/javascript" src="../js/main.js"></script>
+  <link rel="stylesheet" type="text/css" href="../css/main.css">
+</head>
+<body>
+<!--전체를 감싸는 태그-->
+<div id="page-wrapper">
+
+  <!--헤더-->
+  <header id="main-header">
+    <hgroup>
+      <h1 align="left" class="master-title">MINTiZ</h1>
+    </hgroup>
+  </header>
+
+  <section id="search-section">
+    <div class="search">
+      <form><input type="text" id="search"/>
+        <button><span>검색</span></button>
+      </form>
+    </div>
+    <div class="tag">
+      <button><i class="tag1"></i><span># 일상</span>
+      </button>
+      <button><i class="tag2"></i><span># 맛집 후기</span>
+      </button>
+    </div>
+  </section>
+</div>
+
+<!--콘텐츠를 감싸는 태그-->
+<div id="content" >
+  <section id="main-section" >
+    <article class="contents">
+      <header class="top">
+        <div class="user_container">
+          <div class="profile_img">
+            <img src="../img/임시.png" alt="프로필이미지">
+          </div>
+          <div class= "profile-container">
+            <div class="nick_name m_text">Minnie</div>
+            <div class="country s_text">Seoul, South Korea</div>
+          </div>
+
+        </div>
+
+        <div class="sprite_more_icon" data-name="more">
+          <ul class="toggle_box">
+            <li class="s_text">수정</li>
+            <li class="s_text">삭제</li>
+          </ul>
+        </div>
+      </header>
+
+      <div class="img_section">
+        <div>
+          <div><img src="../img/testImg0.png"></div>
+        </div>
+      </div>
+
+      <div>
+        <div> 민초 마싯땅 </div>
+      </div>
+
+      <div>
+        <div class="timer">1시간 전</div>
+      </div>
+
+      <!--북마크, 댓글-->
+      <div class="user_container">
+        <div class="bookmark_img">
+          <img src="../img/clicked_star.png" alt="북마크이미지">     <!--북마크 추가 url로 이동-->
+        </div>
+        <div class="comment_img">
+          <button type="button">
+            <img src="../img/comment.png" alt="댓글이미지"th:href="/post/{postId}(postId=${postId})">
+          </button>
+        </div>
+
+      </div>
+
+
+
+    </article>
+
+
+  </section>
+
+
+</div>
+
+
+
+</body>
+</html>
