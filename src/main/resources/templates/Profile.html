@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Profile</title>
+    <script type="text/javascript" src="../js/calendar.js"></script>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/basic.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/profile.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/calendar.css}">
+</head>
+<script th:inline="javascript">
+    /*<![CDATA[*/
+    let months = [[${postMonth}]];
+    let dates = [[${postDate}]];
+    let years = [[${postYear}]];
+    /*]]>*/
+</script>
+
+
+<body onload="build(months,dates,years);" >
+<div id="page-wrapper">
+    <header th:replace="fragments.html :: main-header"></header>
+</div>
+
+<div id="content">
+
+    <!--회원 정보-->
+    <div class = "title"> 회원 정보 </div>
+
+    <div class = "body-layout">
+
+        <table width = 300 height = 100>
+            <tr>
+                <th rowspan="3"><img id="img1" src="../image/임시.png" width='80' height='80'/></th>
+                <td><b>LV.&nbsp;&nbsp</b>
+                    <span th:text="${user.level}" > 민초 타노스</span>
+                </td>
+            </tr>
+            <tr>
+                <td><b>이름 &nbsp</b>
+                    <span value="빙글빙글"  th:text="${user.name}" > </span>
+                    <!--
+                    <input class="input-layout" type="text" value="이름" readonly>
+                    -->
+                </td>
+            </tr>
+            <tr>
+                <td><b>이메일 </b>
+                    <span th:text="${user.email}"> test@test.com</span>
+                </td>
+            </tr>
+        </table>
+    </div>
+
+    <!--캘린더-->
+
+    <div class="mint-calendar-font title">MINT DAY&#127807;</div>
+    <div class="layout">
+        <table class = "mint-calendar" id="calendar" align="center">
+            <tr>
+                <td class="calendar-font"><label onclick="beforem()" id="before" ></label></td>
+                <td colspan="5" id="yearmonth"></td>
+                <td class="calendar-font" ><label onclick="nextm()" id="next"></label></td>
+            </tr>
+
+        </table>
+    </div>
+    <script src="../js/profile.js"></script>
+</div>
+</body>
+</html>
+

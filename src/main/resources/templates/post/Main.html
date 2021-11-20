@@ -32,7 +32,12 @@
             <header class="top">
                 <div class="user_container">
                     <div class="profile_img">
-                        <img src="../img/임시.png" alt="프로필이미지">
+                        <!--
+                        <a th:href="@{/profile/{userId}(userId=${userId})}" style="color: black">
+                        -->
+                        <a th:href="@{/profile/{userId}(userId=${1})}" style="color: black">
+                            <img src="../img/임시.png" alt="프로필이미지">
+                        <a/>
                     </div>
                     <div class= "profile-container">
                         <div class="nick_name m_text">Minnie</div>

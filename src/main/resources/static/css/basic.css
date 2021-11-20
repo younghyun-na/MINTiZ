@@ -29,3 +29,9 @@ body{
 .mypage{
     float: right;
 }
+
+.line{
+    color:#d1c3c3;
+    border-style:dashed;
+    margin-top: 13px;
+}
