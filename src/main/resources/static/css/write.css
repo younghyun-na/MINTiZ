@@ -56,8 +56,11 @@ div {
     border-radius: 6px;
     box-sizing: border-box;
     font-weight: 700;
+    border: 0;
+    outline: 0;
     text-align: center;
     vertical-align: top;
+    box-shadow:0 2px 6px rgba(100, 100, 100, 0.3);
 }
 
 #tag-section{
@@ -81,4 +84,7 @@ div {
     padding-top: 20px;
     width: 840px;
     height: 200px;
+}
+.mypage{
+    float: right;
 }

@@ -2,17 +2,13 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
   <title>Write</title>
-  <script type="text/javascript" th:src="@{/js/write.js}"></script>
+  <script type="text/javascript" th:src="@{/js/write.js}" src="../js/write.js"></script>
   <link rel="stylesheet" type="text/css" th:href="@{/css/write.css}">
 </head>
 <body>
+
 <div id="page-wrapper">
-  <!--고정 헤더-->
-  <header id="main-header">
-    <hgroup>
-      <h1 align="center" class="master-title">MINTiZ</h1>
-    </hgroup>
-  </header>
+  <header th:replace="fragments.html :: main-header"></header>
 </div>
 
 <div id="content">
@@ -23,10 +19,10 @@
 
   <form th:action="@{/post/add}" th:object="${saveForm}" method="post">
     <section id="tag-section">
-      <select name="tagName" id="baseTags" class="form-control" onchange="addPostScriptTag()">
-        <option value='' selected>-- 선택 --</option>
-        <option th:value="일상" value='daily'>일상</option>
-        <option th:value="후기" value='postscript'>후기</option>
+      <select name="tagName" id="baseTags" class="form-control" onchange=addPostScriptTag();>
+        <option selected>-- 선택 --</option>
+        <option value="daily">일상</option>
+        <option value="postscript">후기</option>
       </select>
 
       <div id="postscript-tag" style="display:none">

@@ -1,9 +1,9 @@
-function addPostscriptTag() {
-    var key = basetags.value;
+function addPostScriptTag() {
 
+    var key =document.getElementById("baseTags").value;
 
-    document.getElementById("postscript-tag").style.display="inline-block";
-    /*
+    //document.getElementById("postscript-tag").style.display="inline-block";
+
     if(key==="postscript") {
         document.getElementById("postscript-tag").style.display="inline-block";
     }
@@ -11,5 +11,4 @@ function addPostscriptTag() {
         document.getElementById("postscript-tag").style.display="none";
     }
 
-     */
 }
