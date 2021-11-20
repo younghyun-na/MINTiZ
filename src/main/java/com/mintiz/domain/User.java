@@ -39,4 +39,12 @@ public class User {
         this.password = password;
     }
 
+    @Builder
+    private User(String email, String name, String password, Level level) {
+        this.email = email;
+        this.name = name;
+        this.level = level;
+        this.password = password;
+    }
+
 }

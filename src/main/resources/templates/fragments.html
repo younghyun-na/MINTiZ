@@ -15,6 +15,9 @@
 
 <!-- 고정헤더 -->
 <header th:fragment="main-header" id="main-header">
+    <a class="mypage" th:href="@{/mypage}">
+        <img width="25px" height="25px" th:src="@{/img/mypage.png}">
+    </a>
     <hgroup align="center" >
         <a th:href="@{/post/all}">
             <img width="210px" height="100px" th:src="@{/img/MINTiZ_logo.png}" >

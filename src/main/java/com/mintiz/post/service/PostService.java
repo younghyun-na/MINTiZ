@@ -3,7 +3,6 @@ package com.mintiz.post.service;
 import com.mintiz.domain.*;
 import com.mintiz.post.model.PostResDto;
 import com.mintiz.post.model.PostSaveDto;
-import com.mintiz.post.model.PostListResDto;
 import com.mintiz.post.model.PostUpdateDto;
 import com.mintiz.post.repository.PostRepository;
 import com.mintiz.post.repository.TagPostRepository;
@@ -15,9 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service
 @Transactional(readOnly = true)
@@ -104,31 +101,32 @@ public class PostService {
     /**
      * 게시글 조회: 전체 조회
      */
-    public List<Post> findPostAll(){
-        return postRepository.findList();
-    }
 
-    /**
-     * 게시글 검색 : 내용으로 검색
-     * postListResponseDto : 글 내용 + 이미지 + 글 쓴이 + 작성 날짜 + 위치 + 태그
-     */
-    public List<PostListResDto> searchPostByContent(String keyword){
-        return postRepository.findByContent(keyword)
-                .stream()
-                .map(PostListResDto::new)
-                .collect(Collectors.toList());
-    }
-
-    /**
-     * 게시글 전체 조회 : 후기 / 일상 선택(Tag 로 구분)
-     */
-
-    public List<PostListResDto> findPostAllByTag(String tagName){
-        return postRepository.findByTag(tagName)
-                .stream()
-                .map(PostListResDto::new)
-                .collect(Collectors.toList());
-    }
+//    public List<Post> findPostAll(){
+//        return postRepository.findList();
+//    }
+//
+//    /**
+//     * 게시글 검색 : 내용으로 검색
+//     * postListResponseDto : 글 내용 + 이미지 + 글 쓴이 + 작성 날짜 + 위치 + 태그
+//     */
+//    public List<PostListResDto> searchPostByContent(String keyword){
+//        return postRepository.findByContent(keyword)
+//                .stream()
+//                .map(PostListResDto::new)
+//                .collect(Collectors.toList());
+//    }
+//
+//    /**
+//     * 게시글 전체 조회 : 후기 / 일상 선택(Tag 로 구분)
+//     */
+//
+//    public List<PostListResDto> findPostAllByTag(String tagName){
+//        return postRepository.findByTag(tagName)
+//                .stream()
+//                .map(PostListResDto::new)
+//                .collect(Collectors.toList());
+//    }
 
     /**
      * 게시글 삭제
@@ -139,5 +137,6 @@ public class PostService {
                 new IllegalArgumentException("존재하지 않는 게시글 입니다 + id=" + postId));
         postRepository.delete(post);
     }
+
 
 }

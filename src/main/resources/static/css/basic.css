@@ -26,3 +26,6 @@ body{
     border-radius:5px;
     box-shadow:0 2px 6px rgba(100, 100, 100, 0.3);
 }
+.mypage{
+    float: right;
+}

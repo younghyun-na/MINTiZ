@@ -19,6 +19,9 @@ li{
     list-style:none;
 }
 
+.mypage{
+    float: right;
+}
 
 p {	font-size:20px;
     font-weight:bolder;
