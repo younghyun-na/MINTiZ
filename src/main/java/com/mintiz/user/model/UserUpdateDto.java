@@ -5,13 +5,13 @@ import lombok.NoArgsConstructor;
 
 @Getter
 @NoArgsConstructor
-public class UserLoginDto {
+public class UserUpdateDto {
 
-    private String id;
+    private String name;
     private String password;
 
-    public UserLoginDto(String id, String password){
-        this.id = id;
+    public UserUpdateDto(String name, String password){
+        this.name = name;
         this.password = password;
     }
 }

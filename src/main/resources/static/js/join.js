@@ -1,5 +1,22 @@
+// 아이디 중복 체크
+function checkId(){
+        var id = $('#id').val(); //id값이 "id"인 입력란의 값을 저장
+        $.ajax({
+            url:'/user/idCheck', //Controller에서 인식할 주소
+            type:'post', //POST 방식으로 전달
+            data:{id:id},
+            success:function(){
+                console.log("처리 성공 시 변경되는 내용");
+            },
+            error:function(){
+                alert("에러입니다");
+            }
+        });
+-};
+
+
 // 유효성 검사
-function joinform_check(){
+function join_form_check(){
     var set_email = document.getElement("set_email");
     var set_name = document.getElement("set_name");
     var set_id = document.getElement("set_id");
@@ -36,7 +53,8 @@ function joinform_check(){
         return false;
     }
 
-    document.joinform_submit();
+    // 입력값 전송
+    document.join_form.submit();
 }
 
 // id 중복체크

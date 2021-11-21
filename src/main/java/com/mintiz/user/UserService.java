@@ -12,7 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 @Transactional(readOnly = true)
 @RequiredArgsConstructor
-public class UserService {
+public abstract class UserService {
 
     private final UserRepository userRepository;
     private PasswordEncoder passwordEncoder;
@@ -25,21 +25,30 @@ public class UserService {
         if(userRepository.findByEmail(userSignupDto.getEmail()).isPresent())
             throw new IllegalStateException("이미 존재하는 회원입니다.");
 
+
         // 회원 객체 생성 후 저장
         return userRepository.save(User.builder()
                 .email(userSignupDto.getEmail())
                 .id(Long.valueOf(userSignupDto.getId()))
                 .password(passwordEncoder.encode(userSignupDto.getPassword()))
                 .name(userSignupDto.getName())
-                .level(userSignupDto.getLevel())
                 .build());
-
     }
 
+    // 아이디로 회원 조회
     public User findUser(Long userId){
-
         return userRepository.findById(userId).orElseThrow(
                 () -> new IllegalArgumentException("존재하지 않는 회원"));
 
     }
+
+    /*
+    // 아이디 중복 체크
+    public int idCheck(Long id){
+        int cnt = userRepository.idCheck(id);
+        return cnt;
+    }
+    */
+
+
 }

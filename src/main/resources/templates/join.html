@@ -16,32 +16,40 @@
     </header>
 </div>
 
+<!--아이디 중복 확인 기능-->
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<script type="text/javascript"></script>
+
 <!--회원가입 폼-->
 <section class="join-input-section-wrap">
-    <form name="join_form" role="form" action="/user/signup" th:object="${UserSignupDto}" method="POST">
-        <div class="login-name"> 이메일 </div>
+    <form name="join_form" role="form" action="/user/signup" th:object="${Level}" method = "Get">
+        <div class="login-name"> 레벨 </div>
         <div class="login-input-wrap">
-            <input th:field="*{email}" placeholder="이메일을 입력해주세요" type="email"></input>
+            <input th:field="*{level}" value="" type="text" readonly >
         </div>
+    </form>
+    <form name="join_form" role="form" action="/user/signup" th:object="${UserSignupDto}" method="POST">
         <div class="login-name"> 이름 </div>
         <div class="login-input-wrap">
-            <input th:field="*{name}" placeholder="이름을 입력해주세요" type="text"></input>
+            <input th:field="*{name}" placeholder="이름을 입력해주세요" type="text">
         </div>
         <div class="login-name"> 아이디 </div>
         <div class="login-input-wrap">
-            <input th:field="*{id}" placeholder="아이디를 입력해주세요" type="text"></input>
-            <button id="id_button" onclick="id_check()">중복확인</button>
+            <input th:field="*{id}" placeholder="아이디를 입력해주세요" type="text">
+            <button id="id_button" onclick="id_check();">중복확인</button>
+            <span class="id_ok">사용 가능한 아이디입니다.</span>
+            <span class="id_already">사용 불가능한 아이디입니다.</span>
         </div>
         <div class="login-name"> 비밀번호 </div>
         <div class="login-input-wrap">
-            <input th:field="*{set_pw}" placeholder="비밀번호를 입력해주세요" type="password"></input>
+            <input th:field="*{set_pw}" placeholder="비밀번호를 입력해주세요" type="password">
         </div>
         <div class="login-name"> 비밀번호 확인</div>
         <div class="login-input-wrap">
-            <input th:field="*{check_pw}" placeholder="비밀번호를 입력해주세요" type="password"></input>
+            <input th:field="*{check_pw}" placeholder="비밀번호를 입력해주세요" type="password">
         </div>
         <div class="login-button-wrap">
-            <button onclick="joinform_check();">Sign up</button>
+            <button onclick="join_form_check();">Sign up</button>
         </div>
 
     </form>
