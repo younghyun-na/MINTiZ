@@ -63,6 +63,10 @@ div {
     box-shadow:0 2px 6px rgba(100, 100, 100, 0.3);
 }
 
+.UploadButton:hover{
+    background: #c5ded6;
+}
+
 #tag-section{
     text-align: left;
 }
