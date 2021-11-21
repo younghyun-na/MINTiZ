@@ -17,16 +17,16 @@
   </div>
   <hr>
 
-  <form th:action="@{/post/add}" th:object="${saveForm}" method="post" enctype="multipart/form-data">
+  <form th:action="@{/post/add}" th:object="${saveForm}" method="post">
     <section id="tag-section">
-      <select th:field="*{tagName}" name="tagName" id="baseTags" class="form-control" onchange=addPostScriptTag();>
-        <option value='' selected>-- 선택 --</option>
-        <option th:value="일상" value="daily">일상</option>
-        <option th:value="후기" value="postscript">후기</option>
+      <select name="tagName" id="baseTags" class="form-control" onchange=addPostScriptTag();>
+        <option selected>-- 선택 --</option>
+        <option value="daily">일상</option>
+        <option value="postscript">후기</option>
       </select>
 
       <div id="postscript-tag" style="display:none">
-        <select th:field="*{location}" name="location" class="form-control">
+        <select name="location" class="form-control">
           <option value='' selected>-- 지역 선택 --</option>
           <option th:value='서울'>서울</option>
           <option th:value='경기'>경기</option>
@@ -53,7 +53,7 @@
         <img class="addImg" src="../img/addPicture.png" width='80' height='80'>
       </label>
     </div>
-    <input type="file" th:field ="*{images}"  multiple="multiple" id="chooseImg" name="chooseImg" accept="image/*" onchange="loadFile(this)">
+    <input type="file" id="chooseImg" name="chooseImg" accept="image/*" onchange="loadFile(this)">
     <br>
     <textarea th:field="*{content}" class="textbox" placeholder="내용을 입력해주세요" style="resize: none;"></textarea>
     <button class="UploadButton UploadButton--basemint size_default" type="submit" >
