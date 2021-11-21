@@ -14,7 +14,6 @@ import java.util.List;
 
 @Controller
 @RequiredArgsConstructor
-@RequestMapping("/main")
 @Slf4j
 public class MainController {
 
@@ -23,7 +22,7 @@ public class MainController {
     /**
      * 게시글 전체 조회
      **/
-    @GetMapping("")
+    @GetMapping(value = {"/main","/"})
     public String showPostList(@RequestParam(required = false) String content, Model model){
 
         //내용으로 조회(제목이 X)
@@ -41,7 +40,7 @@ public class MainController {
      * 게시글 태그로 조회
      * main/?tagName=
     **/
-    @GetMapping("/select")
+    @GetMapping("/main/select")
     public String showPostListByTag(@RequestParam String tagName, Model model){
 
         List<PostListResDto> postListByTag = postService.findPostAllByTag(tagName);
