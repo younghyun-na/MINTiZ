@@ -44,12 +44,6 @@ public class PostController {
         return "redirect:/post/" + postId;
     }
 
-    @GetMapping("/all")   //임시..
-    public String getAllPost(){
-        //List<Post> postAll = postService.findPostAll();
-        return "post/Main";
-    }
-
     //게시글 상세페이지 조회 + 댓글까지 함께 조회
     @GetMapping("/{postId}")
     public String getPost(@PathVariable("postId") long postId, Model model){
@@ -63,7 +57,7 @@ public class PostController {
         return "post/WritingDetails";
     }
 
-    //사진 불러오기
+    //사진 불러오기:toDo
     //"/img/images/2021-11-21/663568979433600.jpg" /문제..
     @ResponseBody
     @GetMapping("/images/{filename}")
@@ -77,10 +71,10 @@ public class PostController {
     @GetMapping("/{postId}/update")
     public String updatePostForm(@PathVariable("postId") long postId){
 
-        return null;
+        return "post/Modify";
     }
 
-    //게시글 수정
+    //게시글 수정:toDo
     @PostMapping("/{postId}/update")
     public String updatePost(@PathVariable("postId") long postId,
                            @RequestParam("tagName") String updateTagName,
@@ -95,7 +89,7 @@ public class PostController {
     @PostMapping("/{postId}/delete")
     public String deletePost(@PathVariable("postId") long postId){
         postService.deletePost(postId);
-        return "redirect:/post/all";
+        return "redirect:/main";
     }
 
     //댓글 등록
@@ -106,7 +100,7 @@ public class PostController {
         return "redirect:/post/" + postId;
     }
 
-    //댓글 수정
+    //댓글 수정:toDo
     @PostMapping("/{postId}/comments/{commentId}/update")
     public void updateComment(@PathVariable("commentId") long commentId,
                               @PathVariable("postId") long postId,CommentUpdateReqDto commentUpdateReqDto){
@@ -114,7 +108,7 @@ public class PostController {
         commentService.updateComment(commentUpdateReqDto);
     }
 
-    //댓글 삭제
+    //댓글 삭제:toDo
     @PostMapping("/{postId}/comments/{commentId}/delete")
     public void deleteComment(@PathVariable("commentId") long commentId, @PathVariable("postId") long postId){
         commentService.deleteComment(commentId);

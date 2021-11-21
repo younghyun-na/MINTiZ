@@ -10,7 +10,8 @@ import java.util.Optional;
 
 @Repository
 @RequiredArgsConstructor
-public class PostRepository {
+public class
+PostRepository {
 
     private final EntityManager em;
 

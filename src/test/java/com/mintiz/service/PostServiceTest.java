@@ -1,6 +1,5 @@
 package com.mintiz.service;
 
-import com.mintiz.domain.Post;
 import com.mintiz.domain.Tag;
 import com.mintiz.domain.User;
 import com.mintiz.post.model.PostListResDto;

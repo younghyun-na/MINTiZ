@@ -14,6 +14,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.Duration;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
@@ -103,6 +105,12 @@ public class PostService {
         return postResDto;
     }
 
+    private String getFormattedTime(LocalDateTime localDateTime) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        return localDateTime.format(formatter);
+    }
+
+
     /**
      * 게시글 조회: 전체 조회
      */
@@ -110,7 +118,7 @@ public class PostService {
     public List<PostListResDto> findPostAll(){
         return postRepository.findList()
                 .stream()
-                .map((x) -> new PostListResDto(x, getFormattedTime(x.getUpdatedTime())))
+                .map((x) -> new PostListResDto(x, getLocalTimeDiff(x.getUpdatedTime())))
                 .collect(Collectors.toList());
     }
 
@@ -121,7 +129,7 @@ public class PostService {
     public List<PostListResDto> searchPostByContent(String keyword){
         return postRepository.findByContent(keyword)
                 .stream()
-                .map((x) -> new PostListResDto(x, getFormattedTime(x.getUpdatedTime())))
+                .map((x) -> new PostListResDto(x, getLocalTimeDiff(x.getUpdatedTime())))
                 .collect(Collectors.toList());
     }
 
@@ -132,15 +140,35 @@ public class PostService {
     public List<PostListResDto> findPostAllByTag(String tagName){
         return postRepository.findByTag(tagName)
                 .stream()
-                .map((x) -> new PostListResDto(x, getFormattedTime(x.getUpdatedTime())))
+                .map((x) -> new PostListResDto(x, getLocalTimeDiff(x.getUpdatedTime())))
                 .collect(Collectors.toList());
     }
 
-    private String getFormattedTime(LocalDateTime localDateTime) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-        return localDateTime.format(formatter);
-    }
+    /**
+     * 먼저 Duration 클래스는 두 시간 사이의 간격을 초나 나노 초 단위로 나타냄
+     * public static Duration between(Temporal startInclusive, Temporal endExclusive) {
+     *    ...
+     *    try{
+     *        nanos = endExclusive.getLong(NANO_OF_SECOND) - startInclusive.getLong(NANO_OF_SECOND);   //반대로 뺴줌
+     *    }
+     *
+     *
+     */
+    private String getLocalTimeDiff(LocalDateTime postTime){
+        LocalDateTime currentTime = LocalDateTime.now();  //현재 날짜 그대로, 시간만 자정으로 초기화
+        Duration duration= Duration.between(postTime, currentTime);
+        long seconds = duration.toSeconds();     //-값이 나옴..
 
+        if(seconds < 60){
+            return seconds + " 초 전";             //현재 시간과 초 차이가 <60 이면 초
+        }else if(seconds >= 60 && seconds < 3600){
+            return  duration.toMinutes() + " 분 전";      //현재 시간과 초 차이가 60<= x  <= 3600(1시간)이면 분
+        }else if(seconds >= 3600 && seconds < 86400){
+            return duration.toHours() + " 시간 전";      //현재 시간과 초 차이가 3600 이상이면 시간? 일?
+        }
+
+        return duration.toDays() + " 일 전";
+    }
     /**
      * 게시글 삭제
      */
