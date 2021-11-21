@@ -1,9 +1,12 @@
 package com.mintiz.domain;
 
 import com.mintiz.post.model.ImageFileDto;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.core.io.UrlResource;
 import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.ObjectUtils;
+import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
@@ -13,6 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Component
+@Slf4j
 public class ImageHandler {
     /**
      * List<MultipartFile> 을 전달받아 파일을 저장한 후
@@ -30,16 +34,22 @@ public class ImageHandler {
 
             // 프로젝트 디렉터리 내의 저장을 위한 절대 경로 설정
             // File.separator : OS 환경에 맞는 파일 구분자를 제공하는 API
-            String absolutePath = new File("").getAbsolutePath() + File.separator + File.separator;
+            String absolutePath = new File("").getAbsolutePath() + File.separator;
+            log.info("absolutePath = {}", absolutePath);
 
-            // 파일을 저장할 세부 경로 지정
-            String path = "images" + File.separator + current_date;
+            // 파일을 저장할 세부 경로(C:\Users\ADMIN\Desktop\WorkSpace\MINTIZ\MINTiZ_\ + ..)
+            //String path = "images" + File.separator + current_date;   //여길 빼볼까..?
+
+            /*
+            String path = "images";
             File file = new File(path);
 
             //디렉터리가 존재하지 않을 경우 생성
             if (!file.exists()) {
                 file.mkdirs();
             }
+
+             */
 
             //다중 파일 처리
             for (MultipartFile multipartFile : multipartFiles) {
@@ -64,8 +74,9 @@ public class ImageHandler {
 
                 //반환해야할 이미지 리스트에 추가
                 ImageFileDto imageFileDto = ImageFileDto.builder()
-                        .originFileName(multipartFile.getOriginalFilename())
-                        .uploadFilePath(path + File.separator + newFileName)
+                        .originFileName(StringUtils.cleanPath(multipartFile.getOriginalFilename()))
+                        //.uploadFilePath(path + File.separator + newFileName)
+                        .uploadFilePath(newFileName)
                         .fileSize(multipartFile.getSize())
                         .build();
 
@@ -74,15 +85,16 @@ public class ImageHandler {
                 imageFileList.add(imageFile);
 
                 // 업로드 한 파일 데이터를 특정(지정한) 파일로 저장
-                file = new File(absolutePath + path + File.separator + newFileName);
+                File file = new File(absolutePath + File.separator + newFileName);
+                log.info("file = {}", file.getPath());
+                log.info("url = {}", new UrlResource("file:" + absolutePath + newFileName).getURL());
+                //file = new File(absolutePath + path + File.separator + newFileName);
                 multipartFile.transferTo(file);
 
                 // 파일 권한 설정(쓰기, 읽기)
                 file.setWritable(true);
                 file.setReadable(true);
-
             }
-
         }
         return imageFileList;
     }

@@ -29,13 +29,6 @@ public class Post{
     @JoinColumn(name="user_id")
     private User user;
 
-    /*
-    @OneToOne(fetch = LAZY)
-    @JoinColumn(name="mint_id")
-    private Mint mint;
-
-     */
-
     @Column(columnDefinition = "TEXT")
     private String content;
 
@@ -47,7 +40,7 @@ public class Post{
     @Builder.Default
     private List<ImageFile> images = new ArrayList<>();
 
-    @OneToMany(mappedBy = "post")
+    @OneToMany(mappedBy = "post", cascade = CascadeType.REMOVE)
     @Builder.Default
     private List<TagPost> tagPosts = new ArrayList<>();
 

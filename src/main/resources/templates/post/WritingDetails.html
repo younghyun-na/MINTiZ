@@ -27,6 +27,14 @@
 
   <div class = "body-layout">
     <!--사진 슬라이드-->
+    <!--
+    <div>
+      <img th:each = "imageFile : ${PostResDto.getImageFiles()}"
+           th:src = "|/images/${imageFile.getUploadFilePath()}|" src="../img/writingdetails1.jpg" alt="">
+
+    </div>
+    -->
+
     <ul class="slides">
       <input type="radio" name="radio-btn" id="img-1" checked />
       <li class="slide-container">
@@ -37,6 +45,7 @@
           <label for="img-2" class="next">&#x203a;</label>
         </div>
       </li>
+
 
       <input type="radio" name="radio-btn" id="img-2" />
       <li class="slide-container">
@@ -79,6 +88,27 @@
           </td>
         </tr>
       </table>
+
+      <div class="interaction">
+
+						<span class = "control hidden" id = "control_id{{ forloop.counter0 }}">
+							<button id="rewrite_btn" th:onclick="|location.href='@{/post/{postId}/update(postId=${postId})}'|">
+								<img id="rewrite" src="../img/rewrite.jpg" width='25' height='25' alt="수정">
+							</button>
+                          <form  action="#" th:action="@{/post/{postId}/delete(postId=${PostResDto.postId})}" th:method="post" >
+                            <button id="trash_btn" type="submit" onclick="return confirm('정말 삭제하시겠습니까?')">
+								<img id="trash" src="../img/btn-4.jpg"  width='25' height='25' alt="삭제">
+							</button>
+                          </form>
+						</span>
+                        <span>
+							<button id="bookmark_btn" onclick="bookmark()">
+								<img id="bookmark" src="../img/star.png" width='27' height='27' alt="북마크">
+                              </input>
+                            </button>
+						</span>
+      </div>
+
     </div>
 
     <!--작성 글-->
@@ -91,27 +121,6 @@
       별 4개 ★★★★☆
     </div>
 
-    <!--글 북마크, 공유-->
-    <div class="interaction">
-
-      <table width = 20 height = 10>
-        <tr>
-          <th rowspan="1">
-            <button class="bookmark" type="button">
-              <img id="bookmark" src="../img/btn-2.jpg"  width='15' height='15'>
-            </button>
-          </th>
-          <td><b><button class="pencil" type="button" th:onclick="|location.href='@{/post/{postId}/update(postId=${postId})}'|">
-            <img id="pencil" src="../img/btn-1.jpg"  width='15' height='15'>
-          </button></b>
-          </td>
-          <td><b><button class="trash" type="button" th:onclick="|location.href='@{/post/{postId}/delete(postId=${postId})}'|">
-            <img id="trash" src="../img/btn-4.jpg"  width='15' height='15'>
-          </button></b>
-          </td>
-        </tr>
-      </table>
-    </div>
 
     <div class = "comments">
       <hr align="center" color="#9b9090">

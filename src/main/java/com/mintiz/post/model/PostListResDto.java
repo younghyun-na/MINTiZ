@@ -27,14 +27,14 @@ public class PostListResDto {         //메인 페이지 dto
 
     private List<TagPost> tagPosts = new ArrayList<>();
 
-    private LocalDateTime updatedTime;
+    private String updatedTime;
 
-    public PostListResDto(Post post) {
+    public PostListResDto(Post post, String updatedTime) {
         this.user = post.getUser();
         this.content = post.getContent();
         this.location = post.getLocation();
         this.tagPosts = post.getTagPosts();
-        this.updatedTime = post.getUpdatedTime();
+        this.updatedTime = updatedTime;
     }
 
     public Post toEntity(){

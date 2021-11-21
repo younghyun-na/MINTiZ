@@ -5,10 +5,16 @@ import com.mintiz.post.service.CommentService;
 import com.mintiz.post.service.PostService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.UrlResource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
+import java.net.MalformedURLException;
 import java.util.List;
 
 @Controller
@@ -27,13 +33,15 @@ public class PostController {
         return "post/Write";
     }
 
+    /**
+     * 그냥 getImage : img = [org.springframework.web.multipart.support.StandardMultipartHttpServletRequest$StandardMultipartFile@1d90a735]
+     * StringUtils.cleanPath(postSaveDto.getImages().get(0).getOriginalFilename()) : originImg = '.png
+     */
     @PostMapping("/add")
-    public String addPost(@RequestParam("tagName") String tagName,
-                          @RequestParam("location") String location, @ModelAttribute PostSaveDto postSaveDto){
-        postSaveDto.setLocation(location);
-        Long postId = postService.savePost(userId, postSaveDto, tagName);
+    public String addPost(@ModelAttribute PostSaveDto postSaveDto){
+        Long postId = postService.savePost(userId, postSaveDto);
 
-        return "redirect:/post/all";
+        return "redirect:/post/" + postId;
     }
 
     @GetMapping("/all")   //임시..
@@ -53,6 +61,23 @@ public class PostController {
         model.addAttribute("commentList", commentList);
 
         return "post/WritingDetails";
+    }
+
+    //사진 불러오기
+    //"/img/images/2021-11-21/663568979433600.jpg" /문제..
+    @ResponseBody
+    @GetMapping("/images/{filename}")
+    public Resource downloadImage(@PathVariable String filename) throws MalformedURLException {
+        //경로에 있는 파일에 직접 접근해서 stream 으로 반환해옴
+        String absolutePath = new File("").getAbsolutePath() + File.separator; //절대 경로
+
+        return new UrlResource("file:" + absolutePath + filename);
+    }
+
+    @GetMapping("/{postId}/update")
+    public String updatePostForm(@PathVariable("postId") long postId){
+
+        return null;
     }
 
     //게시글 수정
@@ -83,8 +108,10 @@ public class PostController {
 
     //댓글 수정
     @PostMapping("/{postId}/comments/{commentId}/update")
-    public void updateComment(@PathVariable("commentId") long commentId, @PathVariable("postId") long postId){
-
+    public void updateComment(@PathVariable("commentId") long commentId,
+                              @PathVariable("postId") long postId,CommentUpdateReqDto commentUpdateReqDto){
+        commentUpdateReqDto.setCommentId(commentId);
+        commentService.updateComment(commentUpdateReqDto);
     }
 
     //댓글 삭제

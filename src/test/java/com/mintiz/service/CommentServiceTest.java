@@ -37,8 +37,8 @@ public class CommentServiceTest {
         //given
         createTag();
         User user = createUser();
-        PostSaveDto post = createPost("콘텐트", "서울");
-        Long postId = postService.savePost(user.getId(), post, "후기");
+        PostSaveDto post = createPost("콘텐트", "서울","후기");
+        Long postId = postService.savePost(user.getId(), post);
         CommentSaveDto comment = new CommentSaveDto(user.getId(), postId, "댓글 1");
         //when
         long commentId = commentService.addComment(comment);
@@ -53,8 +53,8 @@ public class CommentServiceTest {
         //given
         createTag();
         User user = createUser();
-        PostSaveDto post = createPost("콘텐트", "서울");
-        Long postId = postService.savePost(user.getId(), post, "후기");
+        PostSaveDto post = createPost("콘텐트", "서울","후기");
+        Long postId = postService.savePost(user.getId(), post);
         CommentSaveDto comment = new CommentSaveDto(user.getId(), postId, "댓글 1");
         long commentId = commentService.addComment(comment);
 
@@ -76,8 +76,8 @@ public class CommentServiceTest {
         //given
         createTag();
         User user = createUser();
-        PostSaveDto post = createPost("콘텐트", "서울");
-        Long postId = postService.savePost(user.getId(), post, "후기");
+        PostSaveDto post = createPost("콘텐트", "서울","후기");
+        Long postId = postService.savePost(user.getId(), post);
         CommentSaveDto comment = new CommentSaveDto(user.getId(), postId, "댓글 1");
         long commentId = commentService.addComment(comment);
 
@@ -94,8 +94,8 @@ public class CommentServiceTest {
         //given
         createTag();
         User user = createUser();
-        PostSaveDto post = createPost("콘텐트", "서울");
-        Long postId = postService.savePost(user.getId(), post, "후기");
+        PostSaveDto post = createPost("콘텐트", "서울","후기");
+        Long postId = postService.savePost(user.getId(), post);
         CommentSaveDto comment = new CommentSaveDto(user.getId(), postId, "댓글 1");
         long commentId = commentService.addComment(comment);
 
@@ -110,18 +110,19 @@ public class CommentServiceTest {
     }
 
 
-    private PostSaveDto createPost(String content, String location) {
+    private PostSaveDto createPost(String content, String location, String tagName) {
         PostSaveDto postSaveDto = new PostSaveDto();
         postSaveDto.setContent(content);
         postSaveDto.setLocation(location);
+        postSaveDto.setTagName(tagName);
         return postSaveDto;
     }
 
     private User createUser() {
-        User userA = new User();
-        userA.setName("세미");
-        userA.setEmail("세미 이메일");
-        userA.setPassword("1234");
+        User userA = User.builder()
+                .name("세미")
+                .email("세미 이메일")
+                .password("1234").build();
         em.persist(userA);
         return userA;
     }

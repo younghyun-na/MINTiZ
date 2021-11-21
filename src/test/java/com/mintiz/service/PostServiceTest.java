@@ -41,9 +41,10 @@ public class PostServiceTest {
         PostSaveDto postSaveDto = new PostSaveDto();
         postSaveDto.setContent("내용1");
         postSaveDto.setLocation("서울1");
+        postSaveDto.setTagName("일상");
 
         //when
-        Long postId = postService.savePost(userA.getId(), postSaveDto, "일상 소통");
+        Long postId = postService.savePost(userA.getId(), postSaveDto);
 
         //then
         Assertions.assertEquals(postSaveDto.getContent(), postRepository.findById(postId).get().getContent());
@@ -54,18 +55,18 @@ public class PostServiceTest {
         //given
         createTag();
         User userA = createUser();
-        PostSaveDto postSaveDto = createPost("123내용", "서울");
-        Long postId = postService.savePost(userA.getId(), postSaveDto,"후기");
+        PostSaveDto postSaveDto = createPost("123내용", "서울", "후기");
+        Long postId = postService.savePost(userA.getId(), postSaveDto);
 
         User userB = createUser2();
-        PostSaveDto postSaveDto1 = createPost("123내용123", "부산");
-        Long postId1 = postService.savePost(userB.getId(), postSaveDto,"후기");
+        PostSaveDto postSaveDto1 = createPost("123내용123", "부산", "일상");
+        Long postId1 = postService.savePost(userB.getId(), postSaveDto);
 
         //when
-        List<Post> postAll = postService.findPostAll();
+        //List<Post> postAll = postService.findPostAll();
 
         //then
-        Assertions.assertEquals(2, postAll.size());
+        //Assertions.assertEquals(2, postAll.size());
 
     }
 
@@ -75,12 +76,12 @@ public class PostServiceTest {
         //given
         createTag();
         User userA = createUser();
-        PostSaveDto postSaveDto = createPost("123내용", "서울");
-        Long postId = postService.savePost(userA.getId(), postSaveDto,"후기");
+        PostSaveDto postSaveDto = createPost("123내용", "서울", "후기");
+        Long postId = postService.savePost(userA.getId(), postSaveDto);
 
         User userB = createUser2();
-        PostSaveDto postSaveDto1 = createPost("123내용123", "부산");
-        Long postId1 = postService.savePost(userB.getId(), postSaveDto,"후기");
+        PostSaveDto postSaveDto1 = createPost("123내용123", "부산","후기");
+        Long postId1 = postService.savePost(userB.getId(), postSaveDto);
 
         //when
         List<PostListResDto> list = postService.findPostAllByTag("후기");
@@ -95,11 +96,11 @@ public class PostServiceTest {
         //given
         createTag();
         User userB = createUser();
-        PostSaveDto postSaveDto = createPost("123내용", "서울");
-        Long postId = postService.savePost(userB.getId(), postSaveDto,"후기");
+        PostSaveDto postSaveDto = createPost("123내용", "서울","후기");
+        Long postId = postService.savePost(userB.getId(), postSaveDto);
 
-        PostSaveDto postSaveDto2 = createPost("내용12", "부산");
-        Long postId2 = postService.savePost(userB.getId(), postSaveDto2,"일상");
+        PostSaveDto postSaveDto2 = createPost("내용12", "부산","일상");
+        Long postId2 = postService.savePost(userB.getId(), postSaveDto2);
 
         //when
         String keyword = "내용";
@@ -120,8 +121,8 @@ public class PostServiceTest {
         //given
         createTag();
         User userC = createUser();
-        PostSaveDto postSaveDto = createPost("123내용", "서울");
-        Long postId = postService.savePost(userC.getId(), postSaveDto, "일상");
+        PostSaveDto postSaveDto = createPost("123내용", "서울", "일상");
+        Long postId = postService.savePost(userC.getId(), postSaveDto);
 
         //when
         PostUpdateDto newPostUpdateDto = new PostUpdateDto();
@@ -161,27 +162,28 @@ public class PostServiceTest {
          */
     }
 
-    private PostSaveDto createPost(String content, String location) {
+    private PostSaveDto createPost(String content, String location, String tagName) {
         PostSaveDto postSaveDto = new PostSaveDto();
         postSaveDto.setContent(content);
         postSaveDto.setLocation(location);
+        postSaveDto.setTagName(tagName);
         return postSaveDto;
     }
 
     private User createUser() {
-        User userA = new User();
-        userA.setName("세미");
-        userA.setEmail("세미 이메일");
-        userA.setPassword("1234");
+        User userA = User.builder()
+                .name("세미")
+                .email("세미 이메일")
+                .password("1234").build();
         em.persist(userA);
         return userA;
     }
 
     private User createUser2() {
-        User userA = new User();
-        userA.setName("지민");
-        userA.setEmail("지민 이메일");
-        userA.setPassword("12345");
+        User userA = User.builder()
+                .name("지민")
+                .email("지민 이메일")
+                .password("12341").build();
         em.persist(userA);
         return userA;
     }
@@ -189,8 +191,7 @@ public class PostServiceTest {
     private void createTag(){
         Tag tag1 = Tag.builder().tag_name("후기").build();
         Tag tag2 = Tag.builder().tag_name("일상").build();
-        //tagRepository.save(tag1);
-        //tagRepository.save(tag2);
+
         em.persist(tag1);
         em.persist(tag2);
     }

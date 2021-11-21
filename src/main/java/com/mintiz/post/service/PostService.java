@@ -1,9 +1,11 @@
 package com.mintiz.post.service;
 
 import com.mintiz.domain.*;
+import com.mintiz.post.model.PostListResDto;
 import com.mintiz.post.model.PostResDto;
 import com.mintiz.post.model.PostSaveDto;
 import com.mintiz.post.model.PostUpdateDto;
+import com.mintiz.post.repository.ImageRepository;
 import com.mintiz.post.repository.PostRepository;
 import com.mintiz.post.repository.TagPostRepository;
 import com.mintiz.post.repository.TagRepository;
@@ -14,7 +16,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional(readOnly = true)
@@ -26,6 +30,7 @@ public class PostService {
     private final TagRepository tagRepository;
     private final TagPostRepository tagPostRepository;
     private final ImageHandler imageHandler;
+    private final ImageRepository imageRepository;
 
     /**
      * 그니까 Controller => service 로는 id/dto 전달, service에서 영속성 컨텍스트 관련 처리
@@ -34,25 +39,28 @@ public class PostService {
      *List<MultipartFile> files
      */
     @Transactional
-    public Long savePost(Long userId, PostSaveDto postSaveDto, String tagName){
+    public Long savePost(Long userId, PostSaveDto postSaveDto){
 
         Optional<User> findUser = userRepository.findById(userId);
         postSaveDto.setUser(findUser.get());
 
         Post post = postSaveDto.toEntity();
 
-        /*
-        List<ImageFile> images = imageHandler.parseFileInfo(files);
-        if(!images.isEmpty()){
-            for (ImageFile image : images) {
-                post.addImageFile(image);        //post 엔티티에 이미지 추가
+        try{
+            List<ImageFile> images = imageHandler.parseFileInfo(postSaveDto.getImages());  //imageFile 엔티티로 변경
+            if(!images.isEmpty()){
+                for (ImageFile image : images) {
+                    post.addImageFile(image);        //post 엔티티에 이미지 추가
+                }
             }
+        }catch(Exception e){
+            e.printStackTrace();
         }
-        */
+
         postRepository.save(post);
 
         //TagPost 테이블에 post_id에 맞춰서 tag 추가
-        saveTagPost(tagName, post);
+        saveTagPost(postSaveDto.getTagName(), post);
         return post.getId();
     }
 
@@ -90,43 +98,48 @@ public class PostService {
 
         PostResDto postResDto = new PostResDto(post, tagName);
         postResDto.setWriteDate(getFormattedTime(post.getCreatedAt()));
+        postResDto.setImageFiles(imageRepository.findImageByPostId(postId));
 
         return postResDto;
+    }
+
+    /**
+     * 게시글 조회: 전체 조회
+     */
+
+    public List<PostListResDto> findPostAll(){
+        return postRepository.findList()
+                .stream()
+                .map((x) -> new PostListResDto(x, getFormattedTime(x.getUpdatedTime())))
+                .collect(Collectors.toList());
+    }
+
+    /**
+     * 게시글 검색 : 내용으로 검색
+     * postListResponseDto : 글 내용 + 이미지 + 글 쓴이 + 작성 날짜 + 위치 + 태그
+     */
+    public List<PostListResDto> searchPostByContent(String keyword){
+        return postRepository.findByContent(keyword)
+                .stream()
+                .map((x) -> new PostListResDto(x, getFormattedTime(x.getUpdatedTime())))
+                .collect(Collectors.toList());
+    }
+
+    /**
+     * 게시글 전체 조회 : 후기 / 일상 선택(Tag 로 구분)
+     */
+
+    public List<PostListResDto> findPostAllByTag(String tagName){
+        return postRepository.findByTag(tagName)
+                .stream()
+                .map((x) -> new PostListResDto(x, getFormattedTime(x.getUpdatedTime())))
+                .collect(Collectors.toList());
     }
 
     private String getFormattedTime(LocalDateTime localDateTime) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         return localDateTime.format(formatter);
     }
-    /**
-     * 게시글 조회: 전체 조회
-     */
-
-//    public List<Post> findPostAll(){
-//        return postRepository.findList();
-//    }
-//
-//    /**
-//     * 게시글 검색 : 내용으로 검색
-//     * postListResponseDto : 글 내용 + 이미지 + 글 쓴이 + 작성 날짜 + 위치 + 태그
-//     */
-//    public List<PostListResDto> searchPostByContent(String keyword){
-//        return postRepository.findByContent(keyword)
-//                .stream()
-//                .map(PostListResDto::new)
-//                .collect(Collectors.toList());
-//    }
-//
-//    /**
-//     * 게시글 전체 조회 : 후기 / 일상 선택(Tag 로 구분)
-//     */
-//
-//    public List<PostListResDto> findPostAllByTag(String tagName){
-//        return postRepository.findByTag(tagName)
-//                .stream()
-//                .map(PostListResDto::new)
-//                .collect(Collectors.toList());
-//    }
 
     /**
      * 게시글 삭제
@@ -135,7 +148,7 @@ public class PostService {
     public void deletePost(Long postId){
         Post post = postRepository.findById(postId).orElseThrow(()->
                 new IllegalArgumentException("존재하지 않는 게시글 입니다 + id=" + postId));
-        postRepository.delete(post);
+        postRepository.delete(post);         //post를 삭제
     }
 
 
