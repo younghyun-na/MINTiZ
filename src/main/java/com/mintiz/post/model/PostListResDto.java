@@ -1,9 +1,7 @@
 package com.mintiz.post.model;
 
-import com.mintiz.domain.ImageFile;
-import com.mintiz.domain.Post;
-import com.mintiz.domain.TagPost;
-import com.mintiz.domain.User;
+import com.mintiz.domain.*;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -33,7 +31,10 @@ public class PostListResDto {         //메인 페이지 dto
 
     private String updatedTime;
 
-    public PostListResDto(Post post, String updatedTime) {
+    private boolean checkBookmark;
+
+    @Builder
+    public PostListResDto(Post post, String updatedTime, Boolean check) {
         this.userId = post.getUser().getId();
         this.postId = post.getId();
         this.userName = post.getUser().getName();
@@ -41,6 +42,7 @@ public class PostListResDto {         //메인 페이지 dto
         this.content = post.getContent();
         this.location = post.getLocation();
         this.updatedTime = updatedTime;
+        this.checkBookmark = check;
     }
 
 }

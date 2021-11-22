@@ -1,5 +1,6 @@
 package com.mintiz.post.service;
 
+import com.mintiz.bookmark.BookmarkRepository;
 import com.mintiz.domain.*;
 import com.mintiz.post.model.PostListResDto;
 import com.mintiz.post.model.PostResDto;
@@ -37,6 +38,7 @@ public class PostService {
     private final ImageHandler imageHandler;
     private final ImageRepository imageRepository;
     private final FileStore fileStore;
+    private final BookmarkRepository bookmarkRepository;
 
     /**
      * 그니까 Controller => service 로는 id/dto 전달, service에서 영속성 컨텍스트 관련 처리
@@ -104,34 +106,87 @@ public class PostService {
      * 게시글 조회: 전체 조회
      */
 
-    public List<PostListResDto> findPostAll(){
+    public List<PostListResDto> findPostAll(User user){
+        /*
         return postRepository.findList()
                 .stream()
                 .map((x) -> new PostListResDto(x, getLocalTimeDiff(x.getUpdatedTime())))
                 .collect(Collectors.toList());
+
+         */
+        List<PostListResDto> postListResDtos = new ArrayList<>();
+        List<Post> list = postRepository.findList();
+        bookmarkCheckList(user, postListResDtos, list);
+        return postListResDtos;
+    }
+
+    private void toDto(List<PostListResDto> postListResDtos, Post post, boolean b) {
+        PostListResDto postListResDto = PostListResDto.builder()
+                .post(post)
+                .check(b)
+                .updatedTime(getLocalTimeDiff(post.getUpdatedTime())).build();
+        postListResDtos.add(postListResDto);
+    }
+
+    /**
+     * 북마크 했는지 확인
+     */
+    private boolean isAlreadyBookmark(User user, Post post) {
+        return bookmarkRepository.findByUserAndPost(user, post).isPresent();
     }
 
     /**
      * 게시글 검색 : 내용으로 검색
      * postListResponseDto : 글 내용 + 이미지 + 글 쓴이 + 작성 날짜 + 위치 + 태그
      */
-    public List<PostListResDto> searchPostByContent(String keyword){
+
+    public List<PostListResDto> searchPostByContent(String keyword, User user){
+        /*
         return postRepository.findByContent(keyword)
                 .stream()
                 .map((x) -> new PostListResDto(x, getLocalTimeDiff(x.getUpdatedTime())))
                 .collect(Collectors.toList());
+
+         */
+        List<PostListResDto> postListResDtos = new ArrayList<>();
+        List<Post> list = postRepository.findByContent(keyword);
+        bookmarkCheckList(user, postListResDtos, list);
+        return postListResDtos;
     }
+
+
 
     /**
      * 게시글 전체 조회 : 후기 / 일상 선택(Tag 로 구분)
      */
 
-    public List<PostListResDto> findPostAllByTag(String tagName){
+
+    public List<PostListResDto> findPostAllByTag(String tagName, User user){
+        /*
         return postRepository.findByTag(tagName)
                 .stream()
                 .map((x) -> new PostListResDto(x, getLocalTimeDiff(x.getUpdatedTime())))
                 .collect(Collectors.toList());
+
+         */
+        List<PostListResDto> postListResDtos = new ArrayList<>();
+        List<Post> list = postRepository.findByTag(tagName);
+        bookmarkCheckList(user, postListResDtos, list);
+        return postListResDtos;
+
     }
+
+    private void bookmarkCheckList(User user, List<PostListResDto> postListResDtos, List<Post> list) {
+        for (Post post : list) {
+            if (isAlreadyBookmark(user, post)) { // 북마크 했다면
+                toDto(postListResDtos, post, true);
+            } else {
+                toDto(postListResDtos, post, false);
+            }
+
+        }
+    }
+
 
     /**
      * 먼저 Duration 클래스는 두 시간 사이의 간격을 초나 나노 초 단위로 나타냄

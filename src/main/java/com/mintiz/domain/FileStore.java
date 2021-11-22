@@ -15,6 +15,7 @@ public class FileStore {
 
 
     private String fileDir = "C:/Users/ADMIN/Documents/img/";
+    //private String fileDir = "/Users/jimin/dev/img/";
     //private String fileDir = new File("").getAbsolutePath() + File.separator;
 
     public String getFullPath(String filename) {
