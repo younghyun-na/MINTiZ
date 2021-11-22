@@ -2,14 +2,14 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>회원 가입</title>
-    <script type="text/javascript" th:src="@{/js/join.js}"></script>
+    <script type="text/javascript"></script>
     <link rel="stylesheet" type="text/css" th:href="@{/css/join.css}">
 </head>
 
 <body>
 <div id="page-wrapper">
+    <header th:replace="fragments.html :: main-header">
     <!--고정 헤더-->
-    <header id="main-header">
         <hgroup align="center">
             <h1 align="center" class="master-title">회원 가입</h1>
         </hgroup>
@@ -18,7 +18,11 @@
 
 <!--회원가입 폼-->
 <section class="join-input-section-wrap">
-    <form name="join_form" role="form" action="/user/signup" th:object="${UserSignupDto}" method="POST">
+    <form name="join_form" role="form" th:action="@{/user/signup}" th:object="${UserSignupDto}" method="POST">
+        <div class="login-name">
+            <p> 레벨 </p>
+            <span th:text = "${level}"> </span>
+        </div>
         <div class="login-name"> 이메일 </div>
         <div class="login-input-wrap">
             <input th:field="*{email}" placeholder="이메일을 입력해주세요" type="email"></input>
@@ -34,14 +38,14 @@
         </div>
         <div class="login-name"> 비밀번호 </div>
         <div class="login-input-wrap">
-            <input th:field="*{set_pw}" placeholder="비밀번호를 입력해주세요" type="password"></input>
+            <input th:field="*{password}" placeholder="비밀번호를 입력해주세요" type="password"></input>
         </div>
         <div class="login-name"> 비밀번호 확인</div>
         <div class="login-input-wrap">
-            <input th:field="*{check_pw}" placeholder="비밀번호를 입력해주세요" type="password"></input>
+            <input th:field="*{check_password}" placeholder="비밀번호를 입력해주세요" type="password"></input>
         </div>
         <div class="login-button-wrap">
-            <button onclick="joinform_check();">Sign up</button>
+            <button onclick="join_form_check();">Sign up</button>
         </div>
 
     </form>

@@ -11,10 +11,13 @@ public class LoginService {
 
     private final UserRepository userRepository;
 
+    /*
     // 로그인 기능
     public User login(Long id, String password){
         return userRepository.findById(id)
                 .filter(m -> m.getPassword().equals(password))
                 .orElse(null);
     }
+    */
+
 }

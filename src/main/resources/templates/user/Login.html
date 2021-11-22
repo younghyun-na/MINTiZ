@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Login</title>
-    <script type="text/javascript" src="../"></script>
+    <script type="text/javascript" th:href="@{/js/login.js}"></script>
     <link rel="stylesheet" type="text/css" href="../css/login.css">
 </head>
 <body>
@@ -29,8 +29,8 @@
     </form>
     <div class="find-id-password">
         <p class="forget-msg">
-            <button id="findId" th:onclick="|location.href='@{/user/findId}'|"> 아이디 찾기 | </button>
-            <button id="findPW" th:onclick="|location.href='@{/user/findpw}'|"> 비밀번호 찾기 | </button>
+            <button id="findId" th:onclick="|location.href='@{/user/findId}'|"> 아이디 찾기 </button>
+            <button id="findPW" th:onclick="|location.href='@{/user/findPW}'|"> 비밀번호 찾기  </button>
             <button id="join" th:onclick="|location.href='@{/user/signup}'|"> 회원가입 </button>
         </p>
     </div>

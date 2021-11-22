@@ -1,5 +1,5 @@
 // 유효성 검사
-function joinform_check(){
+function join_form_check(){
     var set_email = document.getElement("set_email");
     var set_name = document.getElement("set_name");
     var set_id = document.getElement("set_id");
@@ -36,7 +36,7 @@ function joinform_check(){
         return false;
     }
 
-    document.joinform_submit();
+    document.join_form_submit();
 }
 
 // id 중복체크
@@ -44,3 +44,4 @@ function id_check() {
     //window.open("팝업될 문서 경로", "팝업될 문서 이름", "옵션");
     //window.open("idCheckForm.jsp", "idCheck", "width=400, height=200, left=200, top=100");
 }
+*/

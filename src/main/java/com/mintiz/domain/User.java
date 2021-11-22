@@ -32,19 +32,12 @@ public class User {
     private String profile;
 
     @Builder
-    private User(String email, String name, Long id, String password, Level level) {
+    private User(Long id, String email, String name, String password, Level level) {
         this.email = email;
         this.name = name;
         this.id = id;
         this.password = password;
-    }
-
-    @Builder
-    private User(String email, String name, String password, Level level) {
-        this.email = email;
-        this.name = name;
         this.level = level;
-        this.password = password;
     }
 
 }
