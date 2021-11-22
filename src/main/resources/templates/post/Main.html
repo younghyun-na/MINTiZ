@@ -1,10 +1,12 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Main</title>
-    <script type="text/javascript" src="../js/main.js"></script>
+    <title>MINTiZ</title>
+    <script type="text/javascript" th:src="@{/js/main.js}" src="../js/main.js"></script>
+    <script src="http://code.jquery.com/jquery-latest.js"></script>
     <link rel="stylesheet" type="text/css" href="../css/main.css">
 </head>
+
 <body>
 <!--전체를 감싸는 태그-->
 <div id="page-wrapper"> <!--th:object = "${post}"-->
@@ -26,7 +28,7 @@
 <!--콘텐츠를 감싸는 태그-->
 <div id="content" >
     <section id="main-section" th:each = "posts : ${post}">
-        <article class="contents">
+        <article class="contents" >
             <header class="top">
                 <div class="user_container">
                     <div class="profile_img">
@@ -66,11 +68,32 @@
             </div>
 
             <!--북마크, 댓글-->
+
             <div class="user_container">
-                <div class="bookmark_img">
-                    <img src="../img/clicked_star.png" alt="북마크이미지">     <!--북마크 추가 url로 이동-->
+                <!--북마크 부분 !!!!-->
+                <div th:if="${posts.checkBookmark eq true}" >
+                    <div  th:id="|clickedStar${posts.postId}|" style="display: inline"
+                         th:onclick="|javascript:bookmark('${posts.postId}','${user.id}')|">
+                        <img class="bookmark_img" src="../img/clicked_star.png" alt="북마크이미지" >
+                    </div>
+                    <div   th:id="|star${posts.postId}|" style="display: none"
+                          th:onclick="|javascript:noneBookmark('${posts.postId}','${user.id}')|">
+                        <img class="bookmark_img" src="../img/star.png" alt="북마크이미지">
+                    </div>
                 </div>
-                <div class="comment_img">
+
+                <div th:if="${posts.checkBookmark eq false}" >
+                    <div th:id="|clickedStar${posts.postId}|" style="display: none"
+                         th:onclick="|javascript:bookmark('${posts.postId}','${user.id}')|">
+                        <img class="bookmark_img" src="../img/clicked_star.png" alt="북마크이미지" >
+                    </div>
+                    <div th:id="|star${posts.postId}|" style="display: inline"
+                          th:onclick="|javascript:noneBookmark('${posts.postId}','${user.id}')|">
+                        <img class="bookmark_img" src="../img/star.png" alt="북마크이미지">
+                    </div>
+                </div>
+
+                <div class="comment_img" >
                     <a th:href="@{/post/{postId}(postId=${posts.getPostId()})}">
                         <img src="../img/comments.png" alt="댓글이미지"  >
                     </a>

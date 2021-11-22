@@ -16,7 +16,7 @@ public class TagPost {
      * 게시글 id 1 태그 id 1 region = "서울"?
      */
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name=  "tagPost_id")
     private Long id;
 

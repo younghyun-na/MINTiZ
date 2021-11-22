@@ -12,7 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 @Transactional(readOnly = true)
 @RequiredArgsConstructor
-public abstract class UserService {
+public class UserService {
 
     private final UserRepository userRepository;
     private PasswordEncoder passwordEncoder;
