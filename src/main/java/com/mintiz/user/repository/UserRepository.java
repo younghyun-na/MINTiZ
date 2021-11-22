@@ -1,4 +1,4 @@
-package com.mintiz.user;
+package com.mintiz.user.repository;
 
 import com.mintiz.domain.User;
 import org.springframework.data.jpa.repository.JpaRepository;

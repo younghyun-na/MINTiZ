@@ -1,16 +1,8 @@
-package com.mintiz.user;
-
+package com.mintiz.user.service;
 import com.mintiz.domain.User;
-<<<<<<< HEAD:src/main/java/com/mintiz/domain/service/UserService.java
-import com.mintiz.domain.dto.UserSignupDto;
-import com.mintiz.domain.repository.UserRepository;
+import com.mintiz.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
-=======
 import com.mintiz.user.model.UserSignupDto;
-import com.mintiz.user.UserRepository;
-import lombok.RequiredArgsConstructor;
->>>>>>> dev:src/main/java/com/mintiz/user/UserService.java
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

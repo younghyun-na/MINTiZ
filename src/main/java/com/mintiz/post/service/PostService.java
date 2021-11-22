@@ -9,13 +9,12 @@ import com.mintiz.post.repository.ImageRepository;
 import com.mintiz.post.repository.PostRepository;
 import com.mintiz.post.repository.TagPostRepository;
 import com.mintiz.post.repository.TagRepository;
-import com.mintiz.user.UserRepository;
+import com.mintiz.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.Duration;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;

@@ -1,5 +1,6 @@
-package com.mintiz.user;
+package com.mintiz.user.controller;
 
+import com.mintiz.user.service.UserService;
 import com.mintiz.user.model.UserSignupDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
