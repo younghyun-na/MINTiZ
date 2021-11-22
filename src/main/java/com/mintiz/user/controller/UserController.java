@@ -1,5 +1,6 @@
 package com.mintiz.user.controller;
 
+import com.mintiz.user.model.UserLoginDto;
 import com.mintiz.user.service.UserService;
 import com.mintiz.user.model.UserSignupDto;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +14,12 @@ public class UserController {
 
     @Autowired
     private UserService userService;
+
+    // 회원가입 페이지 이동
+    @GetMapping("/signup")
+    public String signup(){
+        return "login";
+    }
 
     // /user/signup?level=0
     // 회원가입 기능
