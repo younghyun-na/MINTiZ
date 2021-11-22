@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Login</title>
+    <script type="text/javascript" src="../"></script>
+    <link rel="stylesheet" type="text/css" href="../css/login.css">
+</head>
+<body>
+<h1 align="center">Login</h1>
+<br>
+<section class="login-input-section-wrap">
+    <form action = "login.html" name="login" id="login_id" method="POST"
+          th:action="@{user/login}" th:object="${UserLoginDto}">
+        <div th:if="${#fields.hasGlobalErrors()}">
+            <p class="field-error" th:each="err : ${#fields.globalErrors()}"
+               th:text="${err}">전체 오류 메시지</p>
+        </div>
+        <div class="login-input-wrap">
+            <input placeholder="아이디를 입력해주세요" type="text" id="id"
+                   th:field="*{id}" th:errorclass="field-error"></input>
+        </div>
+        <div class="login-input-wrap password-wrap">
+            <input placeholder="비밀번호를 입력해주세요" type="password"  id="password"
+                   th:field="*{password}" th:errorclass="field-error"></input>
+        </div>
+        <div class="login-button-wrap">
+            <button type="submit">Sign in</button>
+        </div>
+    </form>
+    <div class="find-id-password">
+        <p class="forget-msg">
+            <button id="findId" th:onclick="|location.href='@{/user/findId}'|"> 아이디 찾기 | </button>
+            <button id="findPW" th:onclick="|location.href='@{/user/findpw}'|"> 비밀번호 찾기 | </button>
+            <button id="join" th:onclick="|location.href='@{/user/signup}'|"> 회원가입 </button>
+        </p>
+    </div>
+</section>
+<hr>
+<div class="google-sign-in">
+    <button><i class="sign-button"></i>
+        <span>Start with Google</span></button>
+</div>
+
+
+</body>
+</html>
