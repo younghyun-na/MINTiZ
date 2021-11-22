@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>MINTiZ</title>
+    <script type="text/javascript"></script>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/basic.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/mypage.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/articlelist.css}">
+</head>
+
+<body>
+<div id="page-wrapper">
+    <header th:replace="fragments.html :: main-header"></header>
+</div>
+
+<!--화면 주요 내용-->
+<div id="content">
+    <!--메뉴바-->
+    <div class="layout">
+        <nav th:replace="fragments.html :: main-nav"></nav>
+    </div>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!--내가 쓴 글 목록-->
+    <div class="listlayout">
+        <article class="mylist">
+            <div class="title_area">
+
+            </div>
+            <ul class="article-container">
+                <li>
+                    <div class="pagebutton">
+                        <label for="intopage">
+                            <img class="addImg" src="../image/testImg0.png">
+                            <div class="darkness"></div>
+                            <div class="btn-plus"><img draggable="false" src="../img/magnifier.png"></div>
+                        </label>
+                        <input type="button" id="intopage" name="intopage" onclick="page()">
+                    </div>
+                </li>
+                <li>
+                    <div class="pagebutton">
+                        <label for="intopage">
+                            <img class="addImg" src="../image/testImg2.png">
+                            <div class="darkness"></div>
+                            <div class="btn-plus"><img draggable="false" src="../img/magnifier.png"></div>
+                        </label>
+                        <input type="button" id="intopage" name="intopage" onclick="page()">
+                    </div>
+                </li>
+                <li>
+                    <div class="pagebutton">
+                        <label for="intopage">
+                            <img class="addImg" src="../image/testImg5.png">
+                            <div class="darkness"></div>
+                            <div class="btn-plus"><img draggable="false" src="../img/magnifier.png"></div>
+                        </label>
+                        <input type="button" id="intopage" name="intopage" onclick="page()">
+                    </div>
+                </li>
+                <li>
+                    <div class="pagebutton">
+                        <label for="intopage">
+                            <img class="addImg" src="../image/testImg1.png">
+                            <div class="darkness"></div>
+                            <div class="btn-plus"><img draggable="false" src="../img/magnifier.png"></div>
+                        </label>
+                        <input type="button" id="intopage" name="intopage" onclick="page()">
+                    </div>
+
+                </li>
+                <li>
+                    <div class="pagebutton">
+                        <label for="intopage">
+                            <img class="addImg" src="../image/testImg4.png">
+                            <div class="darkness"></div>
+                            <div class="btn-plus"><img draggable="false" src="../img/magnifier.png"></div>
+                        </label>
+                        <input type="button" id="intopage" name="intopage" onclick="page()">
+                    </div>
+                </li>
+
+                <!--
+                <li>
+                    <p class="imgbox">
+                        <img src="../image/testImg3.png" alt="">
+                    </p>
+                </li>
+                -->
+            </ul>
+    </div>
+    <!--
+    <div class="page">
+        <a class="pre" href="#">이전</a>
+        <a href="#">1</a>
+        <a href="#">2</a>
+        <a href="#">3</a>
+        <a href="#">4</a>
+        <a href="#">5</a>
+        <a href="#">6</a>
+        <a class="next" href="#">다음</a>
+    </div>
+    -->
+</div>
+
+</body>
+</html>

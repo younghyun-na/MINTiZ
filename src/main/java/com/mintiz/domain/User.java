@@ -1,8 +1,6 @@
 package com.mintiz.domain;
 
-import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -10,9 +8,10 @@ import java.util.List;
 
 @Entity
 @Getter @Setter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class User {
-
-    @Id
+    
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_id")
     private Long id;
 
@@ -37,6 +36,14 @@ public class User {
         this.email = email;
         this.name = name;
         this.id = id;
+        this.password = password;
+    }
+
+    @Builder
+    private User(String email, String name, String password, Level level) {
+        this.email = email;
+        this.name = name;
+        this.level = level;
         this.password = password;
     }
 

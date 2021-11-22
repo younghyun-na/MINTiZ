@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Main</title>
+    <script type="text/javascript" src="../js/main.js"></script>
+    <link rel="stylesheet" type="text/css" href="../css/main.css">
+</head>
+<body>
+<!--전체를 감싸는 태그-->
+<div id="page-wrapper"> <!--th:object = "${post}"-->
+    <header th:replace="fragments.html :: main-header"></header>
+
+    <section id="search-section">
+        <div class="search">
+            <form method="get" th:action="@{/main}" ><input type="text" id="search" name="content"/>
+                <button type="submit" ><span>검색</span></button>
+            </form>
+        </div>
+        <div class="tag">
+            <button type="button"><i class="tag1"></i><span th:onclick="|location.href='@{/main/select(tagName=일상)}'|"># 일상</span></button>
+            <button type="button"><i class="tag2"></i><span th:onclick="|location.href='@{/main/select(tagName=후기)}'|" ># 맛집 후기</span></button>
+        </div>
+    </section>
+</div>
+
+<!--콘텐츠를 감싸는 태그-->
+<div id="content" >
+    <section id="main-section" th:each = "posts : ${post}">
+        <article class="contents">
+            <header class="top">
+                <div class="user_container">
+                    <div class="profile_img">
+                        <a th:href="@{/profile/{userId}(userId=${posts.getUserId()})}" style="color: black">
+                            <img src="../img/임시.png" alt="프로필이미지">
+                        </a>
+                    </div>
+                    <div class= "profile-container" >
+                        <div class="nick_name m_text" th:text="${posts.getUserName()}">Minnie</div>
+                        <div class="country s_text" th:text="${posts.getLocation()}">Seoul, South Korea</div>
+                    </div>
+
+                </div>
+
+                <div class="sprite_more_icon" data-name="more">
+                    <ul class="toggle_box">
+                        <li class="s_text">수정</li>
+                        <li class="s_text">삭제</li>
+                    </ul>
+                </div>
+            </header>
+
+            <a th:href="@{/post/{postId}(postId=${posts.getPostId()})}" style="color: black">
+                <div class="img_section">
+                    <div>
+                        <div><img src="../img/testImg0.png"></div>
+                    </div>
+                </div>
+
+                <div>
+                    <div th:text="${posts.getContent()}"> 민초 마싯땅 </div>
+                </div>
+            </a>
+
+            <div>
+                <div class="timer" th:text="${posts.getUpdatedTime}">1시간 전</div>
+            </div>
+
+            <!--북마크, 댓글-->
+            <div class="user_container">
+                <div class="bookmark_img">
+                    <img src="../img/clicked_star.png" alt="북마크이미지">     <!--북마크 추가 url로 이동-->
+                </div>
+                <div class="comment_img">
+                    <a th:href="@{/post/{postId}(postId=${posts.getPostId()})}">
+                        <img src="../img/comments.png" alt="댓글이미지"  >
+                    </a>
+                </div>
+
+            </div>
+
+
+
+        </article>
+
+
+    </section>
+
+
+</div>
+
+
+
+</body>
+</html>

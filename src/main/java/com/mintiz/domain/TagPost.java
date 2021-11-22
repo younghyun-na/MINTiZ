@@ -13,6 +13,7 @@ import static javax.persistence.FetchType.*;
 public class TagPost {
     /**
      * 게시글 id를 통해 tag 저장
+     * 게시글 id 1 태그 id 1 region = "서울"?
      */
     @Id
     @GeneratedValue

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>MINTiZ</title>
+    <script type="text/javascript"></script>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/basic.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/mypage.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/articlelist.css}">
+</head>
+
+<body>
+<div id="page-wrapper">
+    <header th:replace="fragments.html :: main-header"></header>
+</div>
+
+<!--화면 주요 내용-->
+<div id="content" >
+    <!--메뉴바-->
+    <div class="layout">
+        <nav th:replace="fragments.html :: main-nav"></nav>
+    </div>
+
+    <!--북마크 목록-->
+    <div class="listlayout">
+        <article class="mylist">
+            <div class="title_area">
+
+            </div>
+            <ul class="article-container">
+                <li>
+                    <div class="pagebutton">
+                        <label for="intopage">
+                            <img class="addImg" src="../image/testImg5.png">
+                            <div class="darkness"></div>
+                            <div class="btn-plus"><img draggable="false" src="../img/magnifier.png"></div>
+                        </label>
+                        <input type="button" id="intopage" name="intopage" onclick="page()">
+                    </div>
+                </li>
+            </ul>
+        </article>
+    </div>
+
+</div>
+</body>
+</html>

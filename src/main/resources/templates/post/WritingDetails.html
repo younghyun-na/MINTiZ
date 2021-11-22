@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>MINTiZ</title>
+  <script type="text/javascript" src="../js/writingdetails.js"></script>
+  <link rel="stylesheet" type="text/css" href="../css/writingdetails.css">
+
+</head>
+
+<body>
+<!--전체를 감싸는 태그-->
+<div id="page-wrapper">
+  <header th:replace="fragments.html :: main-header"></header>
+</div>
+
+
+<div id="content" th:object="${PostResDto}">
+  <!--카테고리-->
+
+  <nav class="categories" >
+    <ol>
+      <li class="category"><span th:text="*{tagName}"><a></a></span></li>
+      <li class="category"><a><img id="place" src="../img/category_place.jpg" width='20' height='20'/><span th:text="*{location}">경기도</span></a></li>
+    </ol>
+  </nav>
+
+
+  <div class = "body-layout">
+    <!--사진 슬라이드-->
+    <!--
+    <div>
+      <img th:each = "imageFile : ${PostResDto.getImageFiles()}"
+           th:src = "|/images/${imageFile.getUploadFilePath()}|" src="../img/writingdetails1.jpg" alt="">
+
+    </div>
+    -->
+
+    <ul class="slides">
+      <input type="radio" name="radio-btn" id="img-1" checked />
+      <li class="slide-container">
+        <div class="slide">
+          <img src="../img/writingdetails1.jpg" alt=""></div>
+        <div class="nav">
+          <label for="img-1" class="prev">&#x2039;</label>
+          <label for="img-2" class="next">&#x203a;</label>
+        </div>
+      </li>
+
+
+      <input type="radio" name="radio-btn" id="img-2" />
+      <li class="slide-container">
+        <div class="slide">
+          <img src="../img/writingdetails2.jpg" alt=""></div>
+        <div class="nav">
+          <label for="img-1" class="prev">&#x2039;</label>
+          <label for="img-3" class="next">&#x203a;</label>
+        </div>
+      </li>
+
+      <input type="radio" name="radio-btn" id="img-3" />
+      <li class="slide-container">
+        <div class="slide">
+          <img src="../img/writingdetails3.jpg" alt=""></div>
+        <div class="nav">
+          <label for="img-2" class="prev">&#x2039;</label>
+          <label for="img-3" class="next">&#x203a;</label>
+        </div>
+      </li>
+
+
+      <li class="nav-dots">
+        <label for="img-1" class="nav-dot" id="img-dot-1"></label>
+        <label for="img-2" class="nav-dot" id="img-dot-2"></label>
+        <label for="img-3" class="nav-dot" id="img-dot-3"></label>
+      </li>
+    </ul>
+
+    <!--작성자-->
+    <div class="writer">
+      <table width = 20 height = 10>
+        <tr>
+          <th rowspan="2"><img id="profile_img1" src="../img/임시.png" width='50' height='50'/></th>
+          <td><b><div class="writer_name" th:utext="*{user.getName()}">Younghyun</div></b>
+          </td>
+        </tr>
+        <tr>
+          <td><b><div class="write_date" th:utext="*{writeDate}">2021.11.11</div></b>
+          </td>
+        </tr>
+      </table>
+
+      <div class="interaction">
+
+						<span class = "control hidden" id = "control_id{{ forloop.counter0 }}">
+							<button id="rewrite_btn" th:onclick="|location.href='@{/post/{postId}/update(postId=${postId})}'|">
+								<img id="rewrite" src="../img/rewrite.jpg" width='25' height='25' alt="수정">
+							</button>
+                          <form  action="#" th:action="@{/post/{postId}/delete(postId=${PostResDto.postId})}" th:method="post" >
+                            <button id="trash_btn" type="submit" onclick="return confirm('정말 삭제하시겠습니까?')">
+								<img id="trash" src="../img/btn-4.jpg"  width='25' height='25' alt="삭제">
+							</button>
+                          </form>
+						</span>
+                        <span>
+							<button id="bookmark_btn" onclick="bookmark()">
+								<img id="bookmark" src="../img/star.png" width='27' height='27' alt="북마크">
+                              </input>
+                            </button>
+						</span>
+      </div>
+
+    </div>
+
+    <!--작성 글-->
+    <div class="writing" th:utext="*{content}">
+      민트 초코 케이크 간단 후기!!!!!<br>
+      내가 예상한 민트 초코맛보다 조금 덜해서 아쉬움<br>
+      민초단이 아닌 사람들에게도 부담스럽지 않아 취향 저격 가능할 듯<br>
+      크림이 엄청 많아서 먹다보면 좀 느끼해서 물릴 수도 있을 것 같다.<br>
+      부드러운 빵시트가 시원하고 상쾌한 민트 크림이랑 전체적으로 잘 어울림<br>
+      별 4개 ★★★★☆
+    </div>
+
+
+    <div class = "comments">
+      <hr align="center" color="#9b9090">
+      <div id="form-commentInfo" class = "comment-row">
+        <div id="comment-count">댓글
+          <span id = "comments-count" th:text="${commentSize}">2</span>
+          <div class = "comment-row">
+            <form role="form" th:action="@{/post/{postId}/comments(postId=${PostResDto.postId})}" method="post">
+              <textarea id = "comment-input" name = "comment-input" placeholder="댓글을 입력해 주세요."></textarea>
+              <button type = "submit" id="submit_btn" name="submit_btn">등록</button>
+            </form>
+          </div>
+          <div class = "comment-row" th:each="comment,iterStat : ${commentList}">
+            <table width = 300 height = 50>
+              <tr>
+                <th rowspan="2"><img id="profile_img" src="../img/profile.png" width='45' height='45'/></th>
+                <td>
+                  <div class="comment-name" th:text="${comment.getUserName()}">나영현</div>
+                  <div class="comment-date" th:text="${comment.getUpdateTime()}">2021-11-17 10:16</div>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <div class="comment-content" th:text="${comment.getContent()}" >Comment1</div>
+                </td>
+              </tr>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>
+

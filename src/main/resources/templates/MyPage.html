@@ -1,80 +1,82 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>MINTiZ</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <script type="text/javascript" src="/static/js/calendar.js"></script>
-    <link rel="stylesheet" type="text/css" href="/static/css/profile.css">
-    <link rel="stylesheet" type="text/css" href="/static/css/calendar.css">
-    <link rel="stylesheet" type="text/css" href="/static/css/mypage.css">
+    <title>화면기술</title>
+    <script type="text/javascript" th:src="@{/js/calendar.js}">
+
+    </script>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/basic.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/calendar.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/mypage.css}">
 </head>
 
-<body onload="build();" >
-<div id="page-wrapper">
-    <!--고정 헤더-->
-    <header id="main-header">
-        <hgroup align="center" >
-            <h1 align="center" class="master-title">MINTiZ</h1>
-            <!--
-            <img  src="../images/logo.png" width="170" height="170"/>
-            -->
 
-        </hgroup>
-    </header>
+<script th:inline="javascript">
+    /*<![CDATA[*/
+    let months = [[${postMonth}]];
+    let dates = [[${postDate}]];
+    let years = [[${postYear}]];
+    /*]]>*/
+</script>
+
+<body onload=build(months,dates,years); >
+
+
+<div id="page-wrapper">
+    <header th:replace="fragments.html :: main-header"></header>
 </div>
 
 <!--화면 주요 내용-->
 <div id="content">
     <div class="layout">
-        <!--메뉴바-->
-        <nav >
-            <ul>
-                <li><a class = "btn-1" href="MyPage.html">마이페이지</a></li>
-                <li>|</li>
-                <li><a class = "btn-1" href="WritingList.html">내가 쓴 글</a></li>
-                <li>|</li>
-                <li><a class = "btn-1" href="BookMark.html">북마크 목록</a></li>
-            </ul>
-        </nav>
+        <nav th:replace="fragments.html :: main-nav"></nav>
     </div>
 
 
     <!--마이페이지-->
-    <div class="mint-calendar-font">내 정보</div>
+    <div class="mint-calendar-font title">내 정보</div>
     <div class="profile-layout">
         <!--프로필 사진-->
-        <img src="/static/img/profileImg.png" width="170" height="170"/>
+        <img src="../image/임시.png" width="170" height="170"/>
 
 
         <!--개인 정보-->
         <dlv>
             <div class="basic-text">
                 <span><b>LV. &nbsp;&nbsp</b></span>
-                <label> 민초 타노스</label>
+                <span th:text="${user.level}" > 민초 타노스</span>
             </div>
             <div class="basic-text">
-                <span><b>이름 &nbsp</b></span>
-                <label> 짐인님 </label>
+
+                <span><b>닉네임 &nbsp</b></span>
                 <!--
-                    <input class="input-layout" type="text" value="이름" readonly>
+                <label> 짐인님 </label>
                 -->
+
+                <span class="input-layout" type="text" value="빙글빙글"  th:text="${user.name}" style="width:70px"> </span>
+
+
             </div>
             <div class="basic-text">
                 <label><b>이메일 </b></label>
-                <label> test@test.com</label>
+                <span th:text="${user.email}"> test@test.com</span>
             </div>
 
         </dlv>
     </div>
+    <!--
     <div class="mint-calendar-font">
         <input class="basic-button" type="button" value="프로필 수정">
     </div>
+    -->
+
     <hr class="line"/>
 
+
     <!--캘린더-->
-    <div class="mint-calendar-font">Mint Day</div>
+    <div class="mint-calendar-font title">MINT DAY&#127807;</div>
     <div class="layout">
-        <table id="calendar" align="center">
+        <table class = "mint-calendar" id="calendar" align="center">
             <tr>
                 <td class="calendar-font"><label onclick="beforem()" id="before" ></label></td>
                 <td colspan="5" id="yearmonth"></td>
@@ -83,7 +85,7 @@
 
         </table>
     </div>
-
+    <script th:src="@{/js/mypage.js}"></script>
 </div>
 </body>
 </html>
