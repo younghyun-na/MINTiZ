@@ -127,8 +127,9 @@ public class PostServiceTest {
         PostUpdateDto newPostUpdateDto = new PostUpdateDto();
         newPostUpdateDto.setContent("바보");
         newPostUpdateDto.setLocation("부산");
+        newPostUpdateDto.setTagName("후기");
 
-        postService.updatePost(postId, newPostUpdateDto, "후기");
+        postService.updatePost(postId, newPostUpdateDto);
 
         //then
         Assertions.assertEquals(newPostUpdateDto.getContent(), postRepository.findById(postId).get().getContent());   //내용 검증

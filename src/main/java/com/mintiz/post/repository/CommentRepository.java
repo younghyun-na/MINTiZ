@@ -48,8 +48,6 @@ public class CommentRepository {
     }
 
 
-    @Modifying
-    @Transactional
     public void deleteComment(Comment comment){
         em.remove(comment);
     }

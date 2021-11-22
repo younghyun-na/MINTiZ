@@ -48,8 +48,7 @@ public class ImageHandler {
             if (!file.exists()) {
                 file.mkdirs();
             }
-
-             */
+            */
 
             //다중 파일 처리
             for (MultipartFile multipartFile : multipartFiles) {
@@ -85,9 +84,9 @@ public class ImageHandler {
                 imageFileList.add(imageFile);
 
                 // 업로드 한 파일 데이터를 특정(지정한) 파일로 저장
-                File file = new File(absolutePath + File.separator + newFileName);
-                log.info("file = {}", file.getPath());
-                log.info("url = {}", new UrlResource("file:" + absolutePath + newFileName).getURL());
+                File file = new File(absolutePath + newFileName);
+                //log.info("file = {}", file.getPath());
+                //log.info("url = {}", new UrlResource("file:" + absolutePath + newFileName).getURL());
                 //file = new File(absolutePath + path + File.separator + newFileName);
                 multipartFile.transferTo(file);
 

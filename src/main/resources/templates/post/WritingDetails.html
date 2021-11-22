@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
 <head>
   <title>MINTiZ</title>
   <script type="text/javascript" src="../js/writingdetails.js"></script>
@@ -27,14 +27,14 @@
 
   <div class = "body-layout">
     <!--사진 슬라이드-->
-    <!--
+
     <div>
       <img th:each = "imageFile : ${PostResDto.getImageFiles()}"
-           th:src = "|/images/${imageFile.getUploadFilePath()}|" src="../img/writingdetails1.jpg" alt="">
-
+           th:src = "|/images/${imageFile.getUploadFilePath()}|" width="300" height="300" src="../img/writingdetails1.jpg" alt="">
     </div>
-    -->
 
+
+    <!--
     <ul class="slides">
       <input type="radio" name="radio-btn" id="img-1" checked />
       <li class="slide-container">
@@ -74,6 +74,7 @@
         <label for="img-3" class="nav-dot" id="img-dot-3"></label>
       </li>
     </ul>
+    -->
 
     <!--작성자-->
     <div class="writer">
@@ -90,14 +91,13 @@
       </table>
 
       <div class="interaction">
-
 						<span class = "control hidden" id = "control_id{{ forloop.counter0 }}">
-							<button id="rewrite_btn" th:onclick="|location.href='@{/post/{postId}/update(postId=${postId})}'|">
-								<img id="rewrite" src="../img/rewrite.jpg" width='25' height='25' alt="수정">
+							<button id="rewrite_btn" th:onclick="|location.href='@{/post/{postId}/update(postId=${PostResDto.postId})}'|">
+								<img id="rewrite" src="../img/modifying.png" width='25' height='25' alt="수정">
 							</button>
                           <form  action="#" th:action="@{/post/{postId}/delete(postId=${PostResDto.postId})}" th:method="post" >
                             <button id="trash_btn" type="submit" onclick="return confirm('정말 삭제하시겠습니까?')">
-								<img id="trash" src="../img/btn-4.jpg"  width='25' height='25' alt="삭제">
+								<img id="trash" src="../img/delete.png"  width='25' height='25' alt="삭제">
 							</button>
                           </form>
 						</span>
@@ -148,6 +148,19 @@
                 </td>
               </tr>
             </table>
+            <div class="deleteOrmodify">
+              <span class = "modify" id = "modify">
+                <button id="modify_btn" th:onclick="|location.href='@{/post/{postId}/comments/{commentId}/update(postId=${PostResDto.postId}, commentId=${comment.getCommentId()})}'|">
+                  <img id="modifyImg" src="../img/modifying.png" width='20' height='20' alt="수정">
+                </button>
+                <form action="#" th:action="@{/post/{postId}/comments/{commentId}/delete(postId=${PostResDto.postId}, commentId=${comment.getCommentId()})}"
+                       th:method="post" >
+                  <button id="delete_btn" type="submit" onclick="return confirm('정말 삭제하시겠습니까?')">
+                    <img id="delete" src="../img/delete.png"  width='20' height='20' alt="삭제">
+                  </button>
+                </form>
+              </span>
+            </div>
           </div>
         </div>
       </div>

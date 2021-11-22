@@ -11,6 +11,7 @@ import com.mintiz.post.repository.TagPostRepository;
 import com.mintiz.post.repository.TagRepository;
 import com.mintiz.user.UserRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -18,6 +19,7 @@ import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -25,6 +27,7 @@ import java.util.stream.Collectors;
 @Service
 @Transactional(readOnly = true)
 @RequiredArgsConstructor
+@Slf4j
 public class PostService {
 
     private final PostRepository postRepository;
@@ -33,6 +36,7 @@ public class PostService {
     private final TagPostRepository tagPostRepository;
     private final ImageHandler imageHandler;
     private final ImageRepository imageRepository;
+    private final FileStore fileStore;
 
     /**
      * 그니까 Controller => service 로는 id/dto 전달, service에서 영속성 컨텍스트 관련 처리
@@ -49,7 +53,8 @@ public class PostService {
         Post post = postSaveDto.toEntity();
 
         try{
-            List<ImageFile> images = imageHandler.parseFileInfo(postSaveDto.getImages());  //imageFile 엔티티로 변경
+            List<ImageFile> images = fileStore.storeFiles(postSaveDto.getImages());
+            //List<ImageFile> images = imageHandler.parseFileInfo(postSaveDto.getImages());  //imageFile 엔티티로 변경
             if(!images.isEmpty()){
                 for (ImageFile image : images) {
                     post.addImageFile(image);        //post 엔티티에 이미지 추가
@@ -71,22 +76,6 @@ public class PostService {
         Tag tag = tagRepository.findByName(tagName).orElseThrow(
                 () -> new IllegalArgumentException("존재하지 않는 태그입니다."));
         tagPostRepository.save(new TagPost(tag, post));
-    }
-
-    /**
-     * 게시글 수정 : 변경 감지(merge X)
-     * 수정 내역 : 글 내용 + 태그(location 도) + 이미지 수정
-     * api 자체를 /postId/?tag = 후기 & region = 서울
-     */
-    @Transactional
-    public void updatePost(Long postId, PostUpdateDto postUpdateDto, String tagName){ //후기
-        Post post = postRepository.findById(postId)
-                .orElseThrow(() -> new IllegalArgumentException("일치하는 게시글이 없습니다. postId= " + postId));
-
-        post.updatePost(postUpdateDto);         //1.post 수정(자동 update)
-
-        TagPost tagPost = tagPostRepository.findByPostId(postId);
-        tagPostRepository.updateTagPost(tagPost, tagRepository.findByName(tagName).get());      //2.tag 수정
     }
 
     /**
@@ -155,20 +144,40 @@ public class PostService {
      *
      */
     private String getLocalTimeDiff(LocalDateTime postTime){
-        LocalDateTime currentTime = LocalDateTime.now();  //현재 날짜 그대로, 시간만 자정으로 초기화
+        LocalDateTime currentTime = LocalDateTime.now();  //현재 시간
         Duration duration= Duration.between(postTime, currentTime);
-        long seconds = duration.toSeconds();     //-값이 나옴..
+        long seconds = duration.toSeconds();     //-값이 나옴..?
 
         if(seconds < 60){
             return seconds + " 초 전";             //현재 시간과 초 차이가 <60 이면 초
         }else if(seconds >= 60 && seconds < 3600){
             return  duration.toMinutes() + " 분 전";      //현재 시간과 초 차이가 60<= x  <= 3600(1시간)이면 분
         }else if(seconds >= 3600 && seconds < 86400){
-            return duration.toHours() + " 시간 전";      //현재 시간과 초 차이가 3600 이상이면 시간? 일?
+            return duration.toHours() + " 시간 전";      //현재 시간과 초 차이가 3600 이상이면 시간
         }
 
-        return duration.toDays() + " 일 전";
+        return duration.toDays() + " 일 전";            //나머지는 일
     }
+
+    /**
+     * 게시글 수정 : 변경 감지(merge X)
+     * 수정 내역 : 글 내용 + 태그(location 도) + 이미지 수정
+     */
+    @Transactional
+    public void updatePost(Long postId, PostUpdateDto postUpdateDto){ //후기
+        Post post = postRepository.findById(postId)
+                .orElseThrow(() -> new IllegalArgumentException("일치하는 게시글이 없습니다. postId= " + postId));
+
+        post.updatePost(postUpdateDto);         //1.post 수정 => update 왜 안됌..........젭알,.
+        post.getImages().clear();
+        post.getImages().addAll(postUpdateDto.getImages());
+
+        /*
+        TagPost tagPost = tagPostRepository.findByPostId(postId);    //에러?
+        tagPostRepository.updateTagPost(tagPost, tagRepository.findByName(postUpdateDto.getTagName()).get());      //2.tag 수정
+         */
+    }
+
     /**
      * 게시글 삭제
      */

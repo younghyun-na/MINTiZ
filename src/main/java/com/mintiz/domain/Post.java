@@ -34,15 +34,19 @@ public class Post{
 
     private String location;
 
-    @OneToMany(mappedBy = "post", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
-    //@OneToMany(mappedBy = "post", orphanRemoval = true, cascade = CascadeType.ALL)   //자식 entity 고아(NULL) 객체 삭제
-    //@OneToMany(mappedBy = "post")
+    @OneToMany(mappedBy = "post", orphanRemoval = true, cascade = CascadeType.ALL)   //자식 entity 고아(NULL) 객체 삭제
     @Builder.Default
     private List<ImageFile> images = new ArrayList<>();
 
-    @OneToMany(mappedBy = "post", cascade = CascadeType.REMOVE)
+    //post 삭제되면 tagPost 삭제, 업데이트되면 tagPost 업데이트
+    @OneToMany(mappedBy = "post", orphanRemoval = true, cascade = CascadeType.ALL)
     @Builder.Default
     private List<TagPost> tagPosts = new ArrayList<>();
+
+    //post 삭제되면 연관되어 있는 댓글들도 삭제
+    @OneToMany(mappedBy = "post", orphanRemoval = true, cascade = CascadeType.ALL)
+    @Builder.Default
+    private List<Comment> comments = new ArrayList<>();
 
     /**
      * 생성 일시:INSERT/UPDATE 쿼리 발생 시 저장

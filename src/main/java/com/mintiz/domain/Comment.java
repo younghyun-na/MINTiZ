@@ -1,5 +1,6 @@
 package com.mintiz.domain;
 
+import com.mintiz.post.model.CommentUpdateReqDto;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -19,7 +20,7 @@ import static javax.persistence.FetchType.LAZY;
 public class Comment {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "comment_id")
     private Long id;
 
@@ -43,6 +44,10 @@ public class Comment {
     @Column(name = "updated_at", nullable = false)
     @Builder.Default
     private LocalDateTime updatedTime = LocalDateTime.now();
+
+    public void updateComment(CommentUpdateReqDto update){
+        this.content = update.getUpdateContent();
+    }
 
     //대댓글은 나중에..시간 남으면 추가로 구현
     /*

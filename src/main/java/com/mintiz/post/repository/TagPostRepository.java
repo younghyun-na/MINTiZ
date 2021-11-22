@@ -36,8 +36,6 @@ public class TagPostRepository {
         em.clear();
     }
 
-    @Modifying
-    @Transactional
     public void delete(TagPost tagPost){
         em.remove(tagPost);
     }
