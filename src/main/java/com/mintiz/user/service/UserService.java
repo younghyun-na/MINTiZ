@@ -1,9 +1,8 @@
-package com.mintiz.user;
-
+package com.mintiz.user.service;
 import com.mintiz.domain.User;
-import com.mintiz.user.model.UserSignupDto;
-import com.mintiz.user.UserRepository;
+import com.mintiz.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import com.mintiz.user.model.UserSignupDto;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -16,6 +15,7 @@ public class UserService {
 
     private final UserRepository userRepository;
     private PasswordEncoder passwordEncoder;
+
 
     // 회원 가입
     @Transactional
@@ -49,5 +49,5 @@ public class UserService {
         return cnt;
     }
     */
-
 }
+

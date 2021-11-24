@@ -1,0 +1,118 @@
+:root{
+	--body-background-color: #ffffff;
+	--font-color: #4e4e4e;
+	--border-gray-color : #dadada;
+	--naver-green-color: #BDE4DC;
+	--naver-green-border-color: #06b350;
+}
+
+*{
+	margin:10;
+	padding:10;
+}
+
+body{
+	background:var(--body-background-color);
+}
+
+
+.login-input-section-wrap{
+	padding-top: 10px;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+.password-wrap{
+	margin-top: 5px;
+}
+.login-input-wrap input{
+	border: none;
+	width:430px;
+	margin-top: 10px;
+	font-size: 14px;
+	margin-left: 10px;
+	height:40px;
+	border: solid 1px var(--border-gray-color);
+}
+
+.login-button-wrap {
+	padding-top: 20px;
+}
+.login-button-wrap button{
+	width: 400px;
+	height :45px;
+	font-size: 18px;
+	background: var(--naver-green-color);
+	color: white;
+	border: none;
+	border-radius: 20px;
+}
+
+.stay-sign-in{
+	width: 465px;
+	height: 52px;
+
+	display: flex;
+	font-size: 15px;
+	color: #4e4e4e;
+	align-items: center;
+	justify-content: flex-start;
+	border-bottom: solid 1px var(--border-gray-color);
+}
+.stay-sign-in i{
+	font-size: 25px;
+	color: #9ba1a3;
+}
+.stay-sign-in span{
+	padding-left: 5px;
+	line-height: 25px;
+}
+
+.find-id-password{
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	padding-top: 5px;
+}
+
+.find-id-password .forget-msg{
+	color:var(--font-color);
+	font-size: 13px;
+}
+
+.google-sign-in
+{
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	padding-top: 10px;
+}
+.google-sign-in button{
+	width: 400px;
+	height: 35px;
+	border: solid 1px var(--border-gray-color);
+	text-align: center;
+	background: white;
+}
+.google-sign-in button i{
+	font-size: 20px;
+}
+#findId{
+	border-top: white;
+	border-left: white;
+	border-bottom: white;
+	border-right: 1px solid black;
+	background: white;
+}
+#findPW{
+	border-top: white;
+	border-left: white;
+	border-bottom: white;
+	border-right: 1px solid black;
+	background: white;
+}
+#join{
+	border: none;
+	background: white;
+}

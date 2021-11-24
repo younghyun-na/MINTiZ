@@ -2,8 +2,7 @@ package com.mintiz.profile;
 
 import com.mintiz.domain.Post;
 import com.mintiz.domain.User;
-import com.mintiz.user.UserService;
-import com.sun.xml.bind.v2.TODO;
+import com.mintiz.user.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
