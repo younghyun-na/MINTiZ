@@ -155,6 +155,16 @@ body{
 
 
 /* 사진 슬라이드*/
+
+.slider {
+    padding: 0;
+    width: 609px;
+    height: 420px;
+    display: block;
+    margin: 0 auto;
+    position: center;
+}
+
 .slides {
     padding: 0;
     width: 609px;

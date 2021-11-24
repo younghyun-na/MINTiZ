@@ -46,12 +46,17 @@
                 </select>
             </div>
         </section>
+        <!--
         <div class="button">
             <label for="chooseImg">
                 <img class="addImg" src="../img/addPicture.png" width='80' height='80'>
             </label>
         </div>
-        <input type="file" th:field="*{newImages}" id="chooseImg" name="chooseImg" multiple="multiple" accept="image/*">
+        -->
+        <div class="button">
+            <img class="addImg" src="../img/addPicture.png" width='80' height='80'>
+        </div>
+        <input type="file" th:field="*{newImages}" multiple="multiple" accept="image/*">
         <br>
         <textarea th:field ="*{content}" th:placeholder="*{content}" class="textbox" placeholder="내용을 입력해주세요" cols='120' rows='20' style="resize: none;"></textarea>
         <button class="UploadButton UploadButton--basemint size_default" type="submit" >
