@@ -15,6 +15,20 @@ body{
 	background:var(--body-background-color);
 }
 
+.fieldError {
+    border-color: #bd2130;
+}
+
+.id_ok{
+    color:#fff;
+    display: none;
+}
+
+.id_already{
+    color:#6A82FB;
+    display: none;
+}
+
 .login-name{
     margin-top: 10px;
 }

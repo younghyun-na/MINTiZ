@@ -97,7 +97,7 @@ public class CommentServiceTest {
         PostSaveDto post = createPost("콘텐트", "서울","후기");
         Long postId = postService.savePost(user.getId(), post);
         CommentSaveDto comment = new CommentSaveDto(user.getId(), postId, "댓글 1");
-        long commentId = commentService.addComment(comment);
+        long commentId = commentService.addComment(comment); //1
 
         //when
         commentService.deleteComment(commentId);

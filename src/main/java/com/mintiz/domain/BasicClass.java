@@ -1,6 +1,9 @@
 package com.mintiz.domain;
 
+import lombok.Builder;
 import lombok.Getter;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedBy;
@@ -17,20 +20,27 @@ import java.time.LocalDateTime;
 @MappedSuperclass
 public class BasicClass {
 
+    @CreationTimestamp
+    @Column(name = "created_at", nullable = false, updatable = false)
+    @Builder.Default
+    private LocalDateTime createdAt = LocalDateTime.now();
+
+
+    @UpdateTimestamp
+    @Column(name = "updated_at", nullable = false)
+    @Builder.Default
+    private LocalDateTime updatedTime = LocalDateTime.now();
+
+    /*
     @CreatedDate
     @Column
     private LocalDateTime createdDate;
 
-//    @CreatedBy
-//    @Column
-//    private String createdBy;
 
     @LastModifiedDate
     @Column
     private LocalDateTime lastModifiedDate;
 
-//    @LastModifiedBy
-//    @Column
-//    private String lastModifiedBy;
+     */
 
 }

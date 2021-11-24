@@ -22,7 +22,7 @@
       <select th:field="*{tagName}" name="tagName" id="tagName" class="form-control" onchange=addPostScriptTag();>
         <option value='' selected>-- 선택 --</option>
         <option th:value="일상" value="daily">일상</option>
-        <option th:value="후기" value="postscript">후기</option>
+        <option th:value="후기" value="postscript">맛집 후기</option>
       </select>
 
       <div id="postscript-tag" style="display:none">
@@ -53,7 +53,7 @@
         <img class="addImg" src="../img/addPicture.png" width='80' height='80'>
       </label>
     </div>
-    <input type="file" th:field ="*{images}"  multiple="multiple" id="chooseImg" name="chooseImg" accept="image/*" onchange="loadFile(this)">
+    <input type="file" th:field ="*{images}" multiple="multiple" id="chooseImg" name="chooseImg" accept="image/*">
     <br>
     <textarea th:field="*{content}" class="textbox" placeholder="내용을 입력해주세요" style="resize: none;"></textarea>
     <button class="UploadButton UploadButton--basemint size_default" type="submit" >

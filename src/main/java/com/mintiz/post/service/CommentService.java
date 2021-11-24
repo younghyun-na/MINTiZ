@@ -50,10 +50,14 @@ public class CommentService {
      */
     @Transactional
     public void updateComment(CommentUpdateReqDto commentUpdateReqDto){
+        //방식 1
         Comment comment = commentRepository.findById(commentUpdateReqDto.getCommentId()).orElseThrow(
                 () -> new IllegalArgumentException("수정하려는 댓글이 존재하지 않습니다.")
         );
-        commentRepository.updateComment(commentUpdateReqDto.getUpdateContent(), commentUpdateReqDto.getCommentId());
+        comment.updateComment(commentUpdateReqDto);
+
+        //방식 2
+        //commentRepository.updateComment(commentUpdateReqDto.getUpdateContent(), commentUpdateReqDto.getCommentId());
     }
 
 
@@ -73,9 +77,7 @@ public class CommentService {
         return localDateTime.format(formatter);
     }
 
-    /**
-     * 댓글 삭제
-     */
+    @Transactional
     public void deleteComment(long commentId){
         Comment comment = commentRepository.findById(commentId).orElseThrow(
                 () -> new IllegalStateException("삭제하려는 댓글이 존재하지 않습니다.")

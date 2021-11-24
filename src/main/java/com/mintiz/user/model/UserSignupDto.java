@@ -16,6 +16,9 @@ import javax.validation.constraints.NotBlank;
 @AllArgsConstructor
 public class UserSignupDto {
 
+    @Enumerated(EnumType.STRING)
+    private Level level;
+
     @NotBlank (message = "이메일은 필수입니다.")
     @Email
     private String email;
@@ -30,6 +33,7 @@ public class UserSignupDto {
     private String password;
     private String check_password;
 
+<<<<<<< HEAD
     @Enumerated(EnumType.STRING)
     private Level level;
 
@@ -43,4 +47,6 @@ public class UserSignupDto {
     public void setLevel(Level level){
         this.level = level;
     }
+=======
+>>>>>>> dev
 }

@@ -1,27 +1,26 @@
 package com.mintiz.post.model;
 
 import com.mintiz.domain.ImageFile;
-import com.mintiz.domain.Post;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Getter
 @Setter
+@NoArgsConstructor( access= AccessLevel.PROTECTED)
+@AllArgsConstructor
+@Builder
 public class PostUpdateDto {
 
     private String content;
 
+    private String tagName;
+
     private String location;
 
-    private List<ImageFile> images = new ArrayList<>();
+    private List<MultipartFile> newImages;
 
-    public Post toEntity(){
-        return Post.builder()
-                .content(content)
-                .location(location)
-                .images(images).build();
-    }
+    private List<ImageFile> images;
 }

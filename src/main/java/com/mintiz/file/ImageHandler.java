@@ -1,5 +1,6 @@
-package com.mintiz.domain;
+package com.mintiz.file;
 
+import com.mintiz.domain.ImageFile;
 import com.mintiz.post.model.ImageFileDto;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.io.UrlResource;
@@ -35,21 +36,19 @@ public class ImageHandler {
             // 프로젝트 디렉터리 내의 저장을 위한 절대 경로 설정
             // File.separator : OS 환경에 맞는 파일 구분자를 제공하는 API
             String absolutePath = new File("").getAbsolutePath() + File.separator;
-            log.info("absolutePath = {}", absolutePath);
 
             // 파일을 저장할 세부 경로(C:\Users\ADMIN\Desktop\WorkSpace\MINTIZ\MINTiZ_\ + ..)
             //String path = "images" + File.separator + current_date;   //여길 빼볼까..?
 
             /*
-            String path = "images";
+            String path = "image";
             File file = new File(path);
 
             //디렉터리가 존재하지 않을 경우 생성
             if (!file.exists()) {
                 file.mkdirs();
             }
-
-             */
+            */
 
             //다중 파일 처리
             for (MultipartFile multipartFile : multipartFiles) {
@@ -72,7 +71,6 @@ public class ImageHandler {
                 // 파일명 중복 피하고자 나노초까지 얻어와 저장될 파일 이름 지정
                 String newFileName = System.nanoTime() + originFileExtension;
 
-                //반환해야할 이미지 리스트에 추가
                 ImageFileDto imageFileDto = ImageFileDto.builder()
                         .originFileName(StringUtils.cleanPath(multipartFile.getOriginalFilename()))
                         //.uploadFilePath(path + File.separator + newFileName)
@@ -85,9 +83,8 @@ public class ImageHandler {
                 imageFileList.add(imageFile);
 
                 // 업로드 한 파일 데이터를 특정(지정한) 파일로 저장
-                File file = new File(absolutePath + File.separator + newFileName);
-                log.info("file = {}", file.getPath());
-                log.info("url = {}", new UrlResource("file:" + absolutePath + newFileName).getURL());
+                File file = new File(absolutePath + newFileName);
+
                 //file = new File(absolutePath + path + File.separator + newFileName);
                 multipartFile.transferTo(file);
 

@@ -11,12 +11,9 @@ import static javax.persistence.FetchType.*;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @RequiredArgsConstructor      //@NonNull,final 필드 값만 파라미터로 받는 생성자
 public class TagPost {
-    /**
-     * 게시글 id를 통해 tag 저장
-     * 게시글 id 1 태그 id 1 region = "서울"?
-     */
+
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name=  "tagPost_id")
     private Long id;
 
@@ -29,5 +26,9 @@ public class TagPost {
     @JoinColumn(name = "post_id")
     @NonNull
     private Post post;
+
+    public void updateTagPost(Tag tag){
+        this.tag = tag;
+    }
 
 }

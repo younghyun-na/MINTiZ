@@ -4,6 +4,7 @@ import com.mintiz.domain.Comment;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
@@ -37,7 +38,7 @@ public class CommentRepository {
     }
 
     @Modifying
-    @Transactional
+    @Transactional(propagation = Propagation.REQUIRED)
     public void updateComment(String content, long commentId){
         em.createQuery("update Comment c set c.content = :content " +
                 "where c.id = :commentId")
@@ -48,8 +49,6 @@ public class CommentRepository {
     }
 
 
-    @Modifying
-    @Transactional
     public void deleteComment(Comment comment){
         em.remove(comment);
     }

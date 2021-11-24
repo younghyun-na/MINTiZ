@@ -5,6 +5,7 @@ import com.mintiz.domain.TagPost;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
@@ -27,7 +28,7 @@ public class TagPostRepository {
     }
 
     @Modifying
-    @Transactional
+    @Transactional(propagation = Propagation.REQUIRED)
     public void updateTagPost(TagPost tagPost, Tag tag){
         em.createQuery("update TagPost p set p.tag = :tag where p.id = :tagPostId")
                 .setParameter("tag", tag)
@@ -36,8 +37,6 @@ public class TagPostRepository {
         em.clear();
     }
 
-    @Modifying
-    @Transactional
     public void delete(TagPost tagPost){
         em.remove(tagPost);
     }

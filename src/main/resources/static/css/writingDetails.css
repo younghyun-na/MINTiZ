@@ -48,8 +48,6 @@ body{
 /* 작성자 부분 레이아웃 */
 .writer{
     text-align: left;
-    align-items: left;
-    align-content: left;
     background: white;
     box-shadow:0 2px 6px rgba(100, 100, 100, 0.3);
 }
@@ -82,7 +80,40 @@ body{
 .interaction{
     float: right;
 }
-
+#bookmark_btn{
+    padding: 0;
+    border: none;
+    background: none;
+}
+#trash_btn{
+    padding: 0;
+    margin-left: 3px;
+    margin-right: 3px;
+    border: none;
+    background: none;
+}
+.deleteOrmodify{
+    padding: 0;
+    float: right;
+}
+#rewrite_btn{
+    padding: 0;
+    margin-left: 3px;
+    border: none;
+    background: none;
+}
+#modify_btn{
+    padding: 0;
+    margin-left: 3px;
+    border: none;
+    background: none;
+}
+#delete_btn{
+    padding: 0;
+    margin-left: 3px;
+    border: none;
+    background: none;
+}
 /* 댓글 레이아웃 */
 #form-commentInfo{
     width: 100%;
@@ -92,7 +123,7 @@ body{
 }
 #comment-input{
     margin-top: 10px;
-    width: 80%;
+    width: 100%;
     height: 3.2em;
 }
 
@@ -110,6 +141,7 @@ body{
 }
 .comment-row{
     margin-bottom: 5px;
+    margin-top: 15px;
 }
 .comment-date{
     font-size: 5px;
@@ -120,32 +152,6 @@ body{
     padding: 0.5em;
     border-bottom: 1px solid #817171;
 }
-.eachComment .name{
-    font-size: 1.5em;
-    font-weight: bold;
-    margin-bottom: 0.3em;
-    display: flex;
-    justify-content: space-between;
-}
-.eachComment .inputValue{
-    font-size: 1.2em;
-}
-.eachComment .time{
-    font-size: 0.7em;
-    color: #817171;
-    font-style: oblique;
-    margin-top: 0.5em;
-    margin-bottom: 0.5em;
-}
-.eachComment .voteDiv{
-    display: flex;
-    justify-content: flex-end;
-}
-.eachComment .deleteComment{
-    background-color: papayawhip;
-    color: black;
-}
-
 
 
 /* 사진 슬라이드*/

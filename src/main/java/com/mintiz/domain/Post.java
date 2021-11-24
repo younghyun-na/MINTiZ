@@ -17,8 +17,7 @@ import static javax.persistence.FetchType.*;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)   //protected Tag(){}
-//@Builder(builderMethodName = "PostBuilder")
-public class Post{
+public class Post extends BasicClass{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -34,35 +33,22 @@ public class Post{
 
     private String location;
 
-    @OneToMany(mappedBy = "post", orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
-    //@OneToMany(mappedBy = "post", orphanRemoval = true, cascade = CascadeType.ALL)   //자식 entity 고아(NULL) 객체 삭제
-    //@OneToMany(mappedBy = "post")
+    //{CascadeType.PERSIST, CascadeType.REMOVE}
+
+    @OneToMany(mappedBy = "post", orphanRemoval = true, cascade = CascadeType.ALL)   //자식 entity 고아(NULL) 객체 삭제
     @Builder.Default
     private List<ImageFile> images = new ArrayList<>();
 
-    @OneToMany(mappedBy = "post", cascade = CascadeType.REMOVE)
+    @OneToMany(mappedBy = "post", orphanRemoval = true, cascade = CascadeType.ALL)
     @Builder.Default
     private List<TagPost> tagPosts = new ArrayList<>();
 
-    /**
-     * 생성 일시:INSERT/UPDATE 쿼리 발생 시 저장
-     */
-    @CreationTimestamp
-    @Column(name = "created_at", nullable = false, updatable = false)
+    @OneToMany(mappedBy = "post", orphanRemoval = true, cascade = CascadeType.ALL)
     @Builder.Default
-    private LocalDateTime createdAt = LocalDateTime.now();
-
-    /**
-     * 수정 일시: UPDATE 쿼리 발생 시 저장
-     */
-    @UpdateTimestamp
-    @Column(name = "updated_at", nullable = false)
-    @Builder.Default
-    private LocalDateTime updatedTime = LocalDateTime.now();
+    private List<Comment> comments = new ArrayList<>();
 
     public void updatePost(PostUpdateDto postUpdateDto){
         this.content = postUpdateDto.getContent();
-        this.images = postUpdateDto.getImages();
         this.location = postUpdateDto.getLocation();
     }
 

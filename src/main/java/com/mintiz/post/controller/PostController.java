@@ -9,12 +9,11 @@ import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 
-import java.io.File;
 import java.net.MalformedURLException;
+import com.mintiz.file.FileStore;
+
 import java.util.List;
 
 @Controller
@@ -25,6 +24,7 @@ public class PostController {
 
     private final PostService postService;
     private final CommentService commentService;
+    private final FileStore fileStore;
     private final long userId = 1L;   //임시
 
     @GetMapping("/add")
@@ -57,33 +57,53 @@ public class PostController {
         return "post/WritingDetails";
     }
 
-    //사진 불러오기:toDo
-    //"/img/images/2021-11-21/663568979433600.jpg" /문제..
+    //사진 불러오기:toDo 아예 이 경로로 안가는데..?왜 ㅠㅠㅠㅠ시바
     @ResponseBody
     @GetMapping("/images/{filename}")
-    public Resource downloadImage(@PathVariable String filename) throws MalformedURLException {
+    public Resource downloadImage(@PathVariable("filename") String filename) throws MalformedURLException {
         //경로에 있는 파일에 직접 접근해서 stream 으로 반환해옴
-        String absolutePath = new File("").getAbsolutePath() + File.separator; //절대 경로
-
-        return new UrlResource("file:" + absolutePath + filename);
+        log.info("filename = {}", filename);
+        return new UrlResource("file:" + fileStore.getFullPath(filename));
     }
 
-    @GetMapping("/{postId}/update")
-    public String updatePostForm(@PathVariable("postId") long postId){
+    /*
+    @ResponseBody
+    @CrossOrigin
+    @GetMapping(value = "/images/{filename}", produces = {MediaType.IMAGE_PNG_VALUE, MediaType.IMAGE_JPEG_VALUE})
+    public byte[] downloadImage(@PathVariable String filename) throws IOException {
+        //경로에 있는 파일에 직접 접근해서 stream 으로 반환해옴
+        String absolutePath = new File("").getAbsolutePath(); //절대 경로
 
+        InputStream imageStream = new FileInputStream(absolutePath + filename);
+        byte[] imageByteArray = IOUtils.toByteArray(imageStream);
+        imageStream.close();
+
+        return imageByteArray;
+        //return new UrlResource("file:" + absolutePath + filename);
+    }
+    */
+
+    //기존의 이미지를 들고가야지..
+    @GetMapping("/{postId}/update")
+    public String updatePostForm(@PathVariable("postId") long postId, Model model){
+        PostResDto post = postService.findPost(postId);
+        PostUpdateDto postUpdate = PostUpdateDto.builder()
+                .content(post.getContent())
+                .location(post.getLocation())
+                .tagName(post.getTagName())
+                .images(post.getImageFiles()).build();
+
+        model.addAttribute("postId", postId);
+        model.addAttribute("updateForm", postUpdate);
         return "post/Modify";
     }
 
-    //게시글 수정:toDo
+    //게시글 수정
     @PostMapping("/{postId}/update")
-    public String updatePost(@PathVariable("postId") long postId,
-                           @RequestParam("tagName") String updateTagName,
-                           @ModelAttribute PostUpdateDto postUpdateDto){
-
-        postService.updatePost(postId,postUpdateDto,updateTagName);
+    public String updatePost(@PathVariable("postId") long postId, PostUpdateDto postUpdateDto){
+        postService.updatePost(postId,postUpdateDto);
         return "redirect:/post/" + postId;
     }
-
 
     //게시글 삭제
     @PostMapping("/{postId}/delete")
@@ -96,22 +116,32 @@ public class PostController {
     @PostMapping("/{postId}/comments")
     public String addComment(@PathVariable("postId") long postId, @RequestParam("comment-input") String comment){
 
-        commentService.addComment(new CommentSaveDto(1L, postId, comment));  //이게 실행이 안됌
+        commentService.addComment(new CommentSaveDto(1L, postId, comment));
         return "redirect:/post/" + postId;
     }
 
-    //댓글 수정:toDo
+    /*
+    //댓글 수정창..
+    @GetMapping("/{postId}/comments/{commentId}/update")
+    public String updateCommentForm(@PathVariable("commentId") long commentId, @PathVariable("postId") long postId){
+        return "post/"
+    }
+     */
+
+    //댓글 수정
     @PostMapping("/{postId}/comments/{commentId}/update")
-    public void updateComment(@PathVariable("commentId") long commentId,
-                              @PathVariable("postId") long postId,CommentUpdateReqDto commentUpdateReqDto){
+    public String updateComment(@PathVariable("commentId") long commentId, @PathVariable("postId") long postId,
+                                CommentUpdateReqDto commentUpdateReqDto){
         commentUpdateReqDto.setCommentId(commentId);
         commentService.updateComment(commentUpdateReqDto);
+        return "redirect:/post/" + postId;
     }
 
-    //댓글 삭제:toDo
+    //댓글 삭제
     @PostMapping("/{postId}/comments/{commentId}/delete")
-    public void deleteComment(@PathVariable("commentId") long commentId, @PathVariable("postId") long postId){
+    public String deleteComment(@PathVariable("commentId") long commentId, @PathVariable("postId") long postId){
         commentService.deleteComment(commentId);
+        return "redirect:/post/" + postId;
     }
 
 
