@@ -31,5 +31,17 @@ public class UserSignupDto {
 
     @NotBlank (message = "비밀번호는 필수입니다.")
     private String password;
+    private String check_password;
 
+
+    public UserSignupDto() {
+    }
+
+    public Level getLevel() {
+        return level;
+    }
+
+    public void setLevel(Level level){
+        this.level = level;
+    }
 }

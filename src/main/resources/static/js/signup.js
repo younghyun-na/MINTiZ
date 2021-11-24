@@ -1,3 +1,4 @@
+/*
 // 아이디 중복 체크
 function checkId(){
         var id = $('#id').val(); //id값이 "id"인 입력란의 값을 저장
@@ -12,7 +13,7 @@ function checkId(){
                 alert("에러입니다");
             }
         });
--};
+};
 
 
 // 유효성 검사
@@ -53,8 +54,8 @@ function join_form_check(){
         return false;
     }
 
-    // 입력값 전송
     document.join_form.submit();
+
 }
 
 // id 중복체크
@@ -62,3 +63,4 @@ function id_check() {
     //window.open("팝업될 문서 경로", "팝업될 문서 이름", "옵션");
     //window.open("idCheckForm.jsp", "idCheck", "width=400, height=200, left=200, top=100");
 }
+*/

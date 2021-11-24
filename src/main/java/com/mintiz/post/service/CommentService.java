@@ -8,7 +8,7 @@ import com.mintiz.post.model.CommentSaveDto;
 import com.mintiz.post.model.CommentUpdateReqDto;
 import com.mintiz.post.repository.CommentRepository;
 import com.mintiz.post.repository.PostRepository;
-import com.mintiz.user.UserRepository;
+import com.mintiz.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
