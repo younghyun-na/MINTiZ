@@ -1,5 +1,6 @@
-package com.mintiz.domain;
+package com.mintiz.file;
 
+import com.mintiz.domain.ImageFile;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;

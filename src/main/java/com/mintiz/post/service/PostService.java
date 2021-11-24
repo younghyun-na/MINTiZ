@@ -2,6 +2,8 @@ package com.mintiz.post.service;
 
 import com.mintiz.bookmark.BookmarkRepository;
 import com.mintiz.domain.*;
+import com.mintiz.file.FileStore;
+import com.mintiz.file.ImageHandler;
 import com.mintiz.post.model.PostListResDto;
 import com.mintiz.post.model.PostResDto;
 import com.mintiz.post.model.PostSaveDto;
@@ -16,15 +18,12 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.io.IOException;
 import java.time.Duration;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service
 @Transactional(readOnly = true)

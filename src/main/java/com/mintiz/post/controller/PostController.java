@@ -5,18 +5,15 @@ import com.mintiz.post.service.CommentService;
 import com.mintiz.post.service.PostService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.io.IOUtils;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
-import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.MalformedURLException;
-import com.mintiz.domain.FileStore;
-import java.nio.file.Files;
+import com.mintiz.file.FileStore;
+
 import java.util.List;
 
 @Controller

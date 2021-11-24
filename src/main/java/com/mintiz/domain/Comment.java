@@ -17,7 +17,7 @@ import static javax.persistence.FetchType.LAZY;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)   //protected Tag(){}
-public class Comment {
+public class Comment extends BasicClass{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -34,16 +34,6 @@ public class Comment {
 
     @Column(nullable = false)
     private String content;
-
-    @CreationTimestamp
-    @Column(name = "created_at", nullable = false, updatable = false)
-    @Builder.Default
-    private LocalDateTime createdAt = LocalDateTime.now();
-
-    @UpdateTimestamp
-    @Column(name = "updated_at", nullable = false)
-    @Builder.Default
-    private LocalDateTime updatedTime = LocalDateTime.now();
 
     public void updateComment(CommentUpdateReqDto update){
         this.content = update.getUpdateContent();

@@ -17,7 +17,7 @@ import static javax.persistence.FetchType.*;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)   //protected Tag(){}
-public class Post{
+public class Post extends BasicClass{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -46,22 +46,6 @@ public class Post{
     @OneToMany(mappedBy = "post", orphanRemoval = true, cascade = CascadeType.ALL)
     @Builder.Default
     private List<Comment> comments = new ArrayList<>();
-
-    /**
-     * 생성 일시:INSERT/UPDATE 쿼리 발생 시 저장
-     */
-    @CreationTimestamp
-    @Column(name = "created_at", nullable = false, updatable = false)
-    @Builder.Default
-    private LocalDateTime createdAt = LocalDateTime.now();
-
-    /**
-     * 수정 일시: UPDATE 쿼리 발생 시 저장
-     */
-    @UpdateTimestamp
-    @Column(name = "updated_at", nullable = false)
-    @Builder.Default
-    private LocalDateTime updatedTime = LocalDateTime.now();
 
     public void updatePost(PostUpdateDto postUpdateDto){
         this.content = postUpdateDto.getContent();

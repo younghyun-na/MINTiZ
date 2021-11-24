@@ -1,5 +1,6 @@
-package com.mintiz.domain;
+package com.mintiz.file;
 
+import com.mintiz.domain.ImageFile;
 import com.mintiz.post.model.ImageFileDto;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.io.UrlResource;
@@ -40,7 +41,7 @@ public class ImageHandler {
             //String path = "images" + File.separator + current_date;   //여길 빼볼까..?
 
             /*
-            String path = "images";
+            String path = "image";
             File file = new File(path);
 
             //디렉터리가 존재하지 않을 경우 생성
