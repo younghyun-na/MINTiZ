@@ -33,10 +33,6 @@ public class PostController {
         return "post/Write";
     }
 
-    /**
-     * 그냥 getImage : img = [org.springframework.web.multipart.support.StandardMultipartHttpServletRequest$StandardMultipartFile@1d90a735]
-     * StringUtils.cleanPath(postSaveDto.getImages().get(0).getOriginalFilename()) : originImg = '.png
-     */
     @PostMapping("/add")
     public String addPost(@ModelAttribute PostSaveDto postSaveDto){
         Long postId = postService.savePost(userId, postSaveDto);
@@ -57,33 +53,14 @@ public class PostController {
         return "post/WritingDetails";
     }
 
-    //사진 불러오기:toDo 아예 이 경로로 안가는데..?왜 ㅠㅠㅠㅠ시바
+    //사진 불러오기
     @ResponseBody
     @GetMapping("/images/{filename}")
     public Resource downloadImage(@PathVariable("filename") String filename) throws MalformedURLException {
         //경로에 있는 파일에 직접 접근해서 stream 으로 반환해옴
-        log.info("filename = {}", filename);
         return new UrlResource("file:" + fileStore.getFullPath(filename));
     }
 
-    /*
-    @ResponseBody
-    @CrossOrigin
-    @GetMapping(value = "/images/{filename}", produces = {MediaType.IMAGE_PNG_VALUE, MediaType.IMAGE_JPEG_VALUE})
-    public byte[] downloadImage(@PathVariable String filename) throws IOException {
-        //경로에 있는 파일에 직접 접근해서 stream 으로 반환해옴
-        String absolutePath = new File("").getAbsolutePath(); //절대 경로
-
-        InputStream imageStream = new FileInputStream(absolutePath + filename);
-        byte[] imageByteArray = IOUtils.toByteArray(imageStream);
-        imageStream.close();
-
-        return imageByteArray;
-        //return new UrlResource("file:" + absolutePath + filename);
-    }
-    */
-
-    //기존의 이미지를 들고가야지..
     @GetMapping("/{postId}/update")
     public String updatePostForm(@PathVariable("postId") long postId, Model model){
         PostResDto post = postService.findPost(postId);
