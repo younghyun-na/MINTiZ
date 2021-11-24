@@ -32,6 +32,8 @@ public class UserService {
                 .id(Long.valueOf(userSignupDto.getId()))
                 .password(passwordEncoder.encode(userSignupDto.getPassword()))
                 .name(userSignupDto.getName())
+                .level(userSignupDto.getLevel())
+                .profile(userSignupDto.getProfile())
                 .build());
     }
 
@@ -41,6 +43,7 @@ public class UserService {
                 () -> new IllegalArgumentException("존재하지 않는 회원"));
 
     }
+
 
     /*
     // 아이디 중복 체크

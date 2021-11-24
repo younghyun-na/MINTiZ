@@ -4,7 +4,7 @@ import com.mintiz.domain.BookmarkedPost;
 import com.mintiz.domain.Post;
 import com.mintiz.domain.User;
 import com.mintiz.post.repository.PostRepository;
-import com.mintiz.user.UserRepository;
+import com.mintiz.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

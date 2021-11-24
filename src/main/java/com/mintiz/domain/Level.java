@@ -4,9 +4,9 @@ public enum Level {
 
     반민초단(0), 민초입문단(1), 민초린이(2), 민초른이(3), 민초러버(4), 민초마스터(5);
 
-    private final int value;
+    private Integer value;
 
-    Level(int value) {
+    Level(Integer value) {
         this.value = value;
     }
 
@@ -15,7 +15,7 @@ public enum Level {
     }
 
 
-    public static Level valueOf(int value) {
+    public static Level convert(Integer value) {
         switch(value) {
             case 0: return 반민초단;
             case 1: return 민초입문단;

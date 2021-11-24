@@ -6,7 +6,7 @@ import com.mintiz.domain.Post;
 import com.mintiz.domain.User;
 import com.mintiz.post.model.PostListResDto;
 import com.mintiz.post.service.PostService;
-import com.mintiz.user.UserService;
+import com.mintiz.user.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;

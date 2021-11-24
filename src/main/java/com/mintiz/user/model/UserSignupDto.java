@@ -33,6 +33,7 @@ public class UserSignupDto {
     private String password;
     private String check_password;
 
+    private String profile;
 
     public UserSignupDto() {
     }
