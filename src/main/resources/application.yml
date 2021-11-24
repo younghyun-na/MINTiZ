@@ -15,9 +15,12 @@ spring:
 
   servlet:
     multipart:
-      max-file-size: 10MB
+      max-file-size: 20MB
       max-request-size: 20MB
 
 logging.level:
   org.hibernate.SQL: debug
   #org.hibernate.type: trace
+
+file:
+  dir: C:/Users/ADMIN/Documents/img/

@@ -1,5 +1,5 @@
 package com.mintiz.domain;
-;
+
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
@@ -14,12 +14,13 @@ import java.util.UUID;
 public class FileStore {
 
 
-    private String fileDir = "C:/Users/ADMIN/Documents/img/";
-    //private String fileDir = "/Users/jimin/dev/img/";
-    //private String fileDir = new File("").getAbsolutePath() + File.separator;
+    @Value("${file.dir}")
+    private String fileDir;
+    //private String path = "img";
 
     public String getFullPath(String filename) {
         return fileDir + filename;
+        //return fileDir + File.separator + File.separator + path + File.separator + filename;
     }
 
     public List<ImageFile> storeFiles(List<MultipartFile> multipartFiles) throws IOException {
@@ -37,15 +38,29 @@ public class FileStore {
         if(multiPartFile.isEmpty()){
             return null;
         }
-
         //서버에 저장하는 파일명, 확장자 포함
         String originalFilename = multiPartFile.getOriginalFilename(); //사용자가 업로드한 파일 이름
         String storeFileName = createStoreFileName(originalFilename);
-        multiPartFile.transferTo(new File(getFullPath(storeFileName)));
+        long imageSize = multiPartFile.getSize();
+        /*
+        File file = new File(path);
+
+        if (!file.exists()) {
+            file.mkdirs();
+        }
+        file = new File(getFullPath(storeFileName));
+*/
+        File file = new File(getFullPath(storeFileName));
+        multiPartFile.transferTo(file);               //inputStream 으로 copy
 
         ImageFile imageFile = ImageFile.builder()
                 .originFileName(originalFilename)
-                .uploadFilePath(storeFileName).build();
+                .uploadFilePath(storeFileName)
+                .fileSize(imageSize).build();
+
+        file.setWritable(true);
+        file.setReadable(true);
+
         return imageFile;
     }
 

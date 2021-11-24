@@ -27,14 +27,14 @@ public class PostListResDto {         //메인 페이지 dto
 
     private String location;
 
-    private List<ImageFile> images = new ArrayList<>();
+    private ImageFile image;
 
     private String updatedTime;
 
     private boolean checkBookmark;
 
     @Builder
-    public PostListResDto(Post post, String updatedTime, Boolean check) {
+    public PostListResDto(Post post, String updatedTime, ImageFile image, Boolean check) {
         this.userId = post.getUser().getId();
         this.postId = post.getId();
         this.userName = post.getUser().getName();
@@ -42,6 +42,7 @@ public class PostListResDto {         //메인 페이지 dto
         this.content = post.getContent();
         this.location = post.getLocation();
         this.updatedTime = updatedTime;
+        this.image = image;
         this.checkBookmark = check;
     }
 

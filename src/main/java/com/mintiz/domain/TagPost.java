@@ -30,4 +30,8 @@ public class TagPost {
     @NonNull
     private Post post;
 
+    public void updateTagPost(Tag tag){
+        this.tag = tag;
+    }
+
 }

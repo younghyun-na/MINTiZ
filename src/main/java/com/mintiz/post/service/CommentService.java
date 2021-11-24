@@ -47,7 +47,6 @@ public class CommentService {
 
     /**
      * 댓글 수정
-     * 이렇게 안하고 그냥 id로 가져와서 comment.setContent("댓글")해도 알아서 update문 쿼리 나감
      */
     @Transactional
     public void updateComment(CommentUpdateReqDto commentUpdateReqDto){
@@ -55,10 +54,10 @@ public class CommentService {
         Comment comment = commentRepository.findById(commentUpdateReqDto.getCommentId()).orElseThrow(
                 () -> new IllegalArgumentException("수정하려는 댓글이 존재하지 않습니다.")
         );
-        commentRepository.updateComment(commentUpdateReqDto.getUpdateContent(), commentUpdateReqDto.getCommentId());
+        comment.updateComment(commentUpdateReqDto);
 
         //방식 2
-        //comment.updateComment(commentUpdateReqDto);
+        //commentRepository.updateComment(commentUpdateReqDto.getUpdateContent(), commentUpdateReqDto.getCommentId());
     }
 
 

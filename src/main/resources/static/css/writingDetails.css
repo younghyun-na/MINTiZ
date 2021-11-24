@@ -48,8 +48,6 @@ body{
 /* 작성자 부분 레이아웃 */
 .writer{
     text-align: left;
-    align-items: center;
-    align-content: center;
     background: white;
     box-shadow:0 2px 6px rgba(100, 100, 100, 0.3);
 }

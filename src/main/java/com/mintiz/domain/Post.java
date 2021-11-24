@@ -17,7 +17,6 @@ import static javax.persistence.FetchType.*;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)   //protected Tag(){}
-//@Builder(builderMethodName = "PostBuilder")
 public class Post{
 
     @Id
@@ -34,16 +33,16 @@ public class Post{
 
     private String location;
 
+    //{CascadeType.PERSIST, CascadeType.REMOVE}
+
     @OneToMany(mappedBy = "post", orphanRemoval = true, cascade = CascadeType.ALL)   //자식 entity 고아(NULL) 객체 삭제
     @Builder.Default
     private List<ImageFile> images = new ArrayList<>();
 
-    //post 삭제되면 tagPost 삭제, 업데이트되면 tagPost 업데이트
     @OneToMany(mappedBy = "post", orphanRemoval = true, cascade = CascadeType.ALL)
     @Builder.Default
     private List<TagPost> tagPosts = new ArrayList<>();
 
-    //post 삭제되면 연관되어 있는 댓글들도 삭제
     @OneToMany(mappedBy = "post", orphanRemoval = true, cascade = CascadeType.ALL)
     @Builder.Default
     private List<Comment> comments = new ArrayList<>();
@@ -66,7 +65,6 @@ public class Post{
 
     public void updatePost(PostUpdateDto postUpdateDto){
         this.content = postUpdateDto.getContent();
-        this.images = postUpdateDto.getImages();
         this.location = postUpdateDto.getLocation();
     }
 

@@ -1,4 +1,4 @@
-package com.mintiz.web.controller;
+package com.mintiz.post.controller;
 
 import com.mintiz.bookmark.BookmarkService;
 import com.mintiz.domain.BookmarkedPost;

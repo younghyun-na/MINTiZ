@@ -20,19 +20,17 @@
   <nav class="categories" >
     <ol>
       <li class="category"><span th:text="*{tagName}"><a></a></span></li>
-      <li class="category"><a><img id="place" src="../img/category_place.jpg" width='20' height='20'/><span th:text="*{location}">경기도</span></a></li>
+      <li class="category"><a><img id="place" src="../img/location.png" width='20' height='20'/><span th:text="*{location}">경기도</span></a></li>
     </ol>
   </nav>
 
 
   <div class = "body-layout">
     <!--사진 슬라이드-->
+    <!--th:src = "@{/post/images/{filename}(filename=${imageFile.uploadFilePath})}"-->
 
-    <div>
-      <img th:each = "imageFile : ${PostResDto.getImageFiles()}"
-           th:src = "|/images/${imageFile.getUploadFilePath()}|" width="300" height="300" src="../img/writingdetails1.jpg" alt="">
-    </div>
-
+    <img th:each = "imageFile : ${PostResDto.imageFiles}"
+         th:src= "|/post/images/${imageFile.getUploadFilePath()}|" width="300" height="300"/>
 
     <!--
     <ul class="slides">
@@ -73,8 +71,8 @@
         <label for="img-2" class="nav-dot" id="img-dot-2"></label>
         <label for="img-3" class="nav-dot" id="img-dot-3"></label>
       </li>
+      -->
     </ul>
-    -->
 
     <!--작성자-->
     <div class="writer">

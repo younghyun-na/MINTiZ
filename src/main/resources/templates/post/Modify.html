@@ -17,7 +17,7 @@
 
     <form th:action="@{/post/{postId}/update(postId=${postId})}" th:object="${updateForm}" name="articles" method="post" enctype="multipart/form-data">
         <section id="tag-section">
-            <select th:field="*{tagName}" name="tagName" id="tagName"  onchange=addPostScriptTag();>
+            <select th:field="*{tagName}" name="tagName" id="tagName" onchange=addPostScriptTag();>
                 <option value='' selected>-- 선택 --</option>
                 <option th:value="일상" value='daily'>일상</option>
                 <option th:value="후기" value='postscript'>맛집 후기</option>
@@ -51,9 +51,9 @@
                 <img class="addImg" src="../image/addPicture.png" width='80' height='80'>
             </label>
         </div>
-        <input type="file" id="chooseImg" name="chooseImg" multiple="multiple" accept="image/*" onchange="loadFile(this)">
+        <input type="file" th:value="${updateForm.newImages}" th:name="${updateForm.images}" id="chooseImg" name="chooseImg" multiple="multiple" accept="image/*">
         <br>
-        <textarea th:field="*{content}" class="textbox" placeholder="내용을 입력해주세요" cols='120' rows='20' style="resize: none;"></textarea>
+        <textarea th:field ="*{content}" th:placeholder="*{content}" class="textbox" placeholder="내용을 입력해주세요" cols='120' rows='20' style="resize: none;"></textarea>
         <button class="UploadButton UploadButton--basemint size_default" type="submit" >
             <span class="UploadButton__txt">등록</span>
         </button>

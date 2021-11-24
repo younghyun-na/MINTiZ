@@ -50,7 +50,7 @@ public class PostController {
     //게시글 상세페이지 조회 + 댓글까지 함께 조회
     @GetMapping("/{postId}")
     public String getPost(@PathVariable("postId") long postId, Model model){
-        PostResDto postResDto = postService.findPost(postId);     //여기서 다시 찾는데...
+        PostResDto postResDto = postService.findPost(postId);
         List<CommentResDto> commentList = commentService.getCommentListByPost(postId);
 
         model.addAttribute("commentSize", commentList.size());
@@ -60,16 +60,16 @@ public class PostController {
         return "post/WritingDetails";
     }
 
+    //사진 불러오기:toDo 아예 이 경로로 안가는데..?왜 ㅠㅠㅠㅠ시바
     @ResponseBody
-    @CrossOrigin
     @GetMapping("/images/{filename}")
-    public Resource downloadImage(@PathVariable String filename) throws MalformedURLException {
+    public Resource downloadImage(@PathVariable("filename") String filename) throws MalformedURLException {
         //경로에 있는 파일에 직접 접근해서 stream 으로 반환해옴
+        log.info("filename = {}", filename);
         return new UrlResource("file:" + fileStore.getFullPath(filename));
     }
 
     /*
-    //사진 불러오기:toDo Resource
     @ResponseBody
     @CrossOrigin
     @GetMapping(value = "/images/{filename}", produces = {MediaType.IMAGE_PNG_VALUE, MediaType.IMAGE_JPEG_VALUE})
@@ -86,16 +86,24 @@ public class PostController {
     }
     */
 
+    //기존의 이미지를 들고가야지..
     @GetMapping("/{postId}/update")
     public String updatePostForm(@PathVariable("postId") long postId, Model model){
+        PostResDto post = postService.findPost(postId);
+        PostUpdateDto postUpdate = PostUpdateDto.builder()
+                .content(post.getContent())
+                .location(post.getLocation())
+                .tagName(post.getTagName())
+                .images(post.getImageFiles()).build();
+
         model.addAttribute("postId", postId);
-        model.addAttribute("updateForm", new PostUpdateDto());
+        model.addAttribute("updateForm", postUpdate);
         return "post/Modify";
     }
 
-    //게시글 수정:toDo
+    //게시글 수정
     @PostMapping("/{postId}/update")
-    public String updatePost(@PathVariable("postId") long postId, @ModelAttribute PostUpdateDto postUpdateDto){
+    public String updatePost(@PathVariable("postId") long postId, PostUpdateDto postUpdateDto){
         postService.updatePost(postId,postUpdateDto);
         return "redirect:/post/" + postId;
     }
@@ -123,7 +131,7 @@ public class PostController {
     }
      */
 
-    //댓글 수정:toDo
+    //댓글 수정
     @PostMapping("/{postId}/comments/{commentId}/update")
     public String updateComment(@PathVariable("commentId") long commentId, @PathVariable("postId") long postId,
                                 CommentUpdateReqDto commentUpdateReqDto){
