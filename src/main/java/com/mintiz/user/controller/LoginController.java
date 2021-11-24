@@ -1,8 +1,7 @@
 package com.mintiz.user.controller;
 
-import com.mintiz.domain.User;
+
 import com.mintiz.user.model.UserLoginDto;
-import com.mintiz.user.model.UserSignupDto;
 import com.mintiz.user.repository.UserRepository;
 import com.mintiz.user.service.LoginService;
 import org.springframework.stereotype.Controller;
@@ -24,8 +23,7 @@ public class LoginController {
 
 
     @GetMapping("/login")
-    public String login(Model model){
-        model.addAttribute("UserLoginDto", new UserLoginDto());
+    public String login(){
         return "user/Login";
     }
 

@@ -33,9 +33,6 @@ public class UserSignupDto {
     private String password;
     private String check_password;
 
-<<<<<<< HEAD
-    @Enumerated(EnumType.STRING)
-    private Level level;
 
     public UserSignupDto() {
     }
@@ -47,6 +44,4 @@ public class UserSignupDto {
     public void setLevel(Level level){
         this.level = level;
     }
-=======
->>>>>>> dev
 }
