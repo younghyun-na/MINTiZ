@@ -21,7 +21,11 @@
     <form name="join_form" role="form" th:action="@{/user/signup}" th:object="${UserSignupDto}" method="POST">
         <div class="login-name">
             <p> 레벨 </p>
-            <span th:text = "${level}"> </span>
+            <span th:field = "${level}"> </span>
+        </div>
+        <div class="login-name"> 이메일 </div>
+        <div class="login-input-wrap">
+            <input th:field="*{email}" placeholder="이메일을 입력해주세요" type="email"></input>
         </div>
         <div class="login-name"> 이메일 </div>
         <div class="login-input-wrap">
@@ -45,7 +49,7 @@
             <input th:field="*{check_password}" placeholder="비밀번호를 입력해주세요" type="password"></input>
         </div>
         <div class="login-button-wrap">
-            <button onclick="join_form_check();">Sign up</button>
+            <button onclick="join_form_check();" >Sign up</button>
         </div>
 
     </form>

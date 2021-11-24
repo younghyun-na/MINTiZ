@@ -6,10 +6,7 @@ import com.mintiz.user.model.UserSignupDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-
-import javax.validation.Valid;
 
 @Controller
 @RequestMapping("/user")
@@ -19,7 +16,7 @@ public class UserController {
     private UserService userService;
 
 
-    // 회원가입 페이지 이동
+    // 회원가입 페이지
     @GetMapping("/signup")
     public String createForm(Model model){
         model.addAttribute("UserSignupDto", new UserSignupDto());
@@ -27,19 +24,23 @@ public class UserController {
     }
 
 
-    // /user/signup?level=0
-    // 회원가입 기능
-    @PostMapping("/signup")
-    public String signup(@Valid UserSignupDto userSignupDto,
-                         @RequestParam("level") Level level, BindingResult result) {
-
-        if (result.hasErrors()) {
-            return "user/Signup";
-        }
-
-        userSignupDto.setLevel(level.반민초단);
-        userService.join(userSignupDto);
-        return "redirect:/user/Login";
+    /*
+    @InitBinder
+    public void initBinder(WebDataBinder dataBinder){
+        dataBinder.registerCustomEditor(Level.class, new LevelPropertyEditor());
     }
+    */
+
+    /*
+    // 회원가입 + 레벨 값 저장
+    @GetMapping("/signup")
+    public String userLevel(@RequestParam("level") Level level, UserSignupDto userSignupDto) {
+        userSignupDto.setLevel(level);
+        userService.join(userSignupDto);
+        return "user/Signup";
+    }
+    */
+
+
 
 }

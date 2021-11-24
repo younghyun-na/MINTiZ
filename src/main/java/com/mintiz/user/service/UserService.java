@@ -32,6 +32,7 @@ public class UserService {
                 .id(Long.valueOf(userSignupDto.getId()))
                 .password(passwordEncoder.encode(userSignupDto.getPassword()))
                 .name(userSignupDto.getName())
+                .level(userSignupDto.getLevel())
                 .build());
     }
 
