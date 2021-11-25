@@ -12,6 +12,7 @@ import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.beans.PropertyEditorSupport;
 
 @Controller
 @RequestMapping("/user")
@@ -19,20 +20,13 @@ public class UserController {
 
     @Autowired
     private UserService userService;
+    /*
     @Autowired
-    ConversionService conversionService;
+    private ConversionService conversionService;
+     */
 
 
     /*
-    // 회원가입 페이지
-    @GetMapping("/signup")
-    public String createForm(Model model){
-        model.addAttribute("UserSignupDto", new UserSignupDto());
-        return "user/Signup";
-    }
-
-
-
     // WebDataBinder 등록
     @InitBinder
     public void initBinder(WebDataBinder dataBinder){
@@ -40,36 +34,25 @@ public class UserController {
     }
     */
 
-    /*
-    // 회원가입 + 레벨 값 저장
+
+    // 회원가입 페이지
     @GetMapping("/signup")
-    public String setSignup(@RequestParam("level") Level level, UserSignupDto userSignupDto) {
-        userSignupDto.setLevel(level);
+    public String createForm(Model model){
+        model.addAttribute("UserSignupDto", new UserSignupDto());
         return "user/Signup";
     }
 
-    // 회원가입 + 레벨 값 저장
-    @GetMapping("/signup")
-    public String setSignup( UserSignupDto userSignupDto) {
-        return "user/Signup";
-    }
-    */
-
-    /*
-    // 회원가입
+    // 회원가입 기능
     @PostMapping("/signup")
-    public String Signup(@Valid @ModelAttribute UserSignupDto userSignupDto, BindingResult bindingResult){
-        if (bindingResult.hasErrors() ){
-            return "user/Signup";
-        }
+    public String signup(UserSignupDto userSignupDto,
+                         @RequestParam(value ="level", defaultValue = "0") Level level) {
+        userSignupDto.setLevel(level);
         userService.join(userSignupDto);
         return "user/Login";
-
     }
 
 
-
-
+    /*
     // 아이디 중복확인 기능
     @PostMapping("/idCheck")
     @ResponseBody
