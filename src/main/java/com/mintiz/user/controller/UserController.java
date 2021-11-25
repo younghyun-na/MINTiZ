@@ -30,7 +30,7 @@ public class UserController {
         model.addAttribute("UserSignupDto", new UserSignupDto());
         return "user/Signup";
     }
-    */
+
 
 
     // WebDataBinder 등록
@@ -38,15 +38,24 @@ public class UserController {
     public void initBinder(WebDataBinder dataBinder){
         dataBinder.setConversionService(this.conversionService);
     }
+    */
 
-
+    /*
     // 회원가입 + 레벨 값 저장
     @GetMapping("/signup")
-    public String goSignup(@RequestParam("level") Level level, UserSignupDto userSignupDto) {
+    public String setSignup(@RequestParam("level") Level level, UserSignupDto userSignupDto) {
         userSignupDto.setLevel(level);
         return "user/Signup";
     }
 
+    // 회원가입 + 레벨 값 저장
+    @GetMapping("/signup")
+    public String setSignup( UserSignupDto userSignupDto) {
+        return "user/Signup";
+    }
+    */
+
+    /*
     // 회원가입
     @PostMapping("/signup")
     public String Signup(@Valid @ModelAttribute UserSignupDto userSignupDto, BindingResult bindingResult){
@@ -60,7 +69,7 @@ public class UserController {
 
 
 
-    /*
+
     // 아이디 중복확인 기능
     @PostMapping("/idCheck")
     @ResponseBody
