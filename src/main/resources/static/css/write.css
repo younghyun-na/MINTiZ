@@ -92,3 +92,7 @@ div {
 .mypage{
     float: right;
 }
+
+.button{
+    vertical-align : middle;
+}

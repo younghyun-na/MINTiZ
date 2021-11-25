@@ -2,8 +2,19 @@
 <html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
 <head>
   <title>MINTiZ</title>
-  <script type="text/javascript" src="../js/writingdetails.js"></script>
-  <link rel="stylesheet" type="text/css" href="../css/writingdetails.css">
+  <script type="text/javascript"  th:src="@{/js/writingdetails.js}" src="../js/writingdetails.js"></script>
+  <link rel="stylesheet" type="text/css" th:href="@{/css/writingdetails.css}" href="../css/writingdetails.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.min.js"></script>
+  <script>
+    $(document).ready(function(){
+      $('.slider').bxSlider({
+        slideWidth: 500, //이미지 박스 크기설정
+      });
+    });
+  </script>
+
 
 </head>
 
@@ -26,53 +37,61 @@
 
 
   <div class = "body-layout">
+
+    <ul class="slider">
+      <li th:each = "imageFile : ${PostResDto.imageFiles}" >
+        <img th:src= "|/post/images/${imageFile.getUploadFilePath()}|" src="img/prev.jpg"  width="500" height="500" /></li>
+    </ul>
+
     <!--사진 슬라이드-->
     <!--th:src = "@{/post/images/{filename}(filename=${imageFile.uploadFilePath})}"-->
 
-    <img th:each = "imageFile : ${PostResDto.imageFiles}"
-         th:src= "|/post/images/${imageFile.getUploadFilePath()}|" width="300" height="300"/>
-
     <!--
-    <ul class="slides">
-      <input type="radio" name="radio-btn" id="img-1" checked />
-      <li class="slide-container">
-        <div class="slide">
-          <img src="../img/writingdetails1.jpg" alt=""></div>
-        <div class="nav">
-          <label for="img-1" class="prev">&#x2039;</label>
-          <label for="img-2" class="next">&#x203a;</label>
-        </div>
-      </li>
+    <img th:each = "imageFile : ${PostResDto.imageFiles}"
+         th:src= "|/post/images/${imageFile.getUploadFilePath()}|" width="300" height="300"/>-->
 
 
-      <input type="radio" name="radio-btn" id="img-2" />
-      <li class="slide-container">
-        <div class="slide">
-          <img src="../img/writingdetails2.jpg" alt=""></div>
-        <div class="nav">
-          <label for="img-1" class="prev">&#x2039;</label>
-          <label for="img-3" class="next">&#x203a;</label>
-        </div>
-      </li>
+      <!--
+      <ul class="slides">
+        <input type="radio" name="radio-btn" id="img-1" checked />
+        <li class="slide-container">
+          <div class="slide">
+            <img src="../img/writingdetails1.jpg" alt=""></div>
+          <div class="nav">
+            <label for="img-1" class="prev">&#x2039;</label>
+            <label for="img-2" class="next">&#x203a;</label>
+          </div>
+        </li>
 
-      <input type="radio" name="radio-btn" id="img-3" />
-      <li class="slide-container">
-        <div class="slide">
-          <img src="../img/writingdetails3.jpg" alt=""></div>
-        <div class="nav">
-          <label for="img-2" class="prev">&#x2039;</label>
-          <label for="img-3" class="next">&#x203a;</label>
-        </div>
-      </li>
+        <input type="radio" name="radio-btn" id="img-2" />
+        <li class="slide-container">
+          <div class="slide">
+            <img src="../img/writingdetails2.jpg" alt=""></div>
+          <div class="nav">
+            <label for="img-1" class="prev">&#x2039;</label>
+            <label for="img-3" class="next">&#x203a;</label>
+          </div>
+        </li>
+
+        <input type="radio" name="radio-btn" id="img-3" />
+        <li class="slide-container">
+          <div class="slide">
+            <img src="../img/writingdetails3.jpg" alt=""></div>
+          <div class="nav">
+            <label for="img-2" class="prev">&#x2039;</label>
+            <label for="img-3" class="next">&#x203a;</label>
+          </div>
+        </li>
 
 
-      <li class="nav-dots">
-        <label for="img-1" class="nav-dot" id="img-dot-1"></label>
-        <label for="img-2" class="nav-dot" id="img-dot-2"></label>
-        <label for="img-3" class="nav-dot" id="img-dot-3"></label>
-      </li>
-      -->
+        <li class="nav-dots">
+          <label for="img-1" class="nav-dot" id="img-dot-1"></label>
+          <label for="img-2" class="nav-dot" id="img-dot-2"></label>
+          <label for="img-3" class="nav-dot" id="img-dot-3"></label>
+        </li>
+
     </ul>
+    -->
 
     <!--작성자-->
     <div class="writer">
