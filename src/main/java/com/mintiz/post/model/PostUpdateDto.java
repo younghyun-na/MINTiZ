@@ -20,7 +20,7 @@ public class PostUpdateDto {
 
     private String location;
 
-    private List<MultipartFile> newImages;
+    private List<MultipartFile> newImages;   //새로운 이미지
 
-    private List<ImageFile> images;
+    private List<ImageFile> images;   //기존 이미지
 }

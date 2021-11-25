@@ -194,12 +194,21 @@ public class PostService {
     public void updatePost(Long postId, PostUpdateDto postUpdateDto){ //후기
         Post post = postRepository.findById(postId)
                 .orElseThrow(() -> new IllegalArgumentException("일치하는 게시글이 없습니다. postId= " + postId));
-        try{
-            List<ImageFile> imageFileList = fileStore.storeFiles(postUpdateDto.getNewImages());     //1.이미지 수정
-            post.getImages().clear();
+        List<ImageFile> originImageList = post.getImages();             //원본 이미지
 
-            for(ImageFile imageFile : imageFileList){
-                post.addImageFile(imageFile);
+        try{                                                            //1.이미지 수정
+            if(!(postUpdateDto.getNewImages().get(0).isEmpty())){        //새로 들어온 이미지가 존재
+                List<ImageFile> imageFileList = fileStore.storeFiles(postUpdateDto.getNewImages());
+                post.getImages().clear();
+
+                for(ImageFile imageFile : imageFileList){
+                    post.addImageFile(imageFile);
+                }
+            }else{                                     //새로 들어온 이미지 존재 X
+                post.getImages().clear();
+                for(ImageFile imageFile : originImageList){
+                    post.addImageFile(imageFile);
+                }
             }
         }catch(Exception e){
             e.printStackTrace();
