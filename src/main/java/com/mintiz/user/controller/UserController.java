@@ -26,6 +26,7 @@ public class UserController {
     private UserRepository userRepository;
 
 
+<<<<<<< HEAD
     @Autowired
     private ConversionService conversionService;
 
@@ -34,7 +35,7 @@ public class UserController {
 
     // 회원가입 페이지 이동
     @GetMapping("/signup")
-    public String createForm(@RequestParam(value ="level", defaultValue = "0") Level level, Model model){
+    public String goSignup(Model model){
         model.addAttribute("UserSignupDto", new UserSignupDto());
         return "user/Signup";
     }
