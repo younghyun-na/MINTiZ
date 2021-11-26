@@ -25,11 +25,10 @@ public class UserController {
     private UserService userService;
     private UserRepository userRepository;
 
-
-<<<<<<< HEAD
+    /*
     @Autowired
     private ConversionService conversionService;
-
+     */
 
 
 
