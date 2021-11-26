@@ -24,7 +24,7 @@ public class UserSignupDto {
     private String email;
 
     @NotBlank (message = "아이디는 필수입니다.")
-    private String id;
+    private String loginId;
 
     @NotBlank (message = "이름은 필수입니다.")
     private String name;
@@ -44,5 +44,8 @@ public class UserSignupDto {
 
     public void setLevel(Level level){
         this.level = level;
+    }
+
+    public Level toLevel(){ return level;
     }
 }
