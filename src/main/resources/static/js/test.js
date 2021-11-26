@@ -79,9 +79,10 @@ function setResult() {
 
 
 }
+var level_dic = {0:"반민초단", 1:"민초입문단", 2:"민초린이", 3:"민초른이",4:"민초러버", 5: "민초마스터"}
 
 function goToSignUp() {
-    let link = baseUrl + 'user/signup?level=' + point;
+    let link = baseUrl + 'user/signup?level=' + level_dic[point];
     console.log(link);
     location.href = link;
 }

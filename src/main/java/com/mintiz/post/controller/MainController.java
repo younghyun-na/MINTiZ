@@ -1,8 +1,6 @@
 package com.mintiz.post.controller;
 
 import com.mintiz.bookmark.BookmarkService;
-import com.mintiz.domain.BookmarkedPost;
-import com.mintiz.domain.Post;
 import com.mintiz.domain.User;
 import com.mintiz.post.model.PostListResDto;
 import com.mintiz.post.service.PostService;
@@ -12,11 +10,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -56,7 +51,7 @@ public class MainController {
     /**
      * 게시글 태그로 조회
      * main/?tagName=
-    **/
+     **/
 
     @GetMapping("/main/select")
     public String showPostListByTag(@RequestParam String tagName, Model model){

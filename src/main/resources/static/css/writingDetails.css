@@ -285,3 +285,7 @@ input#img-6:checked ~ .nav-dots label#img-dot-6 {
     border-radius: 70%;
     overflow: hidden;
 }
+
+.mypage{
+    float: right;
+}
