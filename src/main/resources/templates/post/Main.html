@@ -27,6 +27,12 @@
 
 <!--콘텐츠를 감싸는 태그-->
 <div id="content" >
+
+    <!--글쓰기 버튼-->
+    <button class="mypage write-button">
+        <span th:onclick="|location.href='@{/post/add}'|">글 등록</span>
+    </button>
+
     <section id="main-section" th:each = "posts : ${post}">
         <article class="contents" >
             <header class="top">

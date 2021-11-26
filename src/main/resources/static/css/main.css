@@ -74,6 +74,16 @@ body{
 .tag{
     padding-top: 5px;
 }
+
+.write-button{
+    background: var(--mintiz-brown);
+    color: white;
+    padding: 5px;
+    border-radius:5px;
+    margin: 0px 2px;
+    border: 0;
+    outline: 0;
+}
 .tag button {
     background: var(--mintiz-brown);
     color: white;

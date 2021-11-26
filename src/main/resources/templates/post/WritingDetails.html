@@ -64,10 +64,28 @@
               <img id="trash" src="../img/delete.png"  width='25' height='25' alt="삭제">
             </button>
           </form>
-          <button id="bookmark_btn" onclick="bookmark()">
-            <img id="bookmark" src="../img/star.png" width='27' height='27' alt="북마크">
-            </input>
-          </button>
+          <!--북마크 부분-->
+          <div th:if="${posts.checkBookmark eq true}" >
+              <div  th:id="|clickedStar${posts.postId}|" style="display: inline"
+                    th:onclick="|javascript:bookmark('${posts.postId}','${user.id}')|">
+                  <img class="bookmark_img" src="../img/clicked_star.png" alt="북마크이미지" >
+              </div>
+              <div   th:id="|star${posts.postId}|" style="display: none"
+                     th:onclick="|javascript:noneBookmark('${posts.postId}','${user.id}')|">
+                  <img class="bookmark_img" src="../img/star.png" alt="북마크이미지">
+              </div>
+          </div>
+
+          <div th:if="${posts.checkBookmark eq false}" >
+              <div th:id="|clickedStar${posts.postId}|" style="display: none"
+                   th:onclick="|javascript:bookmark('${posts.postId}','${user.id}')|">
+                  <img class="bookmark_img" src="../img/clicked_star.png" alt="북마크이미지" >
+              </div>
+              <div th:id="|star${posts.postId}|" style="display: inline"
+                   th:onclick="|javascript:noneBookmark('${posts.postId}','${user.id}')|">
+                  <img class="bookmark_img" src="../img/star.png" alt="북마크이미지">
+              </div>
+          </div>
         </span>
       </div>
 
