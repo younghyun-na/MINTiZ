@@ -23,4 +23,5 @@ logging.level:
   #org.hibernate.type: trace
 
 file:
-  dir: C:/Users/ADMIN/Documents/img/
+  #dir: C:/Users/ADMIN/Documents/img/
+  dir: /Users/jimin/dev/img
