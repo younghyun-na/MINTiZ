@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>회원 가입</title>
-    <script type="text/javascript"></script>
+    <script type="text/javascript" src="../js/join.js"></script>
     <link rel="stylesheet" type="text/css" th:href="@{/css/join.css}">
 </head>
 
@@ -28,25 +28,24 @@
                 <p><b> 레벨 <b></p>
                 <span th:text="${level}"> </span>
             </div>
-
             <div class="login-name">
                 <p> 프로필 </p>
-                <span th:field = "${profile}"> </span>
+                <input type="file" accept="image/*" name="profile" />
             </div>
             <div class="login-name">
                 <b>이메일 </b> </div>
             <div class="login-input-wrap">
-                <input  placeholder="이메일을 입력해주세요" type="email"></input>
+                <input  name="email" placeholder="이메일을 입력해주세요" type="email"></input>
             </div>
             <div class="login-name">
                 <b>이름</b> </div>
             <div class="login-input-wrap">
-                <input  placeholder="이름을 입력해주세요" type="text">
+                <input  name="name" placeholder="이름을 입력해주세요" type="text">
             </div>
             <div class="login-name">
                 <b>아이디 </b></div>
             <div class="login-input-wrap">
-                <input placeholder="아이디를 입력해주세요" type="text">
+                <input name="loginId" placeholder="아이디를 입력해주세요" type="text">
                 <!--
                 <input  placeholder="아이디를 입력해주세요" type="text">
                 <button id="id_button" onclick="id_check();">중복확인</button>
@@ -57,11 +56,11 @@
             <div class="login-name">
                 <b>비밀번호 </b></div>
             <div class="login-input-wrap">
-                <input  placeholder="비밀번호를 입력해주세요" type="password"></input>
+                <input name="password" placeholder="비밀번호를 입력해주세요" type="password"></input>
             </div>
             <div class="login-name"> <b>비밀번호 확인</b></div>
             <div class="login-input-wrap">
-                <input  placeholder="비밀번호를 입력해주세요" type="password"></input>
+                <input name="check_password" placeholder="비밀번호를 입력해주세요" type="password"></input>
             </div>
             <div class="login-button-wrap">
                 <button type="submit" >Sign up</button>

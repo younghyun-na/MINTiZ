@@ -8,7 +8,7 @@ import javax.validation.constraints.NotBlank;
 
 @Data
 @Builder
-public class UserFindPwDto {
+public class UserProfileDto {
 
     @NotBlank(message = "이메일은 필수입니다.")
     @Email

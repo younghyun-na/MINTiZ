@@ -8,7 +8,7 @@ public class LevelConverter implements Converter<String, Level> {
 
     @Override
     public Level convert(String source) {
-        return Level.convert(source);
+        return Level.valueOf(source);
     }
 }
 */

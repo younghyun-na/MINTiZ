@@ -12,10 +12,10 @@
   <form name="login" method="POST" th:action="@{/user/findId}" th:object="${UserFindIdDto}">
     <div class="login-input-wrap">
       <input placeholder="이메일을 입력해주세요" type="text"
-             id="email" th:field="*{email}"></input>
+             id="email" ></input>
     </div>
     <div class="login-button-wrap">
-      <button id="findID_button" type="submit" onclick="|location.href='@{/user/findId2}'|">
+      <button id="findID_button" type="submit" value="check" onclick="|location.href='@{/user/findId2}'|">
         ID 찾기</button>
     </div>
   </form>
