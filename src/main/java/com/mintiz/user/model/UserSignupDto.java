@@ -42,10 +42,13 @@ public class UserSignupDto {
         return level;
     }
 
+<<<<<<< HEAD
 
     /*
     public void setLevel(String level){
         this.level = level;
     }
  */
+=======
+>>>>>>> 712a6f9f95b5eb2d2258dc1ff060c6047e396b52
 }
