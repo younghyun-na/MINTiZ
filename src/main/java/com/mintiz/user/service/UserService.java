@@ -40,9 +40,16 @@ public class UserService {
     }
 
 
-    // 회원 조회 (Mypage Controller에서 사용) ->
+    // 회원 조회 (Mypage Controller에서 사용)
     public User findUser(Long id){
         return userRepository.findById(id).orElseThrow(
+                () -> new IllegalArgumentException("존재하지 않는 회원"));
+
+    }
+
+    // 회원 조회 (로그인한 아이디로)
+    public User findUserByEmail(String email){
+        return userRepository.findByEmail(email).orElseThrow(
                 () -> new IllegalArgumentException("존재하지 않는 회원"));
 
     }

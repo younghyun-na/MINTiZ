@@ -31,17 +31,13 @@
     </form>
     <div class="find-id-password">
         <p class="forget-msg">
-            <button id="findId" th:onclick="|location.href='@{/user/findId}'|"> 아이디 찾기 </button>
-            <button id="findPW" th:onclick="|location.href='@{/user/findPW}'|"> 비밀번호 찾기  </button>
-            <button id="join" th:onclick="|location.href='@{/user/signup}'|"> 회원가입 </button>
+            <button id="findId" onclick="location.href='/user/findId'" > 아이디 찾기 </button>
+            <button id="findPW" onclick="location.href='/user/findPW'" > 비밀번호 찾기  </button>
+            <button id="join" onclick="location.href='/user/signup'"> 회원가입 </button>
         </p>
     </div>
 </section>
 <hr>
-<div class="google-sign-in">
-    <button><i class="sign-button"></i>
-        <span>Start with Google</span></button>
-</div>
 
 
 </body>

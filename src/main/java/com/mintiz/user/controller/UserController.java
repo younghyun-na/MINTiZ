@@ -5,17 +5,12 @@ import com.mintiz.user.model.UserSignupDto;
 import com.mintiz.user.repository.UserRepository;
 import com.mintiz.user.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.convert.ConversionService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
-
 import javax.validation.Valid;
-import java.beans.PropertyEditorSupport;
-import java.util.ArrayList;
-import java.util.List;
+
 
 @Controller
 @RequestMapping("/user")
@@ -26,41 +21,75 @@ public class UserController {
     private UserRepository userRepository;
 
     /*
-    @Autowired
-    private ConversionService conversionService;
-     */
-
-
-
     // 회원가입 페이지 이동
     @GetMapping("/signup")
-    public String goSignup(Model model){
+    public String signupForm(@RequestParam("level") String level, Model model){
+        model.addAttribute("level", level);
         model.addAttribute("UserSignupDto", new UserSignupDto());
         return "user/Signup";
     }
 
-    /*
-    // WebDataBinder 등록
-    @InitBinder
-    public void initBinder(WebDataBinder dataBinder){
-        dataBinder.setConversionService(this.conversionService);
-    }
-    */
-
-    // 회원가입 기능
     @PostMapping("/signup")
-    public String signup(UserSignupDto userSignupDto,
-                         BindingResult bindingResult,
-                         @RequestParam(value ="level", defaultValue = "0") Level level) {
+    public String signup(@Valid @ModelAttribute  UserSignupDto userSignupDto,
+                         BindingResult bindingResult) {
 
-        if (bindingResult.hasErrors()){
+        if (bindingResult.hasErrors()) {
             return "user/Signup";
         }
 
+        // userSignupDto.setLevel(level);
+        userService.join(userSignupDto);
+        return "user/Login";
+    }
+    */
+
+    /*
+    // 회원가입 페이지 이동
+    @GetMapping("/signup")
+    public String signupForm(Model model){
+        model.addAttribute("UserSignupDto", new UserSignupDto());
+        return "user/Signup";
+    }
+     */
+
+    //회원가입 창 불러오기
+    @GetMapping("/signup")
+    public String signupForm(@RequestParam(value = "level") String level, Model model) {
+        //log.info("level ={}",intToLevel);
+        model.addAttribute("level", Level.valueOf(level));
+        return "user/Signup";
+    }
+
+    // 회원가입 기능
+    @PostMapping("/signup")
+    public String signup(@Valid @ModelAttribute UserSignupDto userSignupDto,
+                         BindingResult bindingResult) {
+
+        if (bindingResult.hasErrors()) {
+            return "user/Signup";
+        }
+
+        // userSignupDto.setLevel(level);
+        userService.join(userSignupDto);
+        return "user/Login";
+    }
+
+
+    /*
+    // 회원가입 기능
+    @PostMapping("/signup")
+    public String signup(@RequestParam("level") String level,
+                         @Valid UserSignupDto userSignupDto,
+                         BindingResult bindingResult) {
+
+        if (bindingResult.hasErrors()) {
+            return "user/Signup";
+        }
         userSignupDto.setLevel(level);
         userService.join(userSignupDto);
         return "user/Login";
     }
+    */
 
 
     /*

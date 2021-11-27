@@ -9,7 +9,9 @@ import javax.validation.constraints.NotEmpty;
 @Data
 public class UserLoginDto {
 
+    @NotEmpty
     private String loginId;
+    @NotEmpty
     private String password;
 
     public UserLoginDto(String loginId, String password){
@@ -17,11 +19,7 @@ public class UserLoginDto {
         this.password = password;
     }
 
-    public String getLoginId() {
-        return loginId;
+    public UserLoginDto() {
     }
 
-    public String getPassword() {
-        return password;
-    }
 }

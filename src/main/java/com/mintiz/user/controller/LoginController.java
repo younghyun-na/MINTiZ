@@ -4,36 +4,36 @@ package com.mintiz.user.controller;
 import com.mintiz.domain.User;
 import com.mintiz.user.SessionConst;
 import com.mintiz.user.model.UserLoginDto;
-import com.mintiz.user.model.UserSignupDto;
 import com.mintiz.user.repository.UserRepository;
 import com.mintiz.user.service.LoginService;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
+@Slf4j
 @Controller
+@RequiredArgsConstructor
 @RequestMapping("/user")
 public class LoginController {
 
     private LoginService loginService;
     private UserRepository userRepository;
 
-
-    // 로그인 페이지 이동
+    // 로그인 페이지
     @GetMapping("/login")
-    public String login(@ModelAttribute UserLoginDto userLoginDto){
+    public String loginForm(Model model){
+        model.addAttribute("UserLoginDto", new UserLoginDto());
         return "user/Login";
     }
 
-
-
+    // 로그인 기능
     @PostMapping("/login")
     public String login(@Valid @ModelAttribute UserLoginDto userLoginDto,
                           BindingResult bindingResult,
@@ -43,6 +43,7 @@ public class LoginController {
             return "user/Login";
         }
 
+        // NullPoint error
         User loginMember = loginService.login(userLoginDto.getLoginId(), userLoginDto.getPassword());
 
         if (loginMember == null) {
@@ -50,7 +51,7 @@ public class LoginController {
             return "user/Login";
         }
 
-        //로그인 성공
+        //로그인 성공 처리
         HttpSession session = request.getSession();
         //세션에 로그인 회원 정보 보관
         session.setAttribute(SessionConst.LOGIN_MEMBER, loginMember);
@@ -60,9 +61,11 @@ public class LoginController {
 
     }
 
+    // 로그아웃
     @PostMapping("/logout")
     public String logout(HttpServletRequest request) {
         HttpSession session = request.getSession(false);
+
         if (session != null) {
             session.invalidate();
         }

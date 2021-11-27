@@ -42,10 +42,10 @@ public class UserSignupDto {
         return level;
     }
 
-    public void setLevel(Level level){
+
+    /*
+    public void setLevel(String level){
         this.level = level;
     }
-
-    public Level toLevel(){ return level;
-    }
+ */
 }
