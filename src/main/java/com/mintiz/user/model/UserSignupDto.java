@@ -41,7 +41,4 @@ public class UserSignupDto {
         return level;
     }
 
-    public void setLevel(Level level){
-        this.level = level;
-    }
 }

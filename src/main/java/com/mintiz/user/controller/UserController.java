@@ -3,6 +3,7 @@ package com.mintiz.user.controller;
 import com.mintiz.domain.Level;
 import com.mintiz.user.model.UserSignupDto;
 import com.mintiz.user.service.UserService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,6 +14,7 @@ import javax.validation.Valid;
 
 @Controller
 @RequestMapping("/user")
+@Slf4j
 public class UserController {
 
     @Autowired
@@ -37,13 +39,16 @@ public class UserController {
     */
 
 
-    // 회원가입 + 레벨 값 저장
+    //회원가입 창 불러오기
     @GetMapping("/signup")
-    public String userLevel(@RequestParam("level") Level level, UserSignupDto userSignupDto) {
-        userSignupDto.setLevel(level);
-        userService.join(userSignupDto);
+    public String userLevel(@RequestParam(value = "level") Integer level, Model model) {
+        //log.info("level ={}",intToLevel);
+        model.addAttribute("level",Level.valueOf(level));
         return "user/Signup";
     }
+    //회원가입
+    //@PostMapping("/signup")
+
 
 
 
