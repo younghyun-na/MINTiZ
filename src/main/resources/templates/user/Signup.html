@@ -9,7 +9,7 @@
 <body>
 <div id="page-wrapper">
     <header th:replace="fragments.html :: #login-header">
-    <!--고정 헤더-->
+        <!--고정 헤더-->
         <hgroup align="center">
             <h1 align="center" class="master-title">회원 가입</h1>
         </hgroup>
@@ -22,59 +22,53 @@
 
 <!--회원가입 폼-->
 <section class="join-input-section-wrap">
-<<<<<<< HEAD
-    <form name="join_form" role="form" th:action="@{/user/signup}"
-          th:object="${UserSignupDto}" method="POST">
     <form name="join_form" role="form" th:action="@{/user/signup}" method="POST">
-        <div class="login-name">
-            <p><b> 레벨 </b></p>
-            <span th:text="${level}"> </span>
-        </div>
+        <form name="join_form" role="form" th:action="@{/user/signup}" method="POST">
+            <div class="login-name">
+                <p><b> 레벨 <b></p>
+                <span th:text="${level}"> </span>
+            </div>
 
-        <div class="login-name">
-            <p> 프로필 </p>
-            <span th:field = "${profile}"> </span>
-        </div>
-        <div class="login-name">
-            <b>이메일 </b> </div>
-        <div class="login-input-wrap">
-            <input  placeholder="이메일을 입력해주세요" type="email"></input>
-        </div>
-        <div class="login-name">
-            <b>이름</b> </div>
-        <div class="login-input-wrap">
-            <input  placeholder="이름을 입력해주세요" type="text">
-        </div>
-        <div class="login-name">
-            <b>아이디 </b></div>
-        <div class="login-input-wrap">
-            <input th:field="*{loginId}" placeholder="아이디를 입력해주세요" type="text">
-            <!--
-            <input  placeholder="아이디를 입력해주세요" type="text">
-            <button id="id_button" onclick="id_check();">중복확인</button>
-            <span class="id_ok">사용 가능한 아이디입니다.</span>
-            <span class="id_already">사용 불가능한 아이디입니다.</span>
-            -->
-        </div>
-        <div class="login-name">
-            <b>비밀번호 </b></div>
-        <div class="login-input-wrap">
-            <input  placeholder="비밀번호를 입력해주세요" type="password"></input>
-        </div>
-        <div class="login-name"> <b>비밀번호 확인</b></div>
-        <div class="login-input-wrap">
-            <input  placeholder="비밀번호를 입력해주세요" type="password"></input>
-        </div>
-        <div class="login-button-wrap">
-<<<<<<< HEAD
-            <button onclick="join_form_check();">Sign up</button>
-=======
-            <button onclick="join_form_check();" >sign up</button>
->>>>>>> 712a6f9f95b5eb2d2258dc1ff060c6047e396b52
-        </div>
+            <div class="login-name">
+                <p> 프로필 </p>
+                <span th:field = "${profile}"> </span>
+            </div>
+            <div class="login-name">
+                <b>이메일 </b> </div>
+            <div class="login-input-wrap">
+                <input  placeholder="이메일을 입력해주세요" type="email"></input>
+            </div>
+            <div class="login-name">
+                <b>이름</b> </div>
+            <div class="login-input-wrap">
+                <input  placeholder="이름을 입력해주세요" type="text">
+            </div>
+            <div class="login-name">
+                <b>아이디 </b></div>
+            <div class="login-input-wrap">
+                <input placeholder="아이디를 입력해주세요" type="text">
+                <!--
+                <input  placeholder="아이디를 입력해주세요" type="text">
+                <button id="id_button" onclick="id_check();">중복확인</button>
+                <span class="id_ok">사용 가능한 아이디입니다.</span>
+                <span class="id_already">사용 불가능한 아이디입니다.</span>
+                -->
+            </div>
+            <div class="login-name">
+                <b>비밀번호 </b></div>
+            <div class="login-input-wrap">
+                <input  placeholder="비밀번호를 입력해주세요" type="password"></input>
+            </div>
+            <div class="login-name"> <b>비밀번호 확인</b></div>
+            <div class="login-input-wrap">
+                <input  placeholder="비밀번호를 입력해주세요" type="password"></input>
+            </div>
+            <div class="login-button-wrap">
+                <button type="submit" >Sign up</button>
+            </div>
 
 
-    </form>
+        </form>
 </section>
 
 </body>

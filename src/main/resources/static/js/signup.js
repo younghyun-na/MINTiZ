@@ -1,4 +1,3 @@
-
 // 아이디 중복 체크
 function checkId(){
         var id = $('#id').val(); // id값이 "id"인 입력란의 값을 저장
@@ -20,7 +19,6 @@ function checkId(){
             }
         });
 };
-
 
 // 유효성 검사
 function join_form_check(){

@@ -22,37 +22,6 @@ public class UserController {
     private UserService userService;
     private UserRepository userRepository;
 
-    /*
-    // 회원가입 페이지 이동
-    @GetMapping("/signup")
-    public String signupForm(@RequestParam("level") String level, Model model){
-        model.addAttribute("level", level);
-        model.addAttribute("UserSignupDto", new UserSignupDto());
-        return "user/Signup";
-    }
-
-    @PostMapping("/signup")
-    public String signup(@Valid @ModelAttribute  UserSignupDto userSignupDto,
-                         BindingResult bindingResult) {
-
-        if (bindingResult.hasErrors()) {
-            return "user/Signup";
-        }
-
-        // userSignupDto.setLevel(level);
-        userService.join(userSignupDto);
-        return "user/Login";
-    }
-    */
-
-    /*
-    // 회원가입 페이지 이동
-    @GetMapping("/signup")
-    public String signupForm(Model model){
-        model.addAttribute("UserSignupDto", new UserSignupDto());
-        return "user/Signup";
-    }
-     */
 
     //회원가입 창 불러오기
     @GetMapping("/signup")
@@ -61,40 +30,23 @@ public class UserController {
         model.addAttribute("level",Level.valueOf(level));
         return "user/Signup";
     }
-    //회원가입
-    //@PostMapping("/signup")
 
 
     // 회원가입 기능
     @PostMapping("/signup")
-    public String signup(@Valid @ModelAttribute UserSignupDto userSignupDto,
+    public String signup(@Valid UserSignupDto userSignupDto,
                          BindingResult bindingResult) {
 
         if (bindingResult.hasErrors()) {
             return "user/Signup";
         }
 
-        // userSignupDto.setLevel(level);
+        //userSignupDto.setLevel(level);
         userService.join(userSignupDto);
-        return "user/Login";
+        return "redirect:/user/Login";
     }
 
 
-    /*
-    // 회원가입 기능
-    @PostMapping("/signup")
-    public String signup(@RequestParam("level") String level,
-                         @Valid UserSignupDto userSignupDto,
-                         BindingResult bindingResult) {
-
-        if (bindingResult.hasErrors()) {
-            return "user/Signup";
-        }
-        userSignupDto.setLevel(level);
-        userService.join(userSignupDto);
-        return "user/Login";
-    }
-    */
 
 
     /*
