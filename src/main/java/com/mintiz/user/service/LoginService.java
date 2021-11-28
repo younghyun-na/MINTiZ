@@ -29,4 +29,5 @@ public class LoginService {
         HttpSession session = request.getSession();
         return (User)session.getAttribute(SessionConst.LOGIN_MEMBER);
     }
+
 }

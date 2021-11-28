@@ -1,10 +1,12 @@
 package com.mintiz.post.controller;
 
+import com.mintiz.domain.ImageFile;
 import com.mintiz.domain.User;
 import com.mintiz.post.model.*;
 import com.mintiz.post.service.CommentService;
 import com.mintiz.post.service.PostService;
 import com.mintiz.user.service.LoginService;
+import com.mintiz.user.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.io.Resource;
@@ -28,6 +30,7 @@ public class PostController {
     private final PostService postService;
     private final CommentService commentService;
     private final LoginService loginService;
+    private final UserService userService;
     private final FileStore fileStore;
     private final long userId = 1L;
 

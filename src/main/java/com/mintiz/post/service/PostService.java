@@ -116,6 +116,7 @@ public class PostService {
 
     private void toDto(List<PostListResDto> postListResDtos, Post post, boolean b) {
 
+        log.info("userId = {}", post.getUser().getId());
         List<ImageFile> imageList = imageRepository.findImageByPostId(post.getId()).orElseThrow(
                 () -> new IllegalStateException("게시글에 이미지가 존재하지 않습니다."));
 

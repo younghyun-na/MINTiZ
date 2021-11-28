@@ -4,6 +4,7 @@ import com.mintiz.bookmark.BookmarkService;
 import com.mintiz.domain.User;
 import com.mintiz.post.model.PostListResDto;
 import com.mintiz.post.service.PostService;
+import com.mintiz.user.repository.UserRepository;
 import com.mintiz.user.service.LoginService;
 import com.mintiz.user.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 @RequiredArgsConstructor
@@ -23,6 +25,7 @@ public class MainController {
 
     private final PostService postService;
     private final UserService userService;
+    private final UserRepository userRepository;
     private final LoginService loginService;
     private final BookmarkService bookmarkService;
 
@@ -33,10 +36,11 @@ public class MainController {
     public String showPostList(@RequestParam(required = false) String content, Model model, HttpServletRequest request){
 
         User loginUser = loginService.getLoginUser(request);
-        //로그인 기능 아직 안해서 임시로 해둠
+        if (loginUser == null){
+            return "redirect:/user/login";
+        }
         User user = userService.findUser(loginUser.getId());
         model.addAttribute("user",user);
-
 
         //내용으로 조회(제목이 X)
         if(content != null){

@@ -65,12 +65,13 @@ public class LoginController {
 
     // 로그아웃
     @PostMapping("/logout")
-    public String logout(HttpServletRequest request) {
+    @ResponseBody
+    public void logout(HttpServletRequest request) {
         HttpSession session = request.getSession(false);
 
         if (session != null) {
             session.invalidate();
         }
-        return "redirect:/user/Signup";
+
     }
 }
