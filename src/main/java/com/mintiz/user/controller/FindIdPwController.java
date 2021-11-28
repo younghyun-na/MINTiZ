@@ -37,7 +37,7 @@ public class FindIdPwController {
             model.addAttribute("check", 1);
         } else {                 // 존재하는 회원
             model.addAttribute("check", 0);
-            model.addAttribute("id", member.getId());   // 아이디 받기
+            model.addAttribute("id", member.getLoginId());   // 아이디 받기
         }
 
         return "user/FindId";
@@ -50,6 +50,7 @@ public class FindIdPwController {
     }
 
     // 비밀번호 찾기 기능
+
     @PostMapping("/findPW")
     public String findPW(@RequestParam("email") String email,
                          @RequestParam("loginId") String loginId,
@@ -66,4 +67,6 @@ public class FindIdPwController {
 
         return "user/FindPW";
     }
+
+
 }

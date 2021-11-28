@@ -1,6 +1,7 @@
 package com.mintiz.domain;
 
 import lombok.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
@@ -17,10 +18,6 @@ public class User {
     @Column(name = "user_id")
     private Long id;  // DB 관리용 아이디
 
-    @NotEmpty
-    @Column(nullable = false, unique = true)
-    private String loginId;
-
     @Column(nullable = false, unique = true)
     private String email;
 
@@ -35,16 +32,19 @@ public class User {
     @OneToMany(mappedBy = "user", orphanRemoval = true)
     private List<Post> posts = new ArrayList<>();
 
-    private String profile;
+    @OneToOne (cascade = CascadeType.ALL)
+    private ImageFile profile;
+
+    private String loginId;
 
     @Builder
-    private User(String email, String name, String loginId, String password, Level level, String profile) {
+    private User(String email, String name, String password, Level level, ImageFile profile, String loginId) {
         this.email = email;
         this.name = name;
-        this.loginId = loginId;
         this.password = password;
         this.level = level;
         this.profile = profile;
+        this.loginId = loginId;
     }
 
 }

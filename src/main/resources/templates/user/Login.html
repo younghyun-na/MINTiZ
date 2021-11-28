@@ -10,7 +10,7 @@
 <br>
 <section class="login-input-section-wrap">
     <form name="login" id="login_id" method="POST"
-          th:action="@{/user/login}" th:object="${UserLoginDto}">
+          th:action th:object="${userLoginDto}">
         <!--
         <div th:if="${#fields.hasGlobalErrors()}">
             <p class="field-error" th:each="err : ${#fields.globalErrors()}"

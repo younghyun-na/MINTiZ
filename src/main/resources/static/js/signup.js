@@ -1,6 +1,6 @@
 // 아이디 중복 체크
-function checkId(){
-        var id = $('#id').val(); // id값이 "id"인 입력란의 값을 저장
+function email_check(){
+        var id = $('#email').val(); // id값이 "id"인 입력란의 값을 저장
         $.ajax({
             url:'/user/idCheck', // Controller에서 인식할 주소
             type:'post', //POST 방식으로 전달

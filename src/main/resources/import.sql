@@ -1,5 +1,6 @@
 INSERT INTO TAG (TAG_NAME) VALUES ('일상');
 INSERT INTO TAG (TAG_NAME) VALUES ('후기');
-INSERT INTO USER (NAME, EMAIL, PASSWORD, LEVEL, LOGIN_ID) VALUES ('세미', 'semi@naver.com', 1234,'민초린이', 'yh');
+
+
 
 

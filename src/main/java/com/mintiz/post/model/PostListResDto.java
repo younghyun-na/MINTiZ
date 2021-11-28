@@ -21,7 +21,7 @@ public class PostListResDto {         //메인 페이지 dto
 
     private String userName;
 
-    private String userImg;
+    private ImageFile userImg;
 
     private String content;
 
