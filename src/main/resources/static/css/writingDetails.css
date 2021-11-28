@@ -92,10 +92,7 @@ body{
     border: none;
     background: none;
 }
-.deleteOrmodify{
-    padding: 0;
-    float: right;
-}
+
 #rewrite_btn{
     padding: 0;
     margin-left: 3px;
@@ -288,4 +285,14 @@ input#img-6:checked ~ .nav-dots label#img-dot-6 {
 
 .mypage{
     float: right;
+}
+
+.comment-content{
+    display:inline-block;
+}
+
+.deleteOrmodify{
+    display:inline-block;
+    float: right;
+    padding-inline-start: 600px ;
 }

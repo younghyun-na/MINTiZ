@@ -29,7 +29,6 @@ public class PostController {
     private final CommentService commentService;
     private final LoginService loginService;
     private final FileStore fileStore;
-    private final long userId = 1L;
 
     @GetMapping("/add")
     public String addPostView(Model model){
@@ -101,16 +100,16 @@ public class PostController {
                            @RequestBody CommentSaveDto commentSaveDto, HttpServletRequest request){
         User loginUser = loginService.getLoginUser(request);
         return commentService.addComment(new CommentSaveDto(loginUser.getId(), postId, commentSaveDto.getContent()));
-        //return "redirect:/post/"+ postId;
     }
 
     //댓글 수정
+    @ResponseBody
     @PostMapping("/{postId}/comments/{commentId}/update")
-    public String updateComment(@PathVariable("commentId") long commentId, @PathVariable("postId") long postId,
-                                CommentUpdateReqDto commentUpdateReqDto){
+    public void updateComment(@PathVariable("commentId") long commentId, @PathVariable("postId") long postId,
+                                @RequestBody CommentUpdateReqDto commentUpdateReqDto){
         commentUpdateReqDto.setCommentId(commentId);
         commentService.updateComment(commentUpdateReqDto);
-        return "redirect:/post/" + postId;
+        //return "redirect:/post/" + postId;
     }
 
     //댓글 삭제

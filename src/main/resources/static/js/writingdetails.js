@@ -1,31 +1,4 @@
-$(function (){
-    $('#submit_btn').on("click", function (){
 
-        //var formData = $("#form").serialize();
-        var formData = { content : $('#comment-input').val()};
-
-        console.log(formData);
-        // Ajax 통신
-        $.ajax({
-            url: "/post/" + $('#post_num').val() + "/comments",
-            type : "POST",
-            data : JSON.stringify(formData),
-            contentType: "application/json; charset=UTF-8",
-            async:false,
-            success:function (formData){
-                console.log("success");
-                window.location.reload(true); // 페이지 리로드
-            },
-            error:function (request,status,error){
-                console.log("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
-            }
-        }).done(function (fragment){
-            $('#commentTable').replaceWith(fragment);
-        });
-    });
-});
-
-/*
 $("#user_id").text()     // 로그인한 사용자의 id 가져와야함 (jquery) 타임리프 변수명보고 수정하기
 $(".writer_name")        // 글 작성자
 $(".writer_name")[0].innerHTML
@@ -35,7 +8,7 @@ for(i = 0; i < $(".writer_name").length; i++){
         $("#control_id"+i).removeClass("hidden");
     }
 }
-*/
+
 
 /*
 $('#submit_btn').click(function(){
