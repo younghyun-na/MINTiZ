@@ -7,6 +7,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 
 @Service
 @Transactional(readOnly = true)
@@ -29,7 +31,7 @@ public class UserService {
         // 회원 객체 생성 후 저장
         return userRepository.save(User.builder()
                 .email(userSignupDto.getEmail())
-                .id(Long.valueOf(userSignupDto.getId()))
+                .loginId(userSignupDto.getLoginId())
                 .password(passwordEncoder.encode(userSignupDto.getPassword()))
                 .name(userSignupDto.getName())
                 .level(userSignupDto.getLevel())
@@ -37,13 +39,20 @@ public class UserService {
                 .build());
     }
 
-    // 아이디로 회원 조회
-    public User findUser(Long userId){
-        return userRepository.findById(userId).orElseThrow(
+
+    // 회원 조회 (Mypage Controller에서 사용)
+    public User findUser(Long id){
+        return userRepository.findById(id).orElseThrow(
                 () -> new IllegalArgumentException("존재하지 않는 회원"));
 
     }
 
+    // 회원 조회 (로그인한 아이디로)
+    public User findUserByEmail(String email){
+        return userRepository.findByEmail(email).orElseThrow(
+                () -> new IllegalArgumentException("존재하지 않는 회원"));
+
+    }
 
     /*
     // 아이디 중복 체크

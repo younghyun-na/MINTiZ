@@ -4,6 +4,7 @@ import com.mintiz.domain.Level;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -24,7 +25,7 @@ public class UserSignupDto {
     private String email;
 
     @NotBlank (message = "아이디는 필수입니다.")
-    private String id;
+    private String loginId;
 
     @NotBlank (message = "이름은 필수입니다.")
     private String name;
@@ -42,4 +43,10 @@ public class UserSignupDto {
         return level;
     }
 
+
+    /*
+    public void setLevel(String level){
+        this.level = level;
+    }
+ */
 }

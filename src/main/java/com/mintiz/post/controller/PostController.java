@@ -36,7 +36,6 @@ public class PostController {
     @PostMapping("/add")
     public String addPost(@ModelAttribute PostSaveDto postSaveDto){
         Long postId = postService.savePost(userId, postSaveDto);
-
         return "redirect:/post/" + postId;
     }
 
@@ -120,7 +119,5 @@ public class PostController {
         commentService.deleteComment(commentId);
         return "redirect:/post/" + postId;
     }
-
-
 
 }

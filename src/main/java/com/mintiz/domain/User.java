@@ -3,8 +3,10 @@ package com.mintiz.domain;
 import lombok.*;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
 import java.util.ArrayList;
 import java.util.List;
+
 
 @Entity
 @Getter @Setter
@@ -13,7 +15,11 @@ public class User {
     
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_id")
-    private Long id;
+    private Long id;  // DB 관리용 아이디
+
+    @NotEmpty
+    @Column(nullable = false, unique = true)
+    private String loginId;
 
     @Column(nullable = false, unique = true)
     private String email;
@@ -32,10 +38,10 @@ public class User {
     private String profile;
 
     @Builder
-    private User(String email, String name, Long id, String password, Level level, String profile) {
+    private User(String email, String name, String loginId, String password, Level level, String profile) {
         this.email = email;
         this.name = name;
-        this.id = id;
+        this.loginId = loginId;
         this.password = password;
         this.level = level;
         this.profile = profile;
