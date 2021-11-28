@@ -32,6 +32,8 @@ public class UserService {
                 .id(Long.valueOf(userSignupDto.getId()))
                 .password(passwordEncoder.encode(userSignupDto.getPassword()))
                 .name(userSignupDto.getName())
+                .level(userSignupDto.getLevel())
+                .profile(userSignupDto.getProfile())
                 .build());
     }
 
@@ -42,6 +44,7 @@ public class UserService {
 
     }
 
+
     /*
     // 아이디 중복 체크
     public int idCheck(Long id){
@@ -49,5 +52,7 @@ public class UserService {
         return cnt;
     }
     */
+
+
 }
 

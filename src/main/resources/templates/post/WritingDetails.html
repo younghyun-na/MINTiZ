@@ -86,6 +86,7 @@
         <div id="comment-count">댓글
           <span id = "comments-count" th:text="${commentSize}">2</span>
           <div class = "comment-row">
+            <!-- 댓글 작성 폼-->
             <form role="form" th:action="@{/post/{postId}/comments(postId=${PostResDto.postId})}" method="post">
               <textarea id = "comment-input" name = "comment-input" placeholder="댓글을 입력해 주세요."></textarea>
               <button type = "submit" id="submit_btn" name="submit_btn">등록</button>
@@ -124,6 +125,7 @@
       </div>
     </div>
   </div>
+
 
 </div>
 </body>

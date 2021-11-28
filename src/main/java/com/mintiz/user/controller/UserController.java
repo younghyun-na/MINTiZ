@@ -5,12 +5,16 @@ import com.mintiz.user.model.UserSignupDto;
 import com.mintiz.user.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.convert.ConversionService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
+import java.beans.PropertyEditorSupport;
 
 @Controller
 @RequestMapping("/user")
@@ -20,21 +24,11 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-
     /*
-    // 회원가입 페이지
-    @GetMapping("/signup")
-    public String createForm(Model model){
-        model.addAttribute("UserSignupDto", new UserSignupDto());
-        return "user/Signup";
-    }
-*/
-
-    /*
-    // 레벨 enum값
+    // WebDataBinder 등록
     @InitBinder
     public void initBinder(WebDataBinder dataBinder){
-        dataBinder.registerCustomEditor(Level.class, new LevelPropertyEditor());
+        dataBinder.setConversionService(this.conversionService);
     }
     */
 
@@ -49,6 +43,22 @@ public class UserController {
     //회원가입
     //@PostMapping("/signup")
 
+
+    // 회원가입 기능
+    @PostMapping("/signup")
+    public String signup(@RequestParam(value = "level") Integer level,
+                         @RequestParam("files") MultipartFile file,
+                         @Valid @ModelAttribute UserSignupDto userSignupDto,
+                         BindingResult bindingResult) {
+
+        if (bindingResult.hasErrors()) {
+            return "user/Signup";
+        }
+
+        userSignupDto.setLevel(Level.valueOf(level));
+        userService.join(userSignupDto);
+        return "redirect:/user/Login";
+    }
 
 
 
