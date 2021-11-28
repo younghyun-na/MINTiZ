@@ -35,20 +35,21 @@
 
     <!--마이페이지-->
     <div class="mint-calendar-font title">내 정보</div>
+    <!--프로필 사진-->
+    <div align="center">
+        <img th:src="|/post/images/${user.profile.getUploadFilePath()}|" src="../image/임시.png" width="170" height="170"/>
+    </div>
     <div class="profile-layout">
-        <!--프로필 사진-->
-        <img src="../image/임시.png" width="170" height="170"/>
-
 
         <!--개인 정보-->
-        <dlv>
+        <div>
             <div class="basic-text">
-                <span><b>LV. &nbsp;&nbsp</b></span>
+                <span><b>LV. &nbsp</b></span>
                 <span th:text="${user.level}" > 민초 타노스</span>
             </div>
             <div class="basic-text">
 
-                <span><b>닉네임 &nbsp</b></span>
+                <span><b>닉네임</b></span>
                 <!--
                 <label> 짐인님 </label>
                 -->
@@ -62,7 +63,7 @@
                 <span th:text="${user.email}"> test@test.com</span>
             </div>
 
-        </dlv>
+        </div>
     </div>
 
     <div class="mint-calendar-font">

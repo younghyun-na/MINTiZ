@@ -1,11 +1,18 @@
 package com.mintiz.user.model;
 
+import lombok.*;
+
+import javax.validation.constraints.NotEmpty;
+
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
 public class UserLoginDto {
-    private Long id;
+
+    @NotEmpty
+    private String loginId;
+    @NotEmpty
     private String password;
 
-    public UserLoginDto(Long id, String password){
-        this.id = id;
-        this.password = password;
-    }
 }

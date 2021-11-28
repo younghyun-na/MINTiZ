@@ -3,67 +3,51 @@ package com.mintiz.user.controller;
 import com.mintiz.domain.Level;
 import com.mintiz.user.model.UserSignupDto;
 import com.mintiz.user.service.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
+
 @Controller
 @RequestMapping("/user")
+@AllArgsConstructor
+@Slf4j
 public class UserController {
 
-    @Autowired
-    private UserService userService;
+    private final UserService userService;
 
-
-    /*
-    // 회원가입 페이지
+    // 회원가입 창 불러오기
     @GetMapping("/signup")
-    public String createForm(Model model){
-        model.addAttribute("UserSignupDto", new UserSignupDto());
+    public String signupForm(@RequestParam(value = "level") Integer level, Model model) {
+        model.addAttribute("level",Level.valueOf(level));
+        model.addAttribute("userSignup", new UserSignupDto());
         return "user/Signup";
+    }
+
+
+    // 회원가입 기능
+    @PostMapping("/signup")
+    public String signup(
+                         @Valid @ModelAttribute UserSignupDto userSignupDto) {
+
+        userService.join(userSignupDto);
+        return "redirect:/user/login";
+    }
+
+
+/*
+    // 이메일 중복확인 기능
+    @PostMapping("/emailCheck")
+    public boolean emailCheck(@RequestBody UserSignupCheckDto checkDto){
+        String email = checkDto.getEmail();
+        return userService.emailCheck(email);
     }
 */
 
-    /*
-    // 레벨 enum값
-    @InitBinder
-    public void initBinder(WebDataBinder dataBinder){
-        dataBinder.registerCustomEditor(Level.class, new LevelPropertyEditor());
-    }
-    */
-
-
-    // 회원가입 + 레벨 값 저장
-    @GetMapping("/signup")
-    public String userLevel(@RequestParam("level") Level level, UserSignupDto userSignupDto) {
-        userSignupDto.setLevel(level);
-        userService.join(userSignupDto);
-        return "user/Signup";
-    }
-
-
-
-    /*
-    // 아이디 중복확인 기능
-    @PostMapping("/idCheck")
-    @ResponseBody
-    public int idCheck(@RequestParam("id") Long id){
-        int cnt = userService.idCheck(id);
-        return cnt;
-    }
-    */
-
-    /*
-    // 로그인 화면으로 이동
-    @GetMapping("/login")
-    public String login(){
-        return "login";
-    }
-    */
 
 
 }

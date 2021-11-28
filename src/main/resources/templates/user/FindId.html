@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>ID-find</title>
+    <script type="text/javascript" th:href="@{/js/login.js}"></script>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/login.css}">
+</head>
+<body>
+<h1 align="center">아이디 찾기</h1>
+<br>
+<section class="login-input-section-wrap">
+  <form name="login" method="POST" th:action="@{/user/findId}" th:object="${UserFindIdDto}">
+    <div class="login-input-wrap">
+      <input placeholder="이메일을 입력해주세요" type="text"
+             id="email" ></input>
+    </div>
+    <div class="login-button-wrap">
+      <button id="findID_button" type="submit" value="check" onclick="|location.href='@{/user/findId2}'|">
+        ID 찾기</button>
+    </div>
+  </form>
+</section>
+<hr>
+
+</body>
+</html>
