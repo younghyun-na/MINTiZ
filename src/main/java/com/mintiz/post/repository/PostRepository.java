@@ -1,6 +1,7 @@
 package com.mintiz.post.repository;
 
 import com.mintiz.domain.Post;
+import com.mintiz.domain.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
@@ -43,6 +44,12 @@ PostRepository {
 
     public List<Post> findList(){
         return em.createQuery("select p from Post p order by p.createdAt desc", Post.class)
+                .getResultList();
+    }
+
+    public List<Post> findByUser(Long userId){
+        return em.createQuery("select p from Post p where p.user.id =: userId order by p.createdAt desc", Post.class)
+                .setParameter("userId",userId)
                 .getResultList();
     }
 

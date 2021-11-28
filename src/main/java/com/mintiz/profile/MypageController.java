@@ -1,8 +1,11 @@
 package com.mintiz.profile;
 
+import com.mintiz.bookmark.BookmarkService;
+import com.mintiz.bookmark.model.BookmarkRes;
 import com.mintiz.domain.Post;
 import com.mintiz.domain.User;
 import com.mintiz.file.FileStore;
+import com.mintiz.profile.model.WritingRes;
 import com.mintiz.user.service.LoginService;
 import com.mintiz.user.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -29,6 +32,8 @@ public class MypageController {
 
     private final UserService userService;
     private final LoginService loginService;
+    private final BookmarkService bookmarkService;
+    private final MyPageService myPageService;
     private final Long userId = 1L;
 
 
@@ -44,12 +49,18 @@ public class MypageController {
     }
 
     @GetMapping("/writing")
-    public String writing(Model model){
+    public String writing(Model model, HttpServletRequest request){
+        User loginUser = loginService.getLoginUser(request);
+        List<WritingRes> writingByUser = myPageService.getWritingByUser(loginUser);
+        model.addAttribute("posts",writingByUser);
         return "WritingList";
     }
 
     @GetMapping("/bookmark")
-    public String bookmark(Model model){
+    public String bookmark(Model model, HttpServletRequest request){
+        User loginUser = loginService.getLoginUser(request);
+        List<BookmarkRes> bookmarkByUser = bookmarkService.getBookmarkByUser(loginUser);
+        model.addAttribute("posts",bookmarkByUser);
         return "BookMark";
     }
 

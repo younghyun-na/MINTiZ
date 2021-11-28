@@ -6,6 +6,7 @@
     <link rel="stylesheet" type="text/css" th:href="@{/css/basic.css}">
     <link rel="stylesheet" type="text/css" th:href="@{/css/mypage.css}">
     <link rel="stylesheet" type="text/css" th:href="@{/css/articlelist.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/font.css}">
 </head>
 
 <body>
@@ -24,70 +25,17 @@
     <!--내가 쓴 글 목록-->
     <div class="listlayout">
         <article class="mylist">
-            <div class="title_area">
-
-            </div>
             <ul class="article-container">
-                <li>
+                <li th:each = "post : ${posts}">
                     <div class="pagebutton">
-                        <label for="intopage">
-                            <img class="addImg" src="../image/testImg0.png">
-                            <div class="darkness"></div>
+                        <a th:href="@{/post/{postId}(postId=${post.getPostId()})}" style="color: black">
+                            <img class="addImg" th:src="|/post/images/${post.getImage().getUploadFilePath()}|">
                             <div class="btn-plus"><img draggable="false" src="../img/magnifier.png"></div>
-                        </label>
-                        <input type="button" id="intopage" name="intopage" onclick="page()">
+                        </a>
                     </div>
                 </li>
-                <li>
-                    <div class="pagebutton">
-                        <label for="intopage">
-                            <img class="addImg" src="../image/testImg2.png">
-                            <div class="darkness"></div>
-                            <div class="btn-plus"><img draggable="false" src="../img/magnifier.png"></div>
-                        </label>
-                        <input type="button" id="intopage" name="intopage" onclick="page()">
-                    </div>
-                </li>
-                <li>
-                    <div class="pagebutton">
-                        <label for="intopage">
-                            <img class="addImg" src="../image/testImg5.png">
-                            <div class="darkness"></div>
-                            <div class="btn-plus"><img draggable="false" src="../img/magnifier.png"></div>
-                        </label>
-                        <input type="button" id="intopage" name="intopage" onclick="page()">
-                    </div>
-                </li>
-                <li>
-                    <div class="pagebutton">
-                        <label for="intopage">
-                            <img class="addImg" src="../image/testImg1.png">
-                            <div class="darkness"></div>
-                            <div class="btn-plus"><img draggable="false" src="../img/magnifier.png"></div>
-                        </label>
-                        <input type="button" id="intopage" name="intopage" onclick="page()">
-                    </div>
-
-                </li>
-                <li>
-                    <div class="pagebutton">
-                        <label for="intopage">
-                            <img class="addImg" src="../image/testImg4.png">
-                            <div class="darkness"></div>
-                            <div class="btn-plus"><img draggable="false" src="../img/magnifier.png"></div>
-                        </label>
-                        <input type="button" id="intopage" name="intopage" onclick="page()">
-                    </div>
-                </li>
-
-                <!--
-                <li>
-                    <p class="imgbox">
-                        <img src="../image/testImg3.png" alt="">
-                    </p>
-                </li>
-                -->
             </ul>
+        </article>
     </div>
     <!--
     <div class="page">
