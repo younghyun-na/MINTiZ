@@ -26,7 +26,7 @@ PostRepository {
 
     public List<Post> findByContent(String keyword){
         List<Post> postList = em.createQuery("select p from Post p " +
-                "where p.content like CONCAT('%',:keyword,'%') ", Post.class)
+                "where p.content like CONCAT('%',:keyword,'%') order by p.createdAt desc", Post.class)
                 .setParameter("keyword", keyword)
                 .getResultList();
 
@@ -34,14 +34,15 @@ PostRepository {
     }
 
     public List<Post> findByTag(String tagName){
-        return em.createQuery("select p from Post p left join p.tagPosts t where t.tag.tag_name = :tagName")
+        return em.createQuery("select p from Post p left join p.tagPosts t " +
+                "where t.tag.tag_name = :tagName order by p.createdAt desc")
                 .setParameter("tagName", tagName)
                 .getResultList();
     }
 
 
     public List<Post> findList(){
-        return em.createQuery("select p from Post p", Post.class)
+        return em.createQuery("select p from Post p order by p.createdAt desc", Post.class)
                 .getResultList();
     }
 

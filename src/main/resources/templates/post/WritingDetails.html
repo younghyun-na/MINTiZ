@@ -28,6 +28,9 @@
 <div id="content" th:object="${PostResDto}">
   <!--카테고리-->
 
+  <!--hidden 영역-->
+  <input type="hidden" id="post_num" th:value="${PostResDto.getPostId()}">
+
   <nav class="categories" >
     <ol>
       <li class="category"><span style="font-weight: bold; font-size: large" th:text="*{tagName}"><a></a></span></li>
@@ -85,14 +88,41 @@
       <div id="form-commentInfo" class = "comment-row">
         <div id="comment-count">댓글
           <span id = "comments-count" th:text="${commentSize}">2</span>
-          <div class = "comment-row">
-            <!-- 댓글 작성 폼-->
-            <form role="form" th:action="@{/post/{postId}/comments(postId=${PostResDto.postId})}" method="post">
+          <div class = "comment-row" >
+            <form role="form" method="post" id = "form">
               <textarea id = "comment-input" name = "comment-input" placeholder="댓글을 입력해 주세요."></textarea>
-              <button type = "submit" id="submit_btn" name="submit_btn">등록</button>
+              <button type = "button" id="submit_btn" name="submit_btn">등록</button>
             </form>
+            <script>
+              $(function (){
+                $('#submit_btn').on("click", function (){
+
+                  //var formData = $("#form").serialize();
+                  var formData = { content : $('#comment-input').val()};
+
+                  console.log(formData);
+                  // Ajax 통신
+                  $.ajax({
+                    url: "/post/" + $('#post_num').val() + "/comments",
+                    type : "POST",
+                    data : JSON.stringify(formData),
+                    contentType: "application/json; charset=UTF-8",
+                    async:false,
+                    success:function (formData){
+                      window.location.reload(true); // 페이지 리로드
+                    },
+                    error:function (request,status,error){
+                      console.log("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+                    }
+                  }).done(function (fragment){
+                    $('#commentTable').replaceWith(fragment);
+                  });
+                });
+              });
+            </script>
           </div>
-          <div class = "comment-row" th:each="comment,iterStat : ${commentList}">
+          <div class = "comment-row" id="commentTable" th:each="comment,iterStat : ${commentList}">
+
             <table width = 300 height = 50>
               <tr>
                 <th rowspan="2"><img id="profile_img" src="../img/profile.png" width='45' height='45'/></th>
@@ -104,16 +134,23 @@
               <tr>
                 <td>
                   <div class="comment-content" th:text="${comment.getContent()}" >Comment1</div>
+                  <form class="comment-update" id = "comment-update" method="post">
+                    <div class="form-group">
+                      <textarea class="form-control" id="comment-content" rows="2" th:text="${comment.getContent()}"></textarea>
+                    </div>
+                    <input type="hidden" id = "comment-id" th:value="${comment.getCommentId()}">
+                    <button type="button" class="comment-update-btn" >수정 완료 </button>
+                  </form>
                 </td>
               </tr>
             </table>
             <div class="deleteOrmodify">
               <span class = "modify" id = "modify">
-                <button id="modify_btn" th:onclick="|location.href='@{/post/{postId}/comments/{commentId}/update(postId=${PostResDto.postId}, commentId=${comment.getCommentId()})}'|">
+                <button id="modify_btn" class="btn-modify" type="button">
                   <img id="modifyImg" src="../img/modifying.png" width='20' height='20' alt="수정">
                 </button>
                 <form action="#" th:action="@{/post/{postId}/comments/{commentId}/delete(postId=${PostResDto.postId}, commentId=${comment.getCommentId()})}"
-                       th:method="post" style="display:inline-block;" >
+                      th:method="post" style="display:inline-block;" >
                   <button id="delete_btn" type="submit" onclick="return confirm('정말 삭제하시겠습니까?')">
                     <img id="delete" src="../img/delete.png"  width='20' height='20' alt="삭제">
                   </button>
@@ -125,8 +162,6 @@
       </div>
     </div>
   </div>
-
-
 </div>
 </body>
 </html>

@@ -1,8 +1,10 @@
 package com.mintiz.post.controller;
 
+import com.mintiz.domain.User;
 import com.mintiz.post.model.*;
 import com.mintiz.post.service.CommentService;
 import com.mintiz.post.service.PostService;
+import com.mintiz.user.service.LoginService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.io.Resource;
@@ -14,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 import java.net.MalformedURLException;
 import com.mintiz.file.FileStore;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @Controller
@@ -24,8 +27,9 @@ public class PostController {
 
     private final PostService postService;
     private final CommentService commentService;
+    private final LoginService loginService;
     private final FileStore fileStore;
-    private final long userId = 1L;   //임시
+    private final long userId = 1L;
 
     @GetMapping("/add")
     public String addPostView(Model model){
@@ -34,8 +38,10 @@ public class PostController {
     }
 
     @PostMapping("/add")
-    public String addPost(@ModelAttribute PostSaveDto postSaveDto){
-        Long postId = postService.savePost(userId, postSaveDto);
+    public String addPost(@ModelAttribute PostSaveDto postSaveDto, HttpServletRequest request){
+        User loginUser = loginService.getLoginUser(request);
+
+        Long postId = postService.savePost(loginUser.getId(), postSaveDto);
         return "redirect:/post/" + postId;
     }
 
@@ -89,20 +95,14 @@ public class PostController {
     }
 
     //댓글 등록
+    @ResponseBody
     @PostMapping("/{postId}/comments")
-    public String addComment(@PathVariable("postId") long postId, @RequestParam("comment-input") String comment){
-
-        commentService.addComment(new CommentSaveDto(1L, postId, comment));
-        return "redirect:/post/" + postId;
+    public long addComment(@PathVariable("postId") long postId,
+                           @RequestBody CommentSaveDto commentSaveDto, HttpServletRequest request){
+        User loginUser = loginService.getLoginUser(request);
+        return commentService.addComment(new CommentSaveDto(loginUser.getId(), postId, commentSaveDto.getContent()));
+        //return "redirect:/post/"+ postId;
     }
-
-    /*
-    //댓글 수정창..
-    @GetMapping("/{postId}/comments/{commentId}/update")
-    public String updateCommentForm(@PathVariable("commentId") long commentId, @PathVariable("postId") long postId){
-        return "post/"
-    }
-     */
 
     //댓글 수정
     @PostMapping("/{postId}/comments/{commentId}/update")
