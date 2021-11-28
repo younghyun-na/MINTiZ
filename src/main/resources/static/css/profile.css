@@ -46,3 +46,9 @@ body{
     align-content: center;
 }
 
+
+.basic-text{
+    margin: 13px;
+    color:var(--mintiz-brown);
+    font-family: 'Pretendard-Regular';
+}
