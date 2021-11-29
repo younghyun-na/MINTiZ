@@ -1,5 +1,7 @@
 package com.mintiz.post.controller;
 
+import com.mintiz.bookmark.BookmarkService;
+import com.mintiz.bookmark.model.BookmarkRes;
 import com.mintiz.domain.ImageFile;
 import com.mintiz.domain.User;
 import com.mintiz.post.model.*;
@@ -30,7 +32,6 @@ public class PostController {
     private final PostService postService;
     private final CommentService commentService;
     private final LoginService loginService;
-    private final UserService userService;
     private final FileStore fileStore;
 
     @GetMapping("/add")
@@ -49,10 +50,13 @@ public class PostController {
 
     //게시글 상세페이지 조회 + 댓글까지 함께 조회
     @GetMapping("/{postId}")
-    public String getPost(@PathVariable("postId") long postId, Model model){
-        PostResDto postResDto = postService.findPost(postId);
+    public String getPost(@PathVariable("postId") long postId, Model model, HttpServletRequest request){
+        //로그인한 유저의 북마크 여부 확인
+        User loginUser = loginService.getLoginUser(request);
+        PostResDto postResDto = postService.findPost(postId, loginUser);
         List<CommentResDto> commentList = commentService.getCommentListByPost(postId);
 
+        model.addAttribute("loginUser", loginUser);
         model.addAttribute("commentSize", commentList.size());
         model.addAttribute("PostResDto", postResDto);
         model.addAttribute("commentList", commentList);
@@ -69,8 +73,9 @@ public class PostController {
     }
 
     @GetMapping("/{postId}/update")
-    public String updatePostForm(@PathVariable("postId") long postId, Model model){
-        PostResDto post = postService.findPost(postId);
+    public String updatePostForm(@PathVariable("postId") long postId, Model model, HttpServletRequest request){
+        User loginUser = loginService.getLoginUser(request);
+        PostResDto post = postService.findPost(postId, loginUser);
         PostUpdateDto postUpdate = PostUpdateDto.builder()
                 .content(post.getContent())
                 .location(post.getLocation())

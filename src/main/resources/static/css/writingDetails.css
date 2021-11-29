@@ -296,3 +296,8 @@ input#img-6:checked ~ .nav-dots label#img-dot-6 {
     float: right;
     padding-inline-start: 600px ;
 }
+
+.bookmark_img{
+    width: 30px;
+    height: 30px;
+}
