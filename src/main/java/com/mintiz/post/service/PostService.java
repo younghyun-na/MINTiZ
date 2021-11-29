@@ -35,7 +35,6 @@ public class PostService {
     private final UserRepository userRepository;
     private final TagRepository tagRepository;
     private final TagPostRepository tagPostRepository;
-    private final ImageHandler imageHandler;
     private final ImageRepository imageRepository;
     private final FileStore fileStore;
     private final BookmarkRepository bookmarkRepository;

@@ -42,6 +42,7 @@ PostRepository {
     }
 
 
+    //여기서 optional 써서..
     public List<Post> findList(){
         return em.createQuery("select p from Post p order by p.createdAt desc", Post.class)
                 .getResultList();

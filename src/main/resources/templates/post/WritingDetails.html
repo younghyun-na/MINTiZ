@@ -42,7 +42,6 @@
     });
 
     $(function (){
-
       const updateBtns = document.querySelectorAll('#comment-update-btn');
       updateBtns.forEach(function(item){
         item.addEventListener("click", function (){
@@ -122,7 +121,7 @@
           <!--작성자-->
           <tr>
             <td style="width: 10%" rowspan="2" align="left"> <!-- 게시물 작성자 프로필 가져오기-->
-              <img id="profile_img1" src="../img/profile.png" width='50' height='50' />
+              <img id="profile_img1" th:src= "|/post/images/${PostResDto.user.profile.uploadFilePath}|" src="../img/profile.png" width='50' height='50' />
             </td>
             <td style="width: 90%" colspan="3" align="left" id="writer_name"  th:text="*{user.getName()}"></td>
           </tr>
@@ -194,14 +193,13 @@
 
             <table width = 300 height = 50>
               <tr><!-- 댓글 작성자 프로필 가져오기-->
-                <th rowspan="2"><img id="profile_img" src="../img/profile.png" width='45' height='45'/></th>
+                <th rowspan="2"><img id="profile_img"  th:src= "|/post/images/${comment.userImgUrl.uploadFilePath}|" src="../img/profile.png" width='45' height='45'/></th>
                 <td>
                   <div class="comment-name" style="font-weight: bold; font-size: small" th:text="${comment.getUserName()}">나영현</div>
                   <div class="comment-date" style="font-size: x-small" th:text="${comment.getUpdateTime()}">2021-11-17 10:16</div>
                 </td>
               </tr>
             </table>
-            <hr align="center" color="#9b9090" style="border:solid 1px #9b9090">
             <table>
               <tr>
                 <td class="td">
