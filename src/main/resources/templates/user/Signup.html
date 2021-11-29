@@ -10,15 +10,12 @@
 
 <body>
 <div id="page-wrapper">
-    <header th:replace="fragments.html :: #login-header">
-        <!--고정 헤더-->
-        <hgroup align="center">
-            <h1 align="center" class="master-title">회원 가입</h1>
+    <header >
+        <hgroup align="center" >
+            <img width="210px" height="100px" th:src="@{/img/MINTiZ_logo.png}" >
         </hgroup>
     </header>
 </div>
-
-<!--아이디 중복 확인 기능-->
 
 
 <!--회원가입 폼-->
@@ -43,7 +40,7 @@
             <button id="email_button"  type="button" onclick="email_check()">중복확인</button>
         </div>
         <div id="email_ok" class="email_ok">사용 가능한 이메일입니다.</div>
-        <div id="email_already" class="email_already">이미 사용 중인 이메일입니다.</div>
+        <div id="email_already" class="email_already">이미 존재하는 이메일입니다.</div>
         <div class="login-name">
             <b>이름</b> </div>
         <div class="login-input-wrap">
@@ -57,7 +54,7 @@
            <button id="id_button" type="button" onclick="id_check();">중복확인</button>
        </div>
         <div id="id_ok" class="id_ok">사용 가능한 아이디입니다.</div>
-        <div id="id_already" class="id_already">사용 불가능한 아이디입니다.</div>
+        <div id="id_already" class="id_already">이미 존재하는 아이디입니다.</div>
 
         <div class="login-name">
             <b>비밀번호 </b></div>
