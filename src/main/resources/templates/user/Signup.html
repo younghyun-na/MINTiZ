@@ -39,11 +39,11 @@
         <div class="login-name">
             <b>이메일 </b> </div>
         <div class="login-input-wrap">
-            <input th:field="*{email}" name="email" placeholder="이메일을 입력해주세요!" type="email">
-            <button onclick="email_check()">중복확인</button>
-            <span class="id_ok">사용 가능한 이메일입니다.</span>
-            <span class="id_already">이미 사용 중인 이메일입니다.</span>
+            <input th:field="*{email}" name="email" placeholder="이메일을 입력해주세요" type="email">
+            <button id="email_button"  type="button" onclick="email_check()">중복확인</button>
         </div>
+        <div id="email_ok" class="email_ok">사용 가능한 이메일입니다.</div>
+        <div id="email_already" class="email_already">이미 사용 중인 이메일입니다.</div>
         <div class="login-name">
             <b>이름</b> </div>
         <div class="login-input-wrap">
@@ -54,13 +54,10 @@
            <b>아이디 </b></div>
        <div class="login-input-wrap">
            <input name="loginId" th:field="*{loginId}"placeholder="아이디를 입력해주세요" type="text">
-<!--
-           <input  placeholder="아이디를 입력해주세요" type="text">
-           <button id="id_button" onclick="id_check();">중복확인</button>
-           <span class="id_ok">사용 가능한 아이디입니다.</span>
-           <span class="id_already">사용 불가능한 아이디입니다.</span>
- -->
+           <button id="id_button" type="button" onclick="id_check();">중복확인</button>
        </div>
+        <div id="id_ok" class="id_ok">사용 가능한 아이디입니다.</div>
+        <div id="id_already" class="id_already">사용 불가능한 아이디입니다.</div>
 
         <div class="login-name">
             <b>비밀번호 </b></div>
@@ -69,12 +66,11 @@
         </div>
         <div class="login-name"> <b>비밀번호 확인</b></div>
         <div class="login-input-wrap">
-            <input name="check_password" placeholder="비밀번호를 입력해주세요" type="password">
+            <input name="check_password" id="check_password" placeholder="비밀번호를 입력해주세요" type="password">
         </div>
         <div class="login-button-wrap">
-            <button type="submit" >Sign up</button>
+            <button type="button" onclick="join_form_check()" >Sign up</button>
         </div>
-
 
     </form>
 </section>

@@ -31,6 +31,10 @@ public class UserService {
         if(userRepository.findByEmail(userSignupDto.getEmail()).isPresent())
             throw new IllegalStateException("이미 존재하는 회원입니다.");
 
+        if(userRepository.findByLoginId(userSignupDto.getLoginId()).isPresent()){
+            throw new IllegalStateException("이미 존재하는 아이디입니다.");
+        }
+
         User user = User.builder()
                 .email(userSignupDto.getEmail())
                 .password(passwordEncoder.encode(userSignupDto.getPassword()))
@@ -68,6 +72,10 @@ public class UserService {
     // 아이디 중복 체크
     public boolean emailCheck(String email){
         return userRepository.findByEmail(email).isPresent();
+    }
+
+    public boolean loginIdCheck (String loginId){
+        return userRepository.findByLoginId(loginId).isPresent();
     }
 
 

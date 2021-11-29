@@ -1,33 +1,64 @@
-// 아이디 중복 체크
+//이메일 중복 체크
 function email_check(){
-        var id = $('#email').val(); // id값이 "id"인 입력란의 값을 저장
-        $.ajax({
-            url:'/user/idCheck', // Controller에서 인식할 주소
-            type:'post', //POST 방식으로 전달
-            data:{id:id},
-            success:function(cnt){       //컨트롤러에서 넘어온 cnt값
-                if(cnt != 1){      // 사용 가능한 아이디
-                    $('.id_ok').css("display","inline-block");
-                    $('.id_already').css("display", "none");
-                } else {          // cnt == 1 -> 이미 존재하는 아이디
-                    $('.id_already').css("display","inline-block");
-                    $('.id_ok').css("display", "none");
-                }
-            },
-            error:function(){
-                alert("에러입니다");
+    var email = $('#email').val(); // id값이 "id"인 입력란의 값을 저장
+    var emailVO = new Object();
+    emailVO.email = email;
+    $.ajax({
+        url:'/user/emailCheck', // Controller에서 인식할 주소
+        type:'post', //POST 방식으로 전달
+        data : JSON.stringify(emailVO),
+        contentType: "application/json; charset=UTF-8",
+        success:function(cnt){       //컨트롤러에서 넘어온 cnt값
+            if(cnt == false){      // 사용 가능한 아이디
+                document.getElementById("email_already").style.display = "none";
+                document.getElementById("email_ok").style.display = "inline-block";
+            } else {          // cnt == 1 -> 이미 존재하는 아이디
+                document.getElementById("email_already").style.display = "inline-block";
+                document.getElementById("email_ok").style.display = "none";
             }
-        });
+        },
+        error:function(){
+            alert("에러입니다");
+        }
+    });
+};
+
+//아이디 중복 체크
+function id_check(){
+    var loginId = $('#loginId').val(); // id값이 "id"인 입력란의 값을 저장
+    var loginIdVO = new Object();
+    loginIdVO.loginId= loginId;
+    $.ajax({
+        url:'/user/loginIdCheck', // Controller에서 인식할 주소
+        type:'post', //POST 방식으로 전달
+        data : JSON.stringify(loginIdVO),
+        contentType: "application/json; charset=UTF-8",
+        success:function(cnt){       //컨트롤러에서 넘어온 cnt값
+            if(cnt == false){      // 사용 가능한 아이디
+                document.getElementById("id_already").style.display = "none";
+                document.getElementById("id_ok").style.display = "inline-block";
+            } else {          // cnt == 1 -> 이미 존재하는 아이디
+                document.getElementById("id_already").style.display = "inline-block";
+                document.getElementById("id_ok").style.display = "none";
+            }
+        },
+        error:function(){
+            alert("에러입니다");
+        }
+    });
 };
 
 // 유효성 검사
 function join_form_check(){
-    var set_email = document.getElement("set_email");
-    var set_name = document.getElement("set_name");
-    var set_id = document.getElement("set_id");
-    var set_pw = document.getElement("set_pw");
-    var check_pw = document.getElement("check_pw");
-
+    var set_email = document.getElementById("email");
+    var set_name = document.getElementById("name");
+    var set_id = document.getElementById("loginId");
+    var set_pw = document.getElementById("password");
+    var check_pw = document.getElementById("check_password");
+    var re2 = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
+    if(!check(re2, set_email, "적합하지 않은 이메일 형식입니다.")) {
+        return false;
+    }
     if (set_email.value == ""){
         alert("이메일의 주소를 입력하세요.");
         set_email.focus();
@@ -61,10 +92,14 @@ function join_form_check(){
     document.join_form.submit();
 
 }
-/*
-// id 중복체크
-function id_check() {
-    //window.open("팝업될 문서 경로", "팝업될 문서 이름", "옵션");
-    //window.open("idCheckForm.jsp", "idCheck", "width=400, height=200, left=200, top=100");
+
+function check(re, what, message) {
+    if(re.test(what.value)) {
+        return true;
+    }
+    alert(message);
+    what.value = "";
+    what.focus();
+    //return false;
 }
-*/
+
