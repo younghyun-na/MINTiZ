@@ -5,6 +5,13 @@ spring:
     password:
     driver-class-name: org.h2.Driver
     initialize : true
+  devtools:
+    livereload:
+      enabled: true
+    restart:
+      enabled: true
+  thymeleaf:
+    cache: false
 
   jpa:
     hibernate:
