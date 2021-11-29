@@ -1,6 +1,7 @@
 package com.mintiz.post.model;
 
 import com.mintiz.domain.Comment;
+import com.mintiz.domain.ImageFile;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -12,7 +13,7 @@ public class CommentResDto {
     private String content;              //댓글 내용
     private String updateTime;    //댓글 쓴 날짜
     private String userName;           //작성자 이름
-    private String userImgUrl;         //작성자 프로필 이미지
+    private ImageFile userImgUrl;         //작성자 프로필 이미지
 
     public CommentResDto(Comment comment, String updateTime){
         this.commentId = comment.getId();

@@ -2,15 +2,81 @@
 <html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
 <head>
   <title>MINTiZ</title>
-  <script type="text/javascript"  th:src="@{/js/writingdetails.js}" src="../js/writingdetails.js"></script>
   <link rel="stylesheet" type="text/css" th:href="@{/css/writingdetails.css}" href="../css/writingdetails.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.css">
+  <script type="text/javascript" th:src="@{/js/main.js}" src="../js/main.js"></script>
+  <script type="text/javascript"  th:src="@{/js/writingdetails.js}" src="../js/writingdetails.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
   <script src="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.min.js"></script>
   <script>
     $(document).ready(function(){
       $('.slider').bxSlider({
-        slideWidth: 500, //이미지 박스 크기설정
+        slideWidth: 550, //이미지 박스 크기설정
+      });
+    });
+
+    $(function (){
+      $('#submit_btn').on("click", function (){
+
+        //var formData = $("#form").serialize();
+        var formData = { content : $('#comment-input').val()};
+
+        console.log(formData);
+        // Ajax 통신
+        $.ajax({
+          url: "/post/" + $('#post_num').val() + "/comments",
+          type : "POST",
+          data : JSON.stringify(formData),
+          contentType: "application/json; charset=UTF-8",
+          async:false,
+          success:function (formData){
+            window.location.reload(true); // 페이지 리로드
+          },
+          error:function (request,status,error){
+            console.log("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+          }
+        }).done(function (fragment){
+          $('#commentTable').replaceWith(fragment);
+        });
+      });
+    });
+
+    $(function (){
+      const updateBtns = document.querySelectorAll('#comment-update-btn');
+      updateBtns.forEach(function(item){
+        item.addEventListener("click", function (){
+          var form = this.closest('form');
+          var data = {
+            commentId: form.querySelector('#comment-id').value,
+            updateContent: form.querySelector('#comment-content').value,
+          };
+
+          jQuery.ajax({
+            url: "/post/" + $('#post_num').val() + "/comments/" + $('#comment-id').val() + "/update",
+            type : "POST",
+            data : JSON.stringify(data),
+            contentType: "application/json; charset=UTF-8",
+            async:false
+          }).done(function (fragment){
+            $('#commentTable').replaceWith(fragment);
+            window.location.reload(true);
+          });
+        });
+      });
+    });
+
+    $(function (){
+      const buttons = document.querySelectorAll('#modify_btn');
+      buttons.forEach(function(item){
+        item.addEventListener("click", function (){
+          var table = this.closest('table');
+          var x = table.querySelector('#hide');
+          if (x.style.display === "none") {
+            x.style.display = "block";   //한번 바뀌면..
+          } else {
+            x.style.display = "none";
+          }
+        });
       });
     });
   </script>
@@ -28,46 +94,78 @@
 <div id="content" th:object="${PostResDto}">
   <!--카테고리-->
 
+  <!--hidden 영역-->
+  <input type="hidden" id="post_num" th:value="${PostResDto.getPostId()}">
+
   <nav class="categories" >
     <ol>
-      <li class="category"><span style="font-weight: bold; font-size: large" th:text="*{tagName}"><a></a></span></li>
-      <li class="category"><a><img id="place" src="../img/location.png" width='20' height='20'/><span style="font-size:medium" th:text="*{location}">경기도</span></a></li>
+      <li class="category"><span style="font-weight: bold; font-size: large;
+      background: linear-gradient(to top, #FFE400 50%, transparent 50%)" th:text="*{tagName}"><a></a></span></li>
+      <li class="category"><a><img id="place" src="../img/location.png" width='20' height='20'/>
+        <span style="font-size:medium; background: linear-gradient(to top, #FFFF80 50%, transparent 70%)" th:text="*{location}">경기도</span></a></li>
     </ol>
   </nav>
 
 
-  <div class = "body-layout">
-    <div class="slider">
-      <li th:each = "imageFile : ${PostResDto.imageFiles}" >
-        <img th:src= "|/post/images/${imageFile.getUploadFilePath()}|" src="img/prev.jpg"  width="609" height="420" /></li>
-    </div>
 
-    <!--작성자-->
+  <div class = "body-layout" align="center">
     <div class="writer">
-      <table width = 300 height = 20>
+      <table>
+        <tbody>
         <tr>
-          <th rowspan="2"><img id="profile_img1" src="../img/profile.png" width='50' height='50'/></th>
-          <td>
-            <strong><div class="writer_name" th:text="*{user.getName()}">Younghyun</div></strong>
-            <strong><div class="write_date" th:text="*{writeDate}">2021.11.11</div></strong>
-          </td>
+          <div class="slider">
+            <li th:each = "imageFile : ${PostResDto.imageFiles}" >
+              <img th:src= "|/post/images/${imageFile.getUploadFilePath()}|" src="img/prev.jpg"/></li>
+          </div>
         </tr>
+          <!--작성자-->
+          <tr>
+            <td style="width: 10%" rowspan="2" align="left"> <!-- 게시물 작성자 프로필 가져오기-->
+              <img id="profile_img1" th:src= "|/post/images/${PostResDto.user.profile.uploadFilePath}|" src="../img/profile.png" width='50' height='50' />
+            </td>
+            <td style="width: 90%" colspan="3" align="left" id="writer_name"  th:text="*{user.getName()}"></td>
+          </tr>
+          <tr>
+            <td style="width: 50%" colspan="2" align="left" id="write_time" th:text="*{writeDate}"></td>
+            <td style="width: 30%"  align="right">
+              <span class = "control hidden" id = "control_id{{ forloop.counter0 }}">
+                <!--수정 버튼-->
+                <button id="rewrite_btn" th:onclick="|location.href='@{/post/{postId}/update(postId=${PostResDto.postId})}'|">
+                  <img id="rewrite" src="../img/modifying.png" width='25' height='25' alt="수정">
+                </button>
+                <!--삭제 버튼-->
+               <form  action="#" th:action="@{/post/{postId}/delete(postId=${PostResDto.postId})}" th:method="post" style="display:inline-block;">
+                 <button id="trash_btn" type="submit" onclick="return confirm('정말 삭제하시겠습니까?')">
+                   <img id="trash" src="../img/delete.png"  width='25' height='25' alt="삭제">
+                 </button>
+               </form>
+
+               <!--북마크 부분 -->
+               <span th:if="${PostResDto.check eq true }" >
+                 <span  th:id="|clickedStar${PostResDto.postId}|" style="display: inline"
+                     th:onclick="|javascript:bookmark('${PostResDto.postId}','${loginUser.id}')|">
+                   <img class="bookmark_img" src="../img/clicked_star.png" alt="북마크이미지" >
+                 </span>
+                 <span th:id="|star${PostResDto.postId}|" style="display: none"
+                     th:onclick="|javascript:noneBookmark('${PostResDto.postId}','${loginUser.id}')|">
+                   <img class="bookmark_img" src="../img/star.png" alt="북마크이미지">
+                 </span>
+               </span>
+               <span th:if="${PostResDto.check eq false}" >
+                 <span th:id="|clickedStar${PostResDto.postId}|" style="display: none"
+                    th:onclick="|javascript:bookmark('${PostResDto.postId}','${loginUser.id}')|">
+                   <img class="bookmark_img" src="../img/clicked_star.png" alt="북마크이미지" >
+                 </span>
+                 <span th:id="|star${PostResDto.postId}|" style="display: inline"
+                   th:onclick="|javascript:noneBookmark('${PostResDto.postId}','${loginUser.id}')|">
+                   <img class="bookmark_img" src="../img/star.png" alt="북마크이미지">
+                 </span>
+               </span>
+             </span>
+           </td>
+         </tr>
+        </tbody>
       </table>
-
-      <div class="interaction">
-        <span class = "control hidden" id = "control_id{{ forloop.counter0 }}">
-          <button id="rewrite_btn" th:onclick="|location.href='@{/post/{postId}/update(postId=${PostResDto.postId})}'|">
-            <img id="rewrite" src="../img/modifying.png" width='25' height='25' alt="수정">
-          </button>
-          <form  action="#" th:action="@{/post/{postId}/delete(postId=${PostResDto.postId})}" th:method="post" style="display:inline-block;">
-            <button id="trash_btn" type="submit" onclick="return confirm('정말 삭제하시겠습니까?')">
-              <img id="trash" src="../img/delete.png"  width='25' height='25' alt="삭제">
-            </button>
-          </form>
-          <!--북마크 부분 -->
-        </span>
-      </div>
-
     </div>
 
     <!--작성 글-->
@@ -79,53 +177,77 @@
       부드러운 빵시트가 시원하고 상쾌한 민트 크림이랑 전체적으로 잘 어울림<br>
       별 4개 ★★★★☆
     </div>
+  </div>
 
     <div class = "comments">
-      <hr align="center" color="#9b9090">
+      <hr align="center" color="#eeeeee">
       <div id="form-commentInfo" class = "comment-row">
         <div id="comment-count">댓글
           <span id = "comments-count" th:text="${commentSize}">2</span>
-          <div class = "comment-row">
-            <!-- 댓글 작성 폼-->
-            <form role="form" th:action="@{/post/{postId}/comments(postId=${PostResDto.postId})}" method="post">
-              <textarea id = "comment-input" name = "comment-input" placeholder="댓글을 입력해 주세요."></textarea>
-              <button type = "submit" id="submit_btn" name="submit_btn">등록</button>
-            </form>
-          </div>
-          <div class = "comment-row" th:each="comment,iterStat : ${commentList}">
+        </div>
+          <div class = "comment-form" >
+            <div class="right-comment-lay">
+              <form role="form" method="post" id = "form">
+                <div>
+                  <textarea id = "comment-input" name = "comment-input" placeholder="댓글을 입력해 주세요."></textarea>
+                </div>
+                <div class="write-button">
+                  <button type = "button" id="submit_btn" name="submit_btn">등록</button>
+                </div>
+              </form>
+            </div>
+
+          <div class = "comment-row" id="commentTable" th:each="comment,iterStat : ${commentList}">
+
             <table width = 300 height = 50>
-              <tr>
-                <th rowspan="2"><img id="profile_img" src="../img/profile.png" width='45' height='45'/></th>
+              <tr><!-- 댓글 작성자 프로필 가져오기-->
+
+                <th rowspan="2"><img id="profile_img"  th:src= "|/post/images/${comment.userImgUrl.uploadFilePath}|" src="../img/profile.png" width='45' height='45'/></th>
                 <td>
-                  <div class="comment-name" th:text="${comment.getUserName()}">나영현</div>
-                  <div class="comment-date" th:text="${comment.getUpdateTime()}">2021-11-17 10:16</div>
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <div class="comment-content" th:text="${comment.getContent()}" >Comment1</div>
+                  <div class="comment-name" style="font-weight: bold; font-size: small" th:text="${comment.getUserName()}">나영현</div>
+                  <div class="comment-date" style="font-size: x-small" th:text="${comment.getUpdateTime()}">2021-11-17 10:16</div>
                 </td>
               </tr>
             </table>
-            <div class="deleteOrmodify">
-              <span class = "modify" id = "modify">
-                <button id="modify_btn" th:onclick="|location.href='@{/post/{postId}/comments/{commentId}/update(postId=${PostResDto.postId}, commentId=${comment.getCommentId()})}'|">
-                  <img id="modifyImg" src="../img/modifying.png" width='20' height='20' alt="수정">
-                </button>
-                <form action="#" th:action="@{/post/{postId}/comments/{commentId}/delete(postId=${PostResDto.postId}, commentId=${comment.getCommentId()})}"
-                       th:method="post" style="display:inline-block;" >
-                  <button id="delete_btn" type="submit" onclick="return confirm('정말 삭제하시겠습니까?')">
-                    <img id="delete" src="../img/delete.png"  width='20' height='20' alt="삭제">
-                  </button>
-                </form>
-              </span>
-            </div>
+            <table class="comment-layout">
+              <tr>
+                <td class="td">
+                  <div class="comment-content" th:text="${comment.getContent()}" >Comment1</div>
+                  <div class="deleteOrmodify button-right" style="display:inline-block;" >
+                    <span class = "modify " id = "modify">
+                      <button id="modify_btn" class="btn-modify" type="button">
+                        <img id="modifyImg" src="../img/modifying.png" width='20' height='20' alt="수정">
+                      </button>
+                      <form action="#" th:action="@{/post/{postId}/comments/{commentId}/delete(postId=${PostResDto.postId}, commentId=${comment.getCommentId()})}"
+                            th:method="post" style="display:inline-block;" >
+                        <button id="delete_btn" type="submit" onclick="return confirm('정말 삭제하시겠습니까?')">
+                          <img id="delete" src="../img/delete.png"  width='20' height='20' alt="삭제">
+                        </button>
+                      </form>
+                    </span>
+
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <!--수정 폼-->
+                  <div id = "hide" style="display : none">
+                    <form class="comment-update" id = "comment-update" method="post">
+                      <div class="form-group">
+                        <textarea class="form-control" id="comment-content" rows="2" cols="90" th:text="${comment.getContent()}"></textarea>
+                      </div>
+                      <input type="hidden" id = "comment-id" th:value="${comment.getCommentId()}">
+                      <button type="button" id = "comment-update-btn" class="comment-update-btn" >수정 </button>
+                    </form>
+                  </div>
+                </td>
+              </tr>
+            </table>
           </div>
         </div>
       </div>
     </div>
-  </div>
-
 
 </div>
 </body>

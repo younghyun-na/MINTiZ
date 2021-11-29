@@ -35,7 +35,6 @@ public class PostService {
     private final UserRepository userRepository;
     private final TagRepository tagRepository;
     private final TagPostRepository tagPostRepository;
-    private final ImageHandler imageHandler;
     private final ImageRepository imageRepository;
     private final FileStore fileStore;
     private final BookmarkRepository bookmarkRepository;
@@ -80,13 +79,19 @@ public class PostService {
     /**
      * 게시글 개별 조회 + 태그도
      */
-    public PostResDto findPost(Long postId) {
+    public PostResDto findPost(Long postId, User user) {
         Post post = postRepository.findById(postId)
                     .orElseThrow(() ->
                         new IllegalArgumentException("해당 게시물이 없습니다. id= " + postId));
         String tagName = tagPostRepository.findByPostId(postId).getTag().getTag_name();
 
-        PostResDto postResDto = new PostResDto(post, tagName);
+        //북마크 여부 확인
+        Boolean bookmarkCheck = false;
+        if (bookmarkRepository.findByUserAndPost(user, post).isPresent()){
+            bookmarkCheck = true;
+        }
+
+        PostResDto postResDto = new PostResDto(post, tagName, bookmarkCheck);
         postResDto.setWriteDate(getFormattedTime(post.getCreatedAt()));
 
         //이미지 처리
@@ -116,6 +121,7 @@ public class PostService {
 
     private void toDto(List<PostListResDto> postListResDtos, Post post, boolean b) {
 
+        log.info("userId = {}", post.getUser().getId());
         List<ImageFile> imageList = imageRepository.findImageByPostId(post.getId()).orElseThrow(
                 () -> new IllegalStateException("게시글에 이미지가 존재하지 않습니다."));
 

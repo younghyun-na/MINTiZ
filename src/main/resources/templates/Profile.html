@@ -6,6 +6,7 @@
     <link rel="stylesheet" type="text/css" th:href="@{/css/basic.css}">
     <link rel="stylesheet" type="text/css" th:href="@{/css/profile.css}">
     <link rel="stylesheet" type="text/css" th:href="@{/css/calendar.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/font.css}">
 </head>
 <script th:inline="javascript">
     /*<![CDATA[*/
@@ -28,9 +29,9 @@
 
     <div class = "body-layout">
 
-        <table width = 300 height = 100>
+        <table class="basic-text" width = 300 height = 100>
             <tr>
-                <th rowspan="3"><img id="img1" src="../image/임시.png" width='80' height='80'/></th>
+                <th rowspan="3"><img id="img1" th:src="|/post/images/${user.profile.getUploadFilePath()}|" width='80' height='80'/></th>
                 <td><b>LV.&nbsp;&nbsp</b>
                     <span th:text="${user.level}" > 민초 타노스</span>
                 </td>

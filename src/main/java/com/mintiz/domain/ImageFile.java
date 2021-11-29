@@ -32,6 +32,9 @@ public class ImageFile {
     @JoinColumn(name="post_id")
     private Post post;
 
+    @OneToOne
+    private User user;
+
     public void setPost(Post post){
         this.post = post;
 

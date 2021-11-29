@@ -1,5 +1,6 @@
 package com.mintiz.bookmark;
 
+import com.mintiz.bookmark.model.BookmarkRes;
 import com.mintiz.domain.BookmarkedPost;
 import com.mintiz.domain.Post;
 import com.mintiz.domain.User;
@@ -9,8 +10,10 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional(readOnly = true)
@@ -59,8 +62,11 @@ public class BookmarkService {
     /**
      * 사용자가 북마크한 글 목록 조회
      */
-    public List<BookmarkedPost> getBookmarkByUser(User user){
-        return bookmarkRepository.findByUser(user);
+    public List<BookmarkRes> getBookmarkByUser(User user){
+        List<BookmarkedPost> byUser = bookmarkRepository.findByUser(user);
+        return byUser.stream()
+                .map( u -> new BookmarkRes(u.getPost().getId(), u.getPost().getImages().get(0)))
+                .collect(Collectors.toList());
     }
 
     /**

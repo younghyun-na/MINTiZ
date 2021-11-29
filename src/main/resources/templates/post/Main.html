@@ -3,6 +3,7 @@
 <head>
     <title>MINTiZ</title>
     <script type="text/javascript" th:src="@{/js/main.js}" src="../js/main.js"></script>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/font.css}">
     <script src="http://code.jquery.com/jquery-latest.js"></script>
     <link rel="stylesheet" type="text/css" href="../css/main.css">
 </head>
@@ -26,20 +27,22 @@
 </div>
 
 <!--콘텐츠를 감싸는 태그-->
-<div id="content" >
+<div class="button-layout" id="content" >
 
     <!--글쓰기 버튼-->
-    <button class="mypage write-button">
-        <span th:onclick="|location.href='@{/post/add}'|">글 등록</span>
-    </button>
+    <div class="add-button">
+        <button class="write-button">
+            <div th:onclick="|location.href='@{/post/add}'|">글 등록</div>
+        </button>
+    </div>
 
     <section id="main-section" th:each = "posts : ${post}">
-        <article class="contents" >
+        <article class="contents basic-text" >
             <header class="top">
                 <div class="user_container">
                     <div class="profile_img">
                         <a th:href="@{/profile/{userId}(userId=${posts.getUserId()})}" style="color: black">
-                            <img src="../img/임시.png" alt="프로필이미지">
+                            <img src="../img/임시.png" th:src="|/post/images/${posts.getUserImg().getUploadFilePath()}|" alt="프로필이미지">
                         </a>
                     </div>
                     <div class= "profile-container" >
@@ -58,7 +61,7 @@
             </header>
 
             <a th:href="@{/post/{postId}(postId=${posts.getPostId()})}" style="color: black">
-                <div class="img_section">
+                <div class="img_section" align="center">
                     <div>
                         <div><img th:src="|/post/images/${posts.getImage().getUploadFilePath()}|" src="../img/testImg0.png" alt=" " width="300" height="300"></div>
                     </div>
@@ -101,17 +104,15 @@
 
                 <div class="comment_img" >
                     <a th:href="@{/post/{postId}(postId=${posts.getPostId()})}">
-                        <img src="../img/comments.png" alt="댓글이미지"  >
+                        <img src="../img/comment.png" alt="댓글이미지"  >
                     </a>
                 </div>
 
             </div>
-
-
         </article>
 
-
     </section>
+
 
 
 </div>

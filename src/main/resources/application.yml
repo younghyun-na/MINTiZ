@@ -5,10 +5,17 @@ spring:
     password:
     driver-class-name: org.h2.Driver
     initialize : true
+  devtools:
+    livereload:
+      enabled: true
+    restart:
+      enabled: true
+  thymeleaf:
+    cache: false
 
   jpa:
     hibernate:
-      ddl-auto: create
+      ddl-auto: update
     properties:
       hibernate:
         format_sql: true
@@ -26,3 +33,5 @@ file:
   dir: C:/dev/
   #dir: C:/Users/ADMIN/Documents/img/
   #dir: /Users/jimin/dev/img
+
+

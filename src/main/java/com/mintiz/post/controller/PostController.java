@@ -1,8 +1,14 @@
 package com.mintiz.post.controller;
 
+import com.mintiz.bookmark.BookmarkService;
+import com.mintiz.bookmark.model.BookmarkRes;
+import com.mintiz.domain.ImageFile;
+import com.mintiz.domain.User;
 import com.mintiz.post.model.*;
 import com.mintiz.post.service.CommentService;
 import com.mintiz.post.service.PostService;
+import com.mintiz.user.service.LoginService;
+import com.mintiz.user.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.io.Resource;
@@ -14,6 +20,7 @@ import org.springframework.web.bind.annotation.*;
 import java.net.MalformedURLException;
 import com.mintiz.file.FileStore;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @Controller
@@ -24,8 +31,8 @@ public class PostController {
 
     private final PostService postService;
     private final CommentService commentService;
+    private final LoginService loginService;
     private final FileStore fileStore;
-    private final long userId = 1L;   //임시
 
     @GetMapping("/add")
     public String addPostView(Model model){
@@ -34,17 +41,22 @@ public class PostController {
     }
 
     @PostMapping("/add")
-    public String addPost(@ModelAttribute PostSaveDto postSaveDto){
-        Long postId = postService.savePost(userId, postSaveDto);
+    public String addPost(@ModelAttribute PostSaveDto postSaveDto, HttpServletRequest request){
+        User loginUser = loginService.getLoginUser(request);
+
+        Long postId = postService.savePost(loginUser.getId(), postSaveDto);
         return "redirect:/post/" + postId;
     }
 
     //게시글 상세페이지 조회 + 댓글까지 함께 조회
     @GetMapping("/{postId}")
-    public String getPost(@PathVariable("postId") long postId, Model model){
-        PostResDto postResDto = postService.findPost(postId);
+    public String getPost(@PathVariable("postId") long postId, Model model, HttpServletRequest request){
+        //로그인한 유저의 북마크 여부 확인
+        User loginUser = loginService.getLoginUser(request);
+        PostResDto postResDto = postService.findPost(postId, loginUser);
         List<CommentResDto> commentList = commentService.getCommentListByPost(postId);
 
+        model.addAttribute("loginUser", loginUser);
         model.addAttribute("commentSize", commentList.size());
         model.addAttribute("PostResDto", postResDto);
         model.addAttribute("commentList", commentList);
@@ -61,8 +73,9 @@ public class PostController {
     }
 
     @GetMapping("/{postId}/update")
-    public String updatePostForm(@PathVariable("postId") long postId, Model model){
-        PostResDto post = postService.findPost(postId);
+    public String updatePostForm(@PathVariable("postId") long postId, Model model, HttpServletRequest request){
+        User loginUser = loginService.getLoginUser(request);
+        PostResDto post = postService.findPost(postId, loginUser);
         PostUpdateDto postUpdate = PostUpdateDto.builder()
                 .content(post.getContent())
                 .location(post.getLocation())
@@ -89,28 +102,22 @@ public class PostController {
     }
 
     //댓글 등록
+    @ResponseBody
     @PostMapping("/{postId}/comments")
-    public String addComment(@PathVariable("postId") long postId, @RequestParam("comment-input") String comment){
-
-        commentService.addComment(new CommentSaveDto(1L, postId, comment));
-        return "redirect:/post/" + postId;
+    public long addComment(@PathVariable("postId") long postId,
+                           @RequestBody CommentSaveDto commentSaveDto, HttpServletRequest request){
+        User loginUser = loginService.getLoginUser(request);
+        return commentService.addComment(new CommentSaveDto(loginUser.getId(), postId, commentSaveDto.getContent()));
     }
-
-    /*
-    //댓글 수정창..
-    @GetMapping("/{postId}/comments/{commentId}/update")
-    public String updateCommentForm(@PathVariable("commentId") long commentId, @PathVariable("postId") long postId){
-        return "post/"
-    }
-     */
 
     //댓글 수정
+    @ResponseBody
     @PostMapping("/{postId}/comments/{commentId}/update")
-    public String updateComment(@PathVariable("commentId") long commentId, @PathVariable("postId") long postId,
-                                CommentUpdateReqDto commentUpdateReqDto){
+    public void updateComment(@PathVariable("commentId") long commentId, @PathVariable("postId") long postId,
+                                @RequestBody CommentUpdateReqDto commentUpdateReqDto){
         commentUpdateReqDto.setCommentId(commentId);
         commentService.updateComment(commentUpdateReqDto);
-        return "redirect:/post/" + postId;
+        //return "redirect:/post/" + postId;
     }
 
     //댓글 삭제

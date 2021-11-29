@@ -32,7 +32,7 @@ public class Comment extends BasicClass{
     @JoinColumn(name = "user_id")
     private User user;
 
-    @Column(nullable = false)
+    //@Column(nullable = false)
     private String content;
 
     public void updateComment(CommentUpdateReqDto update){

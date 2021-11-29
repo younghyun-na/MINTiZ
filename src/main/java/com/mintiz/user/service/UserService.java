@@ -1,6 +1,9 @@
 package com.mintiz.user.service;
+import com.mintiz.domain.ImageFile;
 import com.mintiz.domain.User;
+import com.mintiz.file.FileStore;
 import com.mintiz.user.repository.UserRepository;
+import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import com.mintiz.user.model.UserSignupDto;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -12,11 +15,12 @@ import java.util.List;
 
 @Service
 @Transactional(readOnly = true)
-@RequiredArgsConstructor
+@AllArgsConstructor
 public class UserService {
 
     private final UserRepository userRepository;
-    private PasswordEncoder passwordEncoder;
+    private final PasswordEncoder passwordEncoder;
+    private final FileStore fileStore;
 
 
     // 회원 가입
@@ -27,16 +31,26 @@ public class UserService {
         if(userRepository.findByEmail(userSignupDto.getEmail()).isPresent())
             throw new IllegalStateException("이미 존재하는 회원입니다.");
 
+        if(userRepository.findByLoginId(userSignupDto.getLoginId()).isPresent()){
+            throw new IllegalStateException("이미 존재하는 아이디입니다.");
+        }
 
-        // 회원 객체 생성 후 저장
-        return userRepository.save(User.builder()
+        User user = User.builder()
                 .email(userSignupDto.getEmail())
-                .loginId(userSignupDto.getLoginId())
                 .password(passwordEncoder.encode(userSignupDto.getPassword()))
+                .loginId(userSignupDto.getLoginId())
                 .name(userSignupDto.getName())
                 .level(userSignupDto.getLevel())
-                .profile(userSignupDto.getProfile())
-                .build());
+                .build();
+        try{
+            ImageFile image = fileStore.storeFile(userSignupDto.getProfile());
+            user.setProfile(image);
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+
+        // 회원 객체 생성 후 저장
+        return userRepository.save(user);
     }
 
 
@@ -54,13 +68,16 @@ public class UserService {
 
     }
 
-    /*
+
     // 아이디 중복 체크
-    public int idCheck(Long id){
-        int cnt = userRepository.idCheck(id);
-        return cnt;
+    public boolean emailCheck(String email){
+        return userRepository.findByEmail(email).isPresent();
     }
-    */
+
+    public boolean loginIdCheck (String loginId){
+        return userRepository.findByLoginId(loginId).isPresent();
+    }
+
 
 
 }

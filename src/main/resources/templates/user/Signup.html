@@ -1,73 +1,78 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>회원 가입</title>
+    <title>MINTiZ</title>
     <script type="text/javascript" src="../js/join.js"></script>
+    <script src="http://code.jquery.com/jquery-latest.js"></script>
     <link rel="stylesheet" type="text/css" th:href="@{/css/join.css}">
+    <script type="text/javascript" th:src="@{/js/signup.js}" src="../js/signup.js"></script>
 </head>
 
 <body>
 <div id="page-wrapper">
-    <header th:replace="fragments.html :: #login-header">
-        <!--고정 헤더-->
-        <hgroup align="center">
-            <h1 align="center" class="master-title">회원 가입</h1>
+    <header >
+        <hgroup align="center" >
+            <img width="210px" height="100px" th:src="@{/img/MINTiZ_logo.png}" >
         </hgroup>
     </header>
 </div>
 
-<!--아이디 중복 확인 기능-->
-<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-<script type="text/javascript"></script>
 
 <!--회원가입 폼-->
 <section class="join-input-section-wrap">
-    <form name="join_form" role="form" th:action="@{/user/signup}" method="POST">
-        <form name="join_form" role="form" th:action="@{/user/signup}" method="POST">
-            <div class="login-name">
-                <p><b> 레벨 <b></p>
-                <span th:text="${level}"> </span>
-            </div>
-            <div class="login-name">
-                <p> 프로필 </p>
-                <input type="file" accept="image/*" name="profile" />
-            </div>
-            <div class="login-name">
-                <b>이메일 </b> </div>
+    <form name="join_form" role="form" th:object="${userSignup}" th:action="|@{/user/signup}|" method="POST" enctype="multipart/form-data">
+        <div class="login-name">
+            <p><b> 레벨 </b></p>
             <div class="login-input-wrap">
-                <input  name="email" placeholder="이메일을 입력해주세요" type="email"></input>
+            <input th:value="${level}" name="level" readonly>
             </div>
-            <div class="login-name">
-                <b>이름</b> </div>
-            <div class="login-input-wrap">
-                <input  name="name" placeholder="이름을 입력해주세요" type="text">
-            </div>
-            <div class="login-name">
-                <b>아이디 </b></div>
-            <div class="login-input-wrap">
-                <input name="loginId" placeholder="아이디를 입력해주세요" type="text">
-                <!--
-                <input  placeholder="아이디를 입력해주세요" type="text">
-                <button id="id_button" onclick="id_check();">중복확인</button>
-                <span class="id_ok">사용 가능한 아이디입니다.</span>
-                <span class="id_already">사용 불가능한 아이디입니다.</span>
-                -->
-            </div>
-            <div class="login-name">
-                <b>비밀번호 </b></div>
-            <div class="login-input-wrap">
-                <input name="password" placeholder="비밀번호를 입력해주세요" type="password"></input>
-            </div>
-            <div class="login-name"> <b>비밀번호 확인</b></div>
-            <div class="login-input-wrap">
-                <input name="check_password" placeholder="비밀번호를 입력해주세요" type="password"></input>
-            </div>
-            <div class="login-button-wrap">
-                <button type="submit" >Sign up</button>
-            </div>
+        </div>
 
+        <div class="login-name">
+            <p><b> 프로필 사진</b></p>
+            <input th:field="*{profile}" type="file" accept="image/*" name="profile" />
+        </div>
 
-        </form>
+        <div class="login-name">
+            <b>이메일 </b> </div>
+        <div class="login-input-wrap">
+            <input th:field="*{email}" name="email" placeholder="이메일을 입력해주세요" type="email">
+            <button id="email_button"  type="button" onclick="email_check()">중복확인</button>
+        </div>
+        <div id="email_ok" class="email_ok">사용 가능한 이메일입니다.</div>
+        <div id="email_already" class="email_already">이미 존재하는 이메일입니다.</div>
+        <div class="login-name">
+            <b>이름</b> </div>
+        <div class="login-input-wrap">
+            <input th:field="*{name}" name="name" placeholder="이름을 입력해주세요" type="text">
+        </div>
+
+       <div class="login-name">
+           <b>아이디 </b></div>
+       <div class="login-input-wrap">
+           <input name="loginId" th:field="*{loginId}"placeholder="아이디를 입력해주세요" type="text">
+           <button id="id_button" type="button" onclick="id_check();">중복확인</button>
+       </div>
+        <div id="id_ok" class="id_ok">사용 가능한 아이디입니다.</div>
+        <div id="id_already" class="id_already">이미 존재하는 아이디입니다.</div>
+
+        <div class="login-name">
+            <b>비밀번호 </b></div>
+        <div class="login-input-wrap">
+            <input th:field="*{password}" name="password" placeholder="비밀번호를 입력해주세요" type="password">
+        </div>
+        <div class="login-name"> <b>비밀번호 확인</b></div>
+        <div class="login-input-wrap">
+            <input name="check_password" id="check_password" placeholder="비밀번호를 입력해주세요" type="password">
+        </div>
+        <div class="login-button-wrap">
+            <button type="button" onclick="join_form_check()" >Sign up</button>
+        </div>
+        <div class="login-button-wrap">
+            <button type="button" onclick="signIn()" >Sign in</button>
+        </div>
+
+    </form>
 </section>
 
 </body>

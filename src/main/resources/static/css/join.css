@@ -20,13 +20,24 @@ body{
 }
 
 .id_ok{
-    color:#fff;
+	color:#6A82FB;
     display: none;
 }
 
 .id_already{
-    color:#6A82FB;
+	color:#bd2130;
     display: none;
+}
+
+
+.email_ok{
+	color:#6A82FB;
+	display: none;
+}
+
+.email_already{
+	color:#bd2130;
+	display: none;
 }
 
 .login-name{
@@ -50,6 +61,14 @@ body{
 	border: solid 1px var(--border-gray-color);
 }
 #id_button{
+	width: 70px;
+	height:40px;
+	background: #eaebe7;
+	color: #4e4e4e;
+	border: var(--naver-green-color);
+	border-radius: 5px;
+}
+#email_button{
 	width: 70px;
 	height:40px;
 	background: #eaebe7;

@@ -22,9 +22,6 @@ function bookmark(postId, userId){ //채운 별일때 클릭 -> 북마크 되어
     });
 
     console.log("취소");
-
-
-
 }
 
 function noneBookmark(postId, userId){ //빈 별일때 클릭 -> 북마크 되어있지 않을 때
