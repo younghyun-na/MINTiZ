@@ -18,13 +18,15 @@ public class PostResDto {     //상세페이지 dto + 댓글도..?
     private String location;
     private String writeDate;
     private List<ImageFile> imageFiles;
+    private boolean check;
 
-    public PostResDto(Post post, String tagName) {
+    public PostResDto(Post post, String tagName, boolean check) {
         this.postId = post.getId();
         this.user = post.getUser();
         this.content = post.getContent();
         this.location = post.getLocation();
         this.writeDate = post.getCreatedAt().toString();
         this.tagName = tagName;
+        this.check = check;
     }
 }

@@ -80,13 +80,19 @@ public class PostService {
     /**
      * 게시글 개별 조회 + 태그도
      */
-    public PostResDto findPost(Long postId) {
+    public PostResDto findPost(Long postId, User user) {
         Post post = postRepository.findById(postId)
                     .orElseThrow(() ->
                         new IllegalArgumentException("해당 게시물이 없습니다. id= " + postId));
         String tagName = tagPostRepository.findByPostId(postId).getTag().getTag_name();
 
-        PostResDto postResDto = new PostResDto(post, tagName);
+        //북마크 여부 확인
+        Boolean bookmarkCheck = false;
+        if (bookmarkRepository.findByUserAndPost(user, post).isPresent()){
+            bookmarkCheck = true;
+        }
+
+        PostResDto postResDto = new PostResDto(post, tagName, bookmarkCheck);
         postResDto.setWriteDate(getFormattedTime(post.getCreatedAt()));
 
         //이미지 처리
