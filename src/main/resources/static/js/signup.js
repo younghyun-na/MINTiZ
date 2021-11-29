@@ -102,4 +102,11 @@ function check(re, what, message) {
     what.focus();
     //return false;
 }
+const baseUrl = 'http://localhost:8080/';
+
+function signIn(){
+    let link = baseUrl + 'user/login';
+    console.log(link);
+    location.href = link;
+}
 

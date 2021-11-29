@@ -109,7 +109,7 @@
 
 
 
-  <div class = "body-layout">
+  <div class = "body-layout" align="center">
     <div class="writer">
       <table>
         <tbody>
@@ -178,36 +178,44 @@
       부드러운 빵시트가 시원하고 상쾌한 민트 크림이랑 전체적으로 잘 어울림<br>
       별 4개 ★★★★☆
     </div>
+  </div>
 
     <div class = "comments">
       <hr align="center" color="#9b9090">
       <div id="form-commentInfo" class = "comment-row">
         <div id="comment-count">댓글
           <span id = "comments-count" th:text="${commentSize}">2</span>
-          <div class = "comment-row" >
-            <form role="form" method="post" id = "form">
-              <textarea id = "comment-input" name = "comment-input" placeholder="댓글을 입력해 주세요."></textarea>
-              <button type = "button" id="submit_btn" name="submit_btn">등록</button>
-            </form>
-          </div>
+        </div>
+          <div class = "comment-form" >
+            <div class="right-comment-lay">
+              <form role="form" method="post" id = "form">
+                <div>
+                  <textarea id = "comment-input" name = "comment-input" placeholder="댓글을 입력해 주세요."></textarea>
+                </div>
+                <div class="write-button">
+                  <button type = "button" id="submit_btn" name="submit_btn">등록</button>
+                </div>
+              </form>
+            </div>
+
           <div class = "comment-row" id="commentTable" th:each="comment,iterStat : ${commentList}">
 
             <table width = 300 height = 50>
               <tr><!-- 댓글 작성자 프로필 가져오기-->
-                <th rowspan="2"><img id="profile_img" src="../img/profile.png" width='45' height='45'/></th>
+                <th rowspan="2"><img id="profile_img" src="../img/profile.png" width='20' height='20'/></th>
                 <td>
                   <div class="comment-name" style="font-weight: bold; font-size: small" th:text="${comment.getUserName()}">나영현</div>
                   <div class="comment-date" style="font-size: x-small" th:text="${comment.getUpdateTime()}">2021-11-17 10:16</div>
                 </td>
               </tr>
             </table>
-            <hr align="center" color="#9b9090" style="border:solid 1px #9b9090">
-            <table>
+
+            <table class="comment-layout">
               <tr>
                 <td class="td">
                   <div class="comment-content" th:text="${comment.getContent()}" >Comment1</div>
-                  <div class="deleteOrmodify" style="display:inline-block;" >
-                    <span class = "modify" id = "modify">
+                  <div class="deleteOrmodify button-right" style="display:inline-block;" >
+                    <span class = "modify " id = "modify">
                       <button id="modify_btn" class="btn-modify" type="button">
                         <img id="modifyImg" src="../img/modifying.png" width='20' height='20' alt="수정">
                       </button>
@@ -241,7 +249,7 @@
         </div>
       </div>
     </div>
-  </div>
+
 </div>
 </body>
 </html>

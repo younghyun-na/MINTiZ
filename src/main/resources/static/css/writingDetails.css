@@ -25,7 +25,7 @@ body{
 #content{
     overflow:hidden;
     background:white;
-    margin:10px 0; padding: 0px 20px;
+    margin:10px 0; padding: 0px 60px;
     border-radius:5px;
     box-shadow:0 2px 6px rgba(100, 100, 100, 0.3);
 }
@@ -33,11 +33,7 @@ body{
 /* 본문 내용의 레이아웃, 글씨 색*/
 .body-layout{
     display: grid;
-    place-content: center;
-    margin: 13px;
-    color:var(--mintiz-brown);
-    display: grid;
-    place-content: center;
+    place-items: center;
     margin: 13px;
     color:var(--mintiz-brown);
 }
@@ -47,6 +43,8 @@ body{
     align-items: center;
     align-content: center;
 }
+
+
 
 /* 작성자 부분 레이아웃 */
 
@@ -149,10 +147,25 @@ body{
 #comments{
     margin-top: 10px;
 }
-.comment-row{
+#commentTable.comment-row{
     margin-bottom: 5px;
     margin-top: 15px;
+    border: 1px solid #999999;
+    border-radius:7px;
+    position: relative;
+    right: 0;
 }
+
+.comment-layout{
+    margin-left: 20px;
+
+}
+.comment-form{
+    margin-bottom: 5px;
+    margin-top: 15px;
+
+}
+
 .comment-date{
     font-size: 5px;
 }
@@ -306,10 +319,24 @@ input#img-6:checked ~ .nav-dots label#img-dot-6 {
 .deleteOrmodify{
     display:inline-block;
     float: right;
-    padding-inline-start: 600px ;
 }
 
 .bookmark_img{
     width: 30px;
     height: 30px;
+}
+
+.button-right{
+    position: absolute;
+    right: 10px;
+    bottom: 10px;
+}
+
+.right-comment-lay .write-button{
+    position: absolute;
+    right: 10px;
+}
+.right-comment-lay{
+    position: relative;
+    right: 0;
 }
