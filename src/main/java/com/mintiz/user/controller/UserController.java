@@ -33,8 +33,7 @@ public class UserController {
 
     // 회원가입 기능
     @PostMapping("/signup")
-    public String signup(
-                         @Valid @ModelAttribute UserSignupDto userSignupDto) {
+    public String signup(@Valid @ModelAttribute UserSignupDto userSignupDto) {
 
         userService.join(userSignupDto);
         return "redirect:/user/login";

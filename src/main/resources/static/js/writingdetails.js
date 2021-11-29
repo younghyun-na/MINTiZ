@@ -1,4 +1,3 @@
-
 $("#user_id").text()     // 로그인한 사용자의 id 가져와야함 (jquery) 타임리프 변수명보고 수정하기
 $(".writer_name")        // 글 작성자
 $(".writer_name")[0].innerHTML

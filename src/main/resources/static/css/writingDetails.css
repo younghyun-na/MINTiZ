@@ -36,18 +36,22 @@ body{
     place-content: center;
     margin: 13px;
     color:var(--mintiz-brown);
+    display: grid;
+    place-content: center;
+    margin: 13px;
+    color:var(--mintiz-brown);
 }
 
 .layout{
     text-align: center;
     align-items: center;
     align-content: center;
-
 }
 
 /* 작성자 부분 레이아웃 */
+
 .writer{
-    text-align: left;
+    width: 500px;
     background: white;
     box-shadow:0 2px 6px rgba(100, 100, 100, 0.3);
 }
@@ -73,9 +77,18 @@ body{
 
 /* 글 부분 레이아웃 */
 .writing{
-    padding: 7px;
+    font-size: small;
+    text-align: left;
+    padding: 20px;
     width: 609px;
     color:black;
+}
+#writer_name{
+    font-weight: bold;
+    font-size: 16px;
+}
+#write_time{
+    font-size: 12px;
 }
 .interaction{
     float: right;
@@ -159,9 +172,8 @@ body{
     height: 420px;
     display: block;
     margin: 0 auto;
-    position: center;
+    position: relative; //
 }
-
 
 .slider2 {
     position: absolute;
