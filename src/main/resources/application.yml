@@ -5,6 +5,13 @@ spring:
     password:
     driver-class-name: org.h2.Driver
     initialize : true
+  devtools:
+    livereload:
+      enabled: true
+    restart:
+      enabled: true
+  thymeleaf:
+    cache: false
 
   jpa:
     hibernate:
@@ -23,5 +30,5 @@ logging.level:
   #org.hibernate.type: trace
 
 file:
-  #dir: C:/Users/ADMIN/Documents/img/
-  dir: /Users/jimin/dev/img
+  dir: C:/Users/ADMIN/Documents/img/
+  #dir: /Users/jimin/dev/img

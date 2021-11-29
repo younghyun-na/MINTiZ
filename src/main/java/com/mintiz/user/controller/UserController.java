@@ -2,6 +2,8 @@ package com.mintiz.user.controller;
 
 import com.mintiz.domain.Level;
 import com.mintiz.user.model.UserSignupDto;
+import com.mintiz.user.model.emailCheckDto;
+import com.mintiz.user.model.loginIdCheckDto;
 import com.mintiz.user.service.UserService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -38,15 +40,21 @@ public class UserController {
         return "redirect:/user/login";
     }
 
-
-/*
-    // 이메일 중복확인 기능
+    //이메일 중복확인 기능
     @PostMapping("/emailCheck")
-    public boolean emailCheck(@RequestBody UserSignupCheckDto checkDto){
+    @ResponseBody
+    public boolean emailCheck(@RequestBody emailCheckDto checkDto){
         String email = checkDto.getEmail();
         return userService.emailCheck(email);
     }
-*/
+
+    @PostMapping("/loginIdCheck")
+    @ResponseBody
+    public boolean emailCheck(@RequestBody loginIdCheckDto checkDto){
+        String loginId = checkDto.getLoginId();
+        return userService.loginIdCheck(loginId);
+    }
+
 
 
 
