@@ -32,5 +32,7 @@
 
 **- ERD**
 
-<img src="https://user-images.githubusercontent.com/50178026/143982277-b0ab1501-f3a5-4818-9094-b93755778fe0.png" width="60%" height="60%"/> 
+<img src="https://user-images.githubusercontent.com/50178026/144048141-d7a08e4f-5c54-42ed-833e-9360db0d9c7d.png" width="60%" height="60%"/> 
+
+
 
