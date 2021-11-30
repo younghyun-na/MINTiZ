@@ -46,9 +46,11 @@
         </button>
     </div>
 
-    <div class="none-post-content" id="none-post-content" style="display:none" >
-        <img src="../img/alert.png" width="30" height="30">
-        <div> 등록된 게시물이 존재하지 않습니다.</div>
+    <div align="center">
+        <div class="none-post-content" id="none-post-content" style="display:none" >
+            <img src="../img/alert.png" width="30" height="30">
+            <div> 등록된 게시물이 존재하지 않습니다.</div>
+        </div>
     </div>
 
     <section id="main-section" th:each = "posts : ${post}">
