@@ -114,9 +114,9 @@ public class PostController {
     @PostMapping("/{postId}/comments/{commentId}/update")
     public void updateComment(@PathVariable("commentId") long commentId, @PathVariable("postId") long postId,
                                 @RequestBody CommentUpdateReqDto commentUpdateReqDto){
+        log.info("commentId = {}", commentId);
         commentUpdateReqDto.setCommentId(commentId);
         commentService.updateComment(commentUpdateReqDto);
-        //return "redirect:/post/" + postId;
     }
 
     //댓글 삭제

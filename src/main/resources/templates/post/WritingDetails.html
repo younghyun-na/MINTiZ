@@ -47,19 +47,20 @@
       updateBtns.forEach(function(item){
         item.addEventListener("click", function (){
           var form = this.closest('form');
+          var table = this.closest('#commentTable');
           var data = {
             commentId: form.querySelector('#comment-id').value,
             updateContent: form.querySelector('#comment-content').value,
           };
 
           jQuery.ajax({
-            url: "/post/" + $('#post_num').val() + "/comments/" + $('#comment-id').val() + "/update",
+            url: "/post/" + $('#post_num').val() + "/comments/" + data.commentId + "/update",
             type : "POST",
             data : JSON.stringify(data),
             contentType: "application/json; charset=UTF-8",
             async:false
           }).done(function (fragment){
-            $('#commentTable').replaceWith(fragment);
+            table.replaceWith(fragment);
             window.location.reload(true);
           });
         });
@@ -73,7 +74,7 @@
           var table = this.closest('table');
           var x = table.querySelector('#hide');
           if (x.style.display === "none") {
-            x.style.display = "block";   //한번 바뀌면..
+            x.style.display = "block";
           } else {
             x.style.display = "none";
           }

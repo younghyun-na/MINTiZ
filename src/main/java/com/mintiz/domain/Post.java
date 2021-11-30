@@ -33,7 +33,6 @@ public class Post extends BasicClass{
 
     private String location;
 
-    //{CascadeType.PERSIST, CascadeType.REMOVE}
 
     @OneToMany(mappedBy = "post", orphanRemoval = true, cascade = CascadeType.ALL)   //자식 entity 고아(NULL) 객체 삭제
     @Builder.Default
@@ -52,7 +51,6 @@ public class Post extends BasicClass{
         this.location = postUpdateDto.getLocation();
     }
 
-    //==비즈니스 로직==//
     /**Post 에서 파일 추가 처리**/
     public void addImageFile(ImageFile imageFile){
         this.images.add(imageFile);  //list 에 추가

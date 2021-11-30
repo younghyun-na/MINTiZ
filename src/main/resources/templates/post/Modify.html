@@ -17,7 +17,7 @@
 
     <form th:action="@{/post/{postId}/update(postId=${postId})}" th:object="${updateForm}" name="articles" method="post" enctype="multipart/form-data">
         <section id="tag-section">
-            <select th:field="*{tagName}" name="tagName" id="tagName" onchange=addPostScriptTag();>
+            <select th:field="*{tagName}" name="tagName" id="tagName"  class="form-control" onchange=addPostScriptTag();>
                 <option value='' selected>-- 선택 --</option>
                 <option th:value="일상" value='daily'>일상</option>
                 <option th:value="후기" value='postscript'>맛집 후기</option>
@@ -46,13 +46,6 @@
                 </select>
             </div>
         </section>
-        <!--
-        <div class="button">
-            <label for="chooseImg">
-                <img class="addImg" src="../img/addPicture.png" width='80' height='80'>
-            </label>
-        </div>
-        -->
         <div class="button">
             <img class="addImg" src="../img/addPicture.png" width='80' height='80'>
         </div>
