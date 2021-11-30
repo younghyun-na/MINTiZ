@@ -32,7 +32,7 @@ public class CommentService {
      * */
     @Transactional
     public long addComment(CommentSaveDto commentSaveDto){
-        //jwt => userId
+
         User user = userRepository.getById(commentSaveDto.getUserId());
         Post post = postRepository.findById(commentSaveDto.getPostId()).get();
 
