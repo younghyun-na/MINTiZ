@@ -14,6 +14,7 @@ public class CommentResDto {
     private String updateTime;    //댓글 쓴 날짜
     private String userName;           //작성자 이름
     private ImageFile userImgUrl;         //작성자 프로필 이미지
+    private long userId;
 
     public CommentResDto(Comment comment, String updateTime){
         this.commentId = comment.getId();
@@ -21,6 +22,7 @@ public class CommentResDto {
         this.updateTime = updateTime;
         this.userName = comment.getUser().getName();
         this.userImgUrl = comment.getUser().getProfile();
+        this.userId = comment.getUser().getId();
     }
 
 }

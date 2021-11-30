@@ -131,13 +131,13 @@
               <!--
               <span class = "control hidden" id = "control_id{{ forloop.counter0 }}">
               -->
-              <span th:if="${loginUser eq PostResDto.user}">
+              <span th:if="${loginUser.id eq PostResDto.user.getId()}">
                 <!--수정 버튼-->
                   <button id="rewrite_btn" th:onclick="|location.href='@{/post/{postId}/update(postId=${PostResDto.postId})}'|">
                     <img id="rewrite" src="../img/modifying.png" width='25' height='25' alt="수정">
                   </button>
               </span>
-              <span th:if="${loginUser eq PostResDto.user}">
+              <span th:if="${loginUser.id eq PostResDto.user.getId()}">
                   <!--삭제 버튼-->
                   <form  action="#" th:action="@{/post/{postId}/delete(postId=${PostResDto.postId})}" th:method="post" style="display:inline-block;">
                     <button id="trash_btn" type="submit" onclick="return confirm('정말 삭제하시겠습니까?')">
@@ -221,11 +221,11 @@
                   <div class="comment-content" th:text="${comment.getContent()}" >Comment1</div>
                   <div class="deleteOrmodify button-right" style="display:inline-block;" >
                     <span class = "modify " id = "modify">
-                      <button id="modify_btn" class="btn-modify" type="button">
+                      <button th:if="${loginUser.id eq comment.userId}" id="modify_btn" class="btn-modify" type="button">
                         <img id="modifyImg" src="../img/modifying.png" width='20' height='20' alt="수정">
                       </button>
                       <form action="#" th:action="@{/post/{postId}/comments/{commentId}/delete(postId=${PostResDto.postId}, commentId=${comment.getCommentId()})}"
-                            th:method="post" style="display:inline-block;" >
+                            th:method="post" style="display:inline-block;" th:if="${loginUser.id eq comment.userId}">
                         <button id="delete_btn" type="submit" onclick="return confirm('정말 삭제하시겠습니까?')">
                           <img id="delete" src="../img/delete.png"  width='20' height='20' alt="삭제">
                         </button>
