@@ -25,27 +25,28 @@ PostRepository {
         return Optional.ofNullable(post);
     }
 
-    public List<Post> findByContent(String keyword){
+    public Optional<List<Post>> findByContent(String keyword){
         List<Post> postList = em.createQuery("select p from Post p " +
                 "where p.content like CONCAT('%',:keyword,'%') order by p.createdAt desc", Post.class)
                 .setParameter("keyword", keyword)
                 .getResultList();
 
-        return postList;
+        return Optional.ofNullable(postList);
     }
 
-    public List<Post> findByTag(String tagName){
-        return em.createQuery("select p from Post p left join p.tagPosts t " +
+    public Optional<List<Post>> findByTag(String tagName){
+        List resultList = em.createQuery("select p from Post p left join p.tagPosts t " +
                 "where t.tag.tag_name = :tagName order by p.createdAt desc")
                 .setParameter("tagName", tagName)
                 .getResultList();
+        return Optional.ofNullable(resultList);
     }
 
 
-    //여기서 optional 써서..
-    public List<Post> findList(){
-        return em.createQuery("select p from Post p order by p.createdAt desc", Post.class)
+    public Optional<List<Post>> findList(){
+        List<Post> resultList = em.createQuery("select p from Post p order by p.createdAt desc", Post.class)
                 .getResultList();
+        return Optional.ofNullable(resultList);
     }
 
     public List<Post> findByUser(Long userId){

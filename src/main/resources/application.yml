@@ -15,7 +15,7 @@ spring:
 
   jpa:
     hibernate:
-      ddl-auto: update
+      ddl-auto: create
     properties:
       hibernate:
         format_sql: true
@@ -30,8 +30,8 @@ logging.level:
   #org.hibernate.type: trace
 
 file:
+  dir: C:/Users/ADMIN/Documents/img/
   #dir: C:/dev/img/
-  #dir: C:/Users/ADMIN/Documents/img/
-  dir: /Users/jimin/dev/img
+  #dir: /Users/jimin/dev/img
 
 

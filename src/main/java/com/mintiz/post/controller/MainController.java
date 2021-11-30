@@ -1,5 +1,6 @@
 package com.mintiz.post.controller;
 
+import ch.qos.logback.core.encoder.EchoEncoder;
 import com.mintiz.bookmark.BookmarkService;
 import com.mintiz.domain.User;
 import com.mintiz.post.model.PostListResDto;
@@ -9,12 +10,14 @@ import com.mintiz.user.service.LoginService;
 import com.mintiz.user.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import net.bytebuddy.pool.TypePool;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -40,17 +43,26 @@ public class MainController {
             return "redirect:/user/login";
         }
         User user = userService.findUser(loginUser.getId());
-        model.addAttribute("user",user);
+        model.addAttribute("user", user);
 
-        //내용으로 조회(제목이 X)
+        //내용으로 조회
         if(content != null){
-            List<PostListResDto> postListByName = postService.searchPostByContent(content,user);
-            model.addAttribute("post", postListByName);
-            return "post/Main";
+            try{
+                List<PostListResDto> postListByName = postService.searchPostByContent(content,user);
+                model.addAttribute("post", postListByName);
+                return "post/Main";
+            }catch(Exception e){
+                model.addAttribute("postSize", 1);
+                return "post/Main";
+            }
         }
 
-
         List<PostListResDto> postList = postService.findPostAll(user);
+        if(postList.isEmpty()){            //게시글 없을때 처리
+            model.addAttribute("post", new ArrayList<PostListResDto>());
+            model.addAttribute("postSize", 1);
+            return "post/Main";
+        }
         model.addAttribute("post", postList);
         return "post/Main";
     }
@@ -67,9 +79,15 @@ public class MainController {
         User user = userService.findUser(loginUser.getId());
         model.addAttribute("user",user);
 
-        List<PostListResDto> postListByTag = postService.findPostAllByTag(tagName,user);
-        model.addAttribute("post", postListByTag);
-        return "post/Main";
+        try{
+            List<PostListResDto> postListByTag = postService.findPostAllByTag(tagName,user);
+            model.addAttribute("post", postListByTag);
+            return "post/Main";
+        }catch(Exception e){
+            model.addAttribute("postSize", 0);
+            return "post/Main";
+        }
+
     }
 
 

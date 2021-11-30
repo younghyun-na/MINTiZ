@@ -114,23 +114,24 @@ public class PostService {
 
     public List<PostListResDto> findPostAll(User user){
         List<PostListResDto> postListResDtos = new ArrayList<>();
-        List<Post> list = postRepository.findList();
+        List<Post> list = postRepository.findList().orElseThrow(
+                () -> new IllegalStateException("게시글이 존재하지 않습니다."));
         bookmarkCheckList(user, postListResDtos, list);
         return postListResDtos;
     }
 
     private void toDto(List<PostListResDto> postListResDtos, Post post, boolean b) {
-
-        log.info("userId = {}", post.getUser().getId());
         List<ImageFile> imageList = imageRepository.findImageByPostId(post.getId()).orElseThrow(
                 () -> new IllegalStateException("게시글에 이미지가 존재하지 않습니다."));
 
-        PostListResDto postListResDto = PostListResDto.builder()
-                .post(post)
-                .check(b)
-                .image(imageList.get(0))       //썸네일
-                .updatedTime(getLocalTimeDiff(post.getUpdatedTime())).build();
-        postListResDtos.add(postListResDto);
+        if(imageList.size() != 0){
+            PostListResDto postListResDto = PostListResDto.builder()
+                    .post(post)
+                    .check(b)
+                    .image(imageList.get(0))       //썸네일
+                    .updatedTime(getLocalTimeDiff(post.getUpdatedTime())).build();
+            postListResDtos.add(postListResDto);
+        }
     }
 
     /**
@@ -147,7 +148,9 @@ public class PostService {
 
     public List<PostListResDto> searchPostByContent(String keyword, User user){
         List<PostListResDto> postListResDtos = new ArrayList<>();
-        List<Post> list = postRepository.findByContent(keyword);
+        List<Post> list = postRepository.findByContent(keyword).orElseThrow(
+                () -> new IllegalStateException("게시글이 존재하지 않습니다.")
+        );
         bookmarkCheckList(user, postListResDtos, list);
         return postListResDtos;
     }
@@ -160,7 +163,8 @@ public class PostService {
     public List<PostListResDto> findPostAllByTag(String tagName, User user){
 
         List<PostListResDto> postListResDtos = new ArrayList<>();
-        List<Post> list = postRepository.findByTag(tagName);
+        List<Post> list = postRepository.findByTag(tagName).orElseThrow(
+                () -> new IllegalStateException("게시글이 존재하지 않습니다."));
         bookmarkCheckList(user, postListResDtos, list);
         return postListResDtos;
 

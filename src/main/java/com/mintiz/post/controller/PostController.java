@@ -43,7 +43,6 @@ public class PostController {
     @PostMapping("/add")
     public String addPost(@ModelAttribute PostSaveDto postSaveDto, HttpServletRequest request){
         User loginUser = loginService.getLoginUser(request);
-
         Long postId = postService.savePost(loginUser.getId(), postSaveDto);
         return "redirect:/post/" + postId;
     }

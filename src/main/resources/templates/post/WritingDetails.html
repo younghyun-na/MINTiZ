@@ -205,10 +205,8 @@
             </div>
 
           <div class = "comment-row" id="commentTable" th:each="comment,iterStat : ${commentList}">
-
             <table width = 300 height = 50>
               <tr><!-- 댓글 작성자 프로필 가져오기-->
-
                 <th rowspan="2"><img id="profile_img"  th:src= "|/post/images/${comment.userImgUrl.uploadFilePath}|" src="../img/profile.png" width='45' height='45'/></th>
                 <td>
                   <div class="comment-name" style="font-weight: bold; font-size: small" th:text="${comment.getUserName()}">나영현</div>
@@ -232,7 +230,6 @@
                         </button>
                       </form>
                     </span>
-
                   </div>
                 </td>
               </tr>
@@ -257,7 +254,6 @@
         </div>
       </div>
     </div>
-
 </div>
 </body>
 </html>

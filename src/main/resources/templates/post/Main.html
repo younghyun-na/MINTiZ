@@ -6,13 +6,22 @@
     <link rel="stylesheet" type="text/css" th:href="@{/css/font.css}">
     <script src="http://code.jquery.com/jquery-latest.js"></script>
     <link rel="stylesheet" type="text/css" href="../css/main.css">
+    <script>
+        $(function (){
+            const nonePost = document.querySelector('#none-post-content');
+            if($('#post-size').val() == 1 ){
+                nonePost.style.display = "block";
+            }else{
+                nonePost.style.display = "none";
+            }
+        });
+    </script>
 </head>
 
 <body>
 <!--전체를 감싸는 태그-->
-<div id="page-wrapper"> <!--th:object = "${post}"-->
+<div id="page-wrapper">
     <header th:replace="fragments.html :: main-header"></header>
-
     <section id="search-section">
         <div class="search">
             <form method="get" th:action="@{/main}" ><input type="text" id="search" name="content"/>
@@ -30,10 +39,16 @@
 <div class="button-layout" id="content" >
 
     <!--글쓰기 버튼-->
+    <input type="hidden" id = "post-size" name="post-size" th:value="${postSize}">
     <div class="add-button">
         <button class="write-button">
             <div th:onclick="|location.href='@{/post/add}'|">글 등록</div>
         </button>
+    </div>
+
+    <div class="none-post-content" id="none-post-content" style="display:none" >
+        <img src="../img/alert.png" width="30" height="30">
+        <div> 등록된 게시물이 존재하지 않습니다.</div>
     </div>
 
     <section id="main-section" th:each = "posts : ${post}">
