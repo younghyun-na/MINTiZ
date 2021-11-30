@@ -3,6 +3,7 @@
 <head>
   <title>MINTiZ</title>
   <link rel="stylesheet" type="text/css" th:href="@{/css/writingdetails.css}" href="../css/writingdetails.css">
+  <link rel="stylesheet" type="text/css" th:href="@{/css/font.css}" >
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.css">
   <script type="text/javascript" th:src="@{/js/main.js}" src="../js/main.js"></script>
   <script type="text/javascript"  th:src="@{/js/writingdetails.js}" src="../js/writingdetails.js"></script>
@@ -108,7 +109,7 @@
 
 
 
-  <div class = "body-layout" align="center">
+  <div class = "body-layout " align="center">
     <div class="writer">
       <table>
         <tbody>
@@ -119,13 +120,13 @@
           </div>
         </tr>
           <!--작성자-->
-          <tr>
+          <tr class="basic-text">
             <td style="width: 10%" rowspan="2" align="left"> <!-- 게시물 작성자 프로필 가져오기-->
               <img id="profile_img1" th:src= "|/post/images/${PostResDto.user.profile.uploadFilePath}|" src="../img/profile.png" width='50' height='50' />
             </td>
             <td style="width: 90%" colspan="3" align="left" id="writer_name"  th:text="*{user.getName()}"></td>
           </tr>
-          <tr>
+          <tr class="basic-text">
             <td style="width: 50%" colspan="2" align="left" id="write_time" th:text="*{writeDate}"></td>
             <td style="width: 30%"  align="right">
               <!--
@@ -192,12 +193,12 @@
           <span id = "comments-count" th:text="${commentSize}">2</span>
         </div>
           <div class = "comment-form" >
-            <div class="right-comment-lay">
+            <div>
               <form role="form" method="post" id = "form">
                 <div>
                   <textarea id = "comment-input" name = "comment-input" placeholder="댓글을 입력해 주세요."></textarea>
                 </div>
-                <div class="write-button">
+                <div align="right">
                   <button type = "button" id="submit_btn" name="submit_btn">등록</button>
                 </div>
               </form>
@@ -243,8 +244,10 @@
                       <div class="form-group">
                         <textarea class="form-control" id="comment-content" rows="2" cols="90" th:text="${comment.getContent()}"></textarea>
                       </div>
-                      <input type="hidden" id = "comment-id" th:value="${comment.getCommentId()}">
-                      <button type="button" id = "comment-update-btn" class="comment-update-btn" >수정 </button>
+                      <div align="right">
+                        <input type="hidden" id = "comment-id" th:value="${comment.getCommentId()}">
+                        <button th:align="right" type="button" id = "comment-update-btn" class="comment-update-btn" >수정 </button>
+                      </div>
                     </form>
                   </div>
                 </td>

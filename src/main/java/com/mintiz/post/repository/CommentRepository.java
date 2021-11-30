@@ -30,7 +30,7 @@ public class CommentRepository {
     //댓글이 존재하지 않는 경우 체크(optional)
     public Optional<List<Comment>> findCommentsByPostId(Long postId) {
         List<Comment> commentList = em.createQuery("select c from Comment c " +
-                "where c.post.id = :postId order by c.createdAt desc", Comment.class)
+                "where c.post.id = :postId order by c.createdAt asc", Comment.class)
                 .setParameter("postId", postId)
                 .getResultList();
 

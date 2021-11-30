@@ -62,6 +62,7 @@ body{
 
 .category {
     display: inline-block;
+    font-family: 'Y_Spotlight';
 }
 
 .category a::after {
@@ -80,6 +81,7 @@ body{
     padding: 20px;
     width: 609px;
     color:black;
+    font-family: 'Pretendard-Regular';
 }
 #writer_name{
     font-weight: bold;
@@ -125,7 +127,13 @@ body{
 /* 댓글 레이아웃 */
 #form-commentInfo{
     width: 100%;
+    font-family: 'Pretendard-Regular';
 }
+
+.basic-text{
+    font-family: 'Pretendard-Regular';
+}
+
 #comments-count{
     margin-top: 10px;
 }
@@ -138,12 +146,12 @@ body{
 }
 
 #submit_btn{
-    background-color:#BDE4DC;
+    background-color:#817171;
     border: none;
-    width: 4.0em;
-    height: 3.2em;
+    width: 3.9em;
+    height: 2.3em;
     font-weight: bold;
-    color: #817171;
+    color: white;
     border-radius:7px;
 
 }
@@ -152,8 +160,8 @@ body{
     margin-top: 10px;
 }
 #commentTable.comment-row{
-    margin-bottom: 5px;
-    margin-top: 15px;
+    margin-bottom: 10px;
+    margin-top: 10px;
     border: 1px solid #eeeeee;
     border-radius:7px;
     position: relative;
@@ -169,7 +177,7 @@ body{
 
 }
 .comment-form{
-    margin-bottom: 5px;
+    margin-bottom: 20px;
     margin-top: 15px;
 
 }
@@ -356,12 +364,12 @@ input#img-6:checked ~ .nav-dots label#img-dot-6 {
 }
 
 .comment-update-btn{
-    background-color:#BDE4DC;
+    background-color:#817171;
     border: none;
-    width: 4.0em;
-    height: 3.0em;
+    width: 3.7em;
+    height: 2.7em;
     font-weight: bold;
-    color: #817171;
+    color: white;
     border-radius:7px;
     font-size: 10px;
 

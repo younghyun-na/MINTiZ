@@ -38,6 +38,7 @@ body{
     margin: 13px;
     margin-bottom: 30px;
     color:var(--mintiz-brown);
+    font-family: 'Pretendard-Regular';
 }
 
 .layout{
