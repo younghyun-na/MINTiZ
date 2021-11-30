@@ -47,24 +47,21 @@ public class MainController {
 
         //내용으로 조회
         if(content != null){
-            try{
-                List<PostListResDto> postListByName = postService.searchPostByContent(content,user);
-                model.addAttribute("post", postListByName);
-                return "post/Main";
-            }catch(Exception e){
-                model.addAttribute("postSize", 1);
-                return "post/Main";
+            List<PostListResDto> postListByName = postService.searchPostByContent(content,user);
+            if(postListByName.isEmpty()){
+                nonePostHandler(model);
             }
+            model.addAttribute("post", postListByName);
+            return "post/Main";
         }
 
         List<PostListResDto> postList = postService.findPostAll(user);
         if(postList.isEmpty()){            //게시글 없을때 처리
-            model.addAttribute("post", new ArrayList<PostListResDto>());
-            model.addAttribute("postSize", 1);
-            return "post/Main";
+            nonePostHandler(model);
         }
         model.addAttribute("post", postList);
         return "post/Main";
+
     }
 
     /**
@@ -79,16 +76,17 @@ public class MainController {
         User user = userService.findUser(loginUser.getId());
         model.addAttribute("user",user);
 
-        try{
-            List<PostListResDto> postListByTag = postService.findPostAllByTag(tagName,user);
-            model.addAttribute("post", postListByTag);
-            return "post/Main";
-        }catch(Exception e){
-            model.addAttribute("postSize", 0);
-            return "post/Main";
+        List<PostListResDto> postListByTag = postService.findPostAllByTag(tagName,user);
+        if(postListByTag.isEmpty()){
+            nonePostHandler(model);
         }
-
+        model.addAttribute("post", postListByTag);
+        return "post/Main";
     }
 
-
+    private String nonePostHandler(Model model){
+        model.addAttribute("post", new ArrayList<PostListResDto>());
+        model.addAttribute("postSize", 1);
+        return "post/Main";
+    }
 }

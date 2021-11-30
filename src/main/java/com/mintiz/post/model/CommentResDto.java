@@ -9,7 +9,7 @@ import lombok.Setter;
 @Setter
 public class CommentResDto {
 
-    private long commentId;       //화면에 전달해야 해서
+    private long commentId;       //화면에 전달
     private String content;              //댓글 내용
     private String updateTime;    //댓글 쓴 날짜
     private String userName;           //작성자 이름

@@ -47,7 +47,7 @@ public class PostController {
         return "redirect:/post/" + postId;
     }
 
-    //게시글 상세페이지 조회 + 댓글까지 함께 조회
+    //게시글 상세페이지 조회
     @GetMapping("/{postId}")
     public String getPost(@PathVariable("postId") long postId, Model model, HttpServletRequest request){
         //로그인한 유저의 북마크 여부 확인
@@ -114,7 +114,6 @@ public class PostController {
     @PostMapping("/{postId}/comments/{commentId}/update")
     public void updateComment(@PathVariable("commentId") long commentId, @PathVariable("postId") long postId,
                                 @RequestBody CommentUpdateReqDto commentUpdateReqDto){
-        log.info("commentId = {}", commentId);
         commentUpdateReqDto.setCommentId(commentId);
         commentService.updateComment(commentUpdateReqDto);
     }
