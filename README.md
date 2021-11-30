@@ -23,3 +23,14 @@
  : 회원정보, 민트데이 조회
  
 <img src="https://user-images.githubusercontent.com/50178026/143768207-2dfe032b-89e3-4197-af49-7268b16515db.png" width="47%" height="47%"/><img src="https://user-images.githubusercontent.com/50178026/143773470-785dc095-e200-41cb-9237-fe892fb42f08.png" width="47%" height="47%"/>
+
+### 📍 설계
+
+**- IA**
+
+<img src="https://user-images.githubusercontent.com/50178026/143982323-16098055-23e9-4655-85b1-79f14ced8945.png" width="60%" height="60%"/> 
+
+**- ERD**
+
+<img src="https://user-images.githubusercontent.com/50178026/143982277-b0ab1501-f3a5-4818-9094-b93755778fe0.png" width="60%" height="60%"/> 
+
