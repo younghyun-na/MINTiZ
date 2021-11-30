@@ -22,7 +22,7 @@ public class ImageFile {
     @Column(name = "image_file_id")
     private Long id;
 
-    private String originFileName;   //파일 원본명
+    private String originFileName;      //파일 원본명
 
     private String uploadFilePath;      //파일 저장 경로
 
@@ -31,6 +31,9 @@ public class ImageFile {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="post_id")
     private Post post;
+
+    @OneToOne
+    private User user;
 
     public void setPost(Post post){
         this.post = post;

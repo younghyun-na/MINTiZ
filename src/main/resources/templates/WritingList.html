@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>MINTiZ</title>
+    <script type="text/javascript"></script>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/basic.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/mypage.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/articlelist.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/font.css}">
+</head>
+
+<body>
+<div id="page-wrapper">
+    <header th:replace="fragments.html :: main-header"></header>
+</div>
+
+<!--화면 주요 내용-->
+<div id="content">
+    <!--메뉴바-->
+    <div class="layout">
+        <nav th:replace="fragments.html :: main-nav"></nav>
+    </div>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!--내가 쓴 글 목록-->
+    <div class="listlayout">
+        <article class="mylist">
+            <ul class="article-container">
+                <li th:each = "post : ${posts}">
+                    <div class="pagebutton">
+                        <a th:href="@{/post/{postId}(postId=${post.getPostId()})}" style="color: black">
+                            <img class="addImg" th:src="|/post/images/${post.getImage().getUploadFilePath()}|">
+                            <div class="btn-plus"><img draggable="false" src="../img/magnifier.png"></div>
+                        </a>
+                    </div>
+                </li>
+            </ul>
+        </article>
+    </div>
+    <!--
+    <div class="page">
+        <a class="pre" href="#">이전</a>
+        <a href="#">1</a>
+        <a href="#">2</a>
+        <a href="#">3</a>
+        <a href="#">4</a>
+        <a href="#">5</a>
+        <a href="#">6</a>
+        <a class="next" href="#">다음</a>
+    </div>
+    -->
+</div>
+
+</body>
+</html>

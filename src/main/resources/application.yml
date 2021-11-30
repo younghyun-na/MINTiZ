@@ -4,21 +4,34 @@ spring:
     username: sa
     password:
     driver-class-name: org.h2.Driver
+    initialize : true
+  devtools:
+    livereload:
+      enabled: true
+    restart:
+      enabled: true
+  thymeleaf:
+    cache: false
 
   jpa:
     hibernate:
-      ddl-auto: create
+      ddl-auto: update
     properties:
       hibernate:
         format_sql: true
 
   servlet:
     multipart:
-      max-file-size: 10MB
+      max-file-size: 20MB
       max-request-size: 20MB
-
-
 
 logging.level:
   org.hibernate.SQL: debug
   #org.hibernate.type: trace
+
+file:
+  #dir: C:/Users/ADMIN/Documents/img/
+  #dir: C:/dev/img/
+  dir: /Users/jimin/dev/img
+
+

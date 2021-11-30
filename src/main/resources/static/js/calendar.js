@@ -4,17 +4,18 @@ var date = new Date();
 function beforem() //이전 달을 today에 값을 저장
 {
     today = new Date(today.getFullYear(), today.getMonth() - 1, today.getDate());
-    build(); //만들기
+    build(months,dates,years); //만들기
 }
 
 function nextm()  //다음 달을 today에 저장
 {
     today = new Date(today.getFullYear(), today.getMonth() + 1, today.getDate());
-    build();
+    build(months,dates,years);
 }
 
-function build()
+function build(months,dates,years)
 {
+
     var nMonth = new Date(today.getFullYear(), today.getMonth(), 1); //현재달의 첫째 날
     var lastDate = new Date(today.getFullYear(), today.getMonth() + 1, 0); //현재 달의 마지막 날
     var tbcal = document.getElementById("calendar"); // 테이블 달력을 만들 테이블
@@ -69,18 +70,26 @@ function build()
             row = calendar.insertRow();// 줄 추가
         }
 
+        for (j=0; j<months.length; j++){
+            if(today.getFullYear() == years[j] &&today.getMonth() == months[j]-1 && i == dates[j] ){
+                cell.bgColor = "#BDE4DC";
+            }
+        }
+
         //민트 날짜 받아와서 색 설정 할 거임 테스트용
+/*
         if(today.getMonth()==date.getMonth() && (i==16 || i==25 || i==17))
         {
             cell.bgColor = "#BDE4DC";
         }
+*/
+
         /*
         if(today.getFullYear()==date.getFullYear() && today.getMonth()==date.getMonth() && i==date.getDate())
         {
             cell.bgColor = "#BDE4DC"; //먹은날짜
         }
         */
-
 
     }
 

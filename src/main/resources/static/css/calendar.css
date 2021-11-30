@@ -1,5 +1,5 @@
 /*캘린더*/
-table
+.mint-calendar
 {
     border:1px solid #BDE4DC;
     text-align:center;
@@ -14,9 +14,29 @@ table
     color: #B3B6B3;
 }
 
+.font-c{
+    font-family: 'Y_Spotlight';
+}
+
 .mint-calendar-font{
     text-align: center;
     color: #BDE4DC;
     font-size: 24px;
     margin-bottom: 10px;
+}
+@font-face {
+    font-family: 'Y_Spotlight';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts-20-12@1.0/Y_Spotlight.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+.title{
+    padding: 10px;
+    text-align: center;
+    color: #817171;
+    font-size: 20px;
+    margin-bottom: 10px;
+    font-family: 'Y_Spotlight';
+
 }

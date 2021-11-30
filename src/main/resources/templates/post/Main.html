@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>MINTiZ</title>
+    <script type="text/javascript" th:src="@{/js/main.js}" src="../js/main.js"></script>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/font.css}">
+    <script src="http://code.jquery.com/jquery-latest.js"></script>
+    <link rel="stylesheet" type="text/css" href="../css/main.css">
+    <script>
+        $(function (){
+            const nonePost = document.querySelector('#none-post-content');
+            if($('#post-size').val() == 1 ){
+                nonePost.style.display = "block";
+            }else{
+                nonePost.style.display = "none";
+            }
+        });
+    </script>
+</head>
+
+<body>
+<!--전체를 감싸는 태그-->
+<div id="page-wrapper">
+    <header th:replace="fragments.html :: main-header"></header>
+    <section id="search-section">
+        <div class="search">
+            <form method="get" th:action="@{/main}" ><input type="text" id="search" name="content"/>
+                <button type="submit" ><span>검색</span></button>
+            </form>
+        </div>
+        <div class="tag">
+            <button type="button"><i class="tag1"></i><span th:onclick="|location.href='@{/main/select(tagName=일상)}'|"># 일상</span></button>
+            <button type="button"><i class="tag2"></i><span th:onclick="|location.href='@{/main/select(tagName=후기)}'|" ># 맛집 후기</span></button>
+        </div>
+    </section>
+</div>
+
+<!--콘텐츠를 감싸는 태그-->
+<div class="button-layout" id="content" >
+
+    <!--글쓰기 버튼-->
+    <input type="hidden" id = "post-size" name="post-size" th:value="${postSize}">
+    <div class="add-button">
+        <button class="write-button">
+            <div th:onclick="|location.href='@{/post/add}'|">글 등록</div>
+        </button>
+    </div>
+
+    <div align="center">
+        <div class="none-post-content" id="none-post-content" style="display:none" >
+            <img src="../img/alert.png" width="30" height="30">
+            <div> 등록된 게시물이 존재하지 않습니다.</div>
+        </div>
+    </div>
+
+    <section id="main-section" th:each = "posts : ${post}">
+        <article class="contents basic-text" >
+            <header class="top">
+                <div class="user_container">
+                    <div class="profile_img">
+                        <a th:href="@{/profile/{userId}(userId=${posts.getUserId()})}" style="color: black">
+                            <img src="../img/임시.png" th:src="|/post/images/${posts.getUserImg().getUploadFilePath()}|" alt="프로필이미지">
+                        </a>
+                    </div>
+                    <div class= "profile-container" >
+                        <div class="nick_name m_text" th:text="${posts.getUserName()}">Minnie</div>
+                        <div class="country s_text" th:text="${posts.getLocation()}">Seoul, South Korea</div>
+                    </div>
+
+                </div>
+
+            </header>
+
+            <a th:href="@{/post/{postId}(postId=${posts.getPostId()})}" style="color: black">
+                <div class="img_section" align="center">
+                    <div>
+                        <div><img th:src="|/post/images/${posts.getImage().getUploadFilePath()}|" src="../img/testImg0.png" alt=" " width="300" height="300"></div>
+                    </div>
+                </div>
+
+                <div>
+                    <div th:text="${posts.getContent()}"> 민초 마싯땅 </div>
+                </div>
+            </a>
+
+            <div>
+                <div class="timer" th:text="${posts.getUpdatedTime}">1시간 전</div>
+            </div>
+
+            <!--북마크, 댓글-->
+
+            <div class="user_container">
+                <!--북마크 부분 !!!!-->
+                <div th:if="${posts.checkBookmark eq true}" >
+                    <div  th:id="|clickedStar${posts.postId}|" style="display: inline"
+                         th:onclick="|javascript:bookmark('${posts.postId}','${user.id}')|">
+                        <img class="bookmark_img" src="../img/clicked_star.png" alt="북마크이미지" >
+                    </div>
+                    <div   th:id="|star${posts.postId}|" style="display: none"
+                          th:onclick="|javascript:noneBookmark('${posts.postId}','${user.id}')|">
+                        <img class="bookmark_img" src="../img/star.png" alt="북마크이미지">
+                    </div>
+                </div>
+
+                <div th:if="${posts.checkBookmark eq false}" >
+                    <div th:id="|clickedStar${posts.postId}|" style="display: none"
+                         th:onclick="|javascript:bookmark('${posts.postId}','${user.id}')|">
+                        <img class="bookmark_img" src="../img/clicked_star.png" alt="북마크이미지" >
+                    </div>
+                    <div th:id="|star${posts.postId}|" style="display: inline"
+                          th:onclick="|javascript:noneBookmark('${posts.postId}','${user.id}')|">
+                        <img class="bookmark_img" src="../img/star.png" alt="북마크이미지">
+                    </div>
+                </div>
+
+                <div class="comment_img" >
+                    <a th:href="@{/post/{postId}(postId=${posts.getPostId()})}">
+                        <img src="../img/comment.png" alt="댓글이미지"  >
+                    </a>
+                </div>
+
+            </div>
+        </article>
+
+    </section>
+
+
+
+</div>
+
+
+
+</body>
+</html>

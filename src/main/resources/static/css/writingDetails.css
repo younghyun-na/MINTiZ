@@ -1,0 +1,376 @@
+* {
+    box-sizing: border-box;
+}
+
+:root{
+    --mintiz-mint: #BDE4DC;
+    --mintiz-brown: #817171;
+}
+
+#page-wrapper{
+    background:white;
+    margin:20px 0; padding: 10px 20px;
+    border-radius:5px;
+    box-shadow:0 2px 6px rgba(100, 100, 100, 0.3);
+}
+.master-title{
+    font-size:30px;
+    color:var(--mintiz-brown);
+}
+
+body{
+    width:960px; margin:0 auto;
+    background:var(--mintiz-mint);
+}
+#content{
+    overflow:hidden;
+    background:white;
+    margin:10px 0; padding: 0px 60px;
+    border-radius:5px;
+    box-shadow:0 2px 6px rgba(100, 100, 100, 0.3);
+}
+
+/* 본문 내용의 레이아웃, 글씨 색*/
+.body-layout{
+    display: grid;
+    place-items: center;
+    margin: 13px;
+    color:var(--mintiz-brown);
+}
+
+.layout{
+    text-align: center;
+    align-items: center;
+    align-content: center;
+}
+
+
+
+/* 작성자 부분 레이아웃 */
+
+.writer{
+    width: 550px;
+    background: white;
+    box-shadow:0 2px 6px rgba(100, 100, 100, 0.3);
+}
+
+/* 카테고리 부분 레이아웃 */
+.category ol {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+.category {
+    display: inline-block;
+    font-family: 'Y_Spotlight';
+}
+
+.category a::after {
+    display: inline-block;
+    color: #817171;
+    content: '>';
+    font-size: 80%;
+    font-weight: bold;
+    padding: 0 3px;
+}
+
+/* 글 부분 레이아웃 */
+.writing{
+    font-size: small;
+    text-align: left;
+    padding: 20px;
+    width: 609px;
+    color:black;
+    font-family: 'Pretendard-Regular';
+}
+#writer_name{
+    font-weight: bold;
+    font-size: 16px;
+}
+#write_time{
+    font-size: 12px;
+}
+.interaction{
+    float: right;
+}
+#bookmark_btn{
+    padding: 0;
+    border: none;
+    background: none;
+}
+#trash_btn{
+    padding: 0;
+    margin-left: 3px;
+    margin-right: 3px;
+    border: none;
+    background: none;
+}
+
+#rewrite_btn{
+    padding: 0;
+    margin-left: 3px;
+    border: none;
+    background: none;
+}
+#modify_btn{
+    padding: 0;
+    margin-left: 3px;
+    border: none;
+    background: none;
+}
+#delete_btn{
+    padding: 0;
+    margin-left: 3px;
+    border: none;
+    background: none;
+}
+/* 댓글 레이아웃 */
+#form-commentInfo{
+    width: 100%;
+    font-family: 'Pretendard-Regular';
+}
+
+.basic-text{
+    font-family: 'Pretendard-Regular';
+}
+
+#comments-count{
+    margin-top: 10px;
+}
+#comment-input{
+    margin-top: 10px;
+    width: 100%;
+    height: 3.2em;
+    border-color: #e3e2e2;
+    border-radius:7px;
+}
+
+#submit_btn{
+    background-color:#817171;
+    border: none;
+    width: 3.9em;
+    height: 2.3em;
+    font-weight: bold;
+    color: white;
+    border-radius:7px;
+
+}
+
+#comments{
+    margin-top: 10px;
+}
+#commentTable.comment-row{
+    margin-bottom: 10px;
+    margin-top: 10px;
+    border: 1px solid #eeeeee;
+    border-radius:7px;
+    position: relative;
+    right: 0;
+    border-bottom: 1px solid rgba(0,0,0,0.09);
+}
+
+.comment-layout{
+    margin-left: 20px;
+}
+#comment-content{
+
+
+}
+.comment-form{
+    margin-bottom: 20px;
+    margin-top: 15px;
+
+}
+
+.comment-date{
+    font-size: 5px;
+}
+.eachComment{
+    width :50%;
+    margin: 10px;
+    padding: 0.5em;
+    border-bottom: 1px solid #817171;
+}
+
+
+/* 사진 슬라이드*/
+
+.slider {
+    padding: 0;
+    width: 609px;
+    height: 420px;
+    display: block;
+    margin: 0 auto;
+    position: relative;
+}
+
+.slider2 {
+    position: absolute;
+    display: block;
+    margin: 0 auto
+}
+
+.slides {
+    padding: 0;
+    width: 609px;
+    height: 420px;
+    display: block;
+    margin: 0 auto;
+    position: relative;
+}
+
+.slides * {
+    user-select: none;
+    -ms-user-select: none;
+    -moz-user-select: none;
+    -khtml-user-select: none;
+    -webkit-user-select: none;
+    -webkit-touch-callout: none;
+}
+
+.slides input { display: none; }
+
+.slide-container { display: block; }
+
+.slide {
+    top: 0;
+    opacity: 0;
+    width: 609px;
+    height: 420px;
+    display: block;
+    position: absolute;
+
+    transform: scale(0);
+
+    transition: all .7s ease-in-out;
+}
+
+.slide img {
+    width: 100%;
+    height: 100%;
+}
+
+.nav label {
+    width: 200px;
+    height: 100%;
+    display: none;
+    position: absolute;
+
+    opacity: 0;
+    z-index: 9;
+    cursor: pointer;
+
+    transition: opacity .2s;
+
+    color: #FFF;
+    font-size: 156pt;
+    text-align: center;
+    line-height: 380px;
+    font-family: "Varela Round", sans-serif;
+    background-color: rgba(255, 255, 255, .3);
+    text-shadow: 0px 0px 15px rgb(119, 119, 119);
+}
+
+.slide:hover + .nav label { opacity: 0.5; }
+
+.nav label:hover { opacity: 1; }
+
+.nav .next { right: 0; }
+
+input:checked + .slide-container  .slide {
+    opacity: 1;
+    transform: scale(1);
+    transition: opacity 1s ease-in-out;
+}
+
+input:checked + .slide-container .nav label { display: block; }
+
+.nav-dots {
+    width: 100%;
+    bottom: 9px;
+    height: 11px;
+    display: block;
+    position: absolute;
+    text-align: center;
+}
+
+.nav-dots .nav-dot {
+    top: -5px;
+    width: 11px;
+    height: 11px;
+    margin: 0 4px;
+    position: relative;
+    border-radius: 100%;
+    display: inline-block;
+    background-color: rgba(0, 0, 0, 0.6);
+}
+
+.nav-dots .nav-dot:hover {
+    cursor: pointer;
+    background-color: rgba(0, 0, 0, 0.8);
+}
+
+input#img-1:checked ~ .nav-dots label#img-dot-1,
+input#img-2:checked ~ .nav-dots label#img-dot-2,
+input#img-3:checked ~ .nav-dots label#img-dot-3,
+input#img-4:checked ~ .nav-dots label#img-dot-4,
+input#img-5:checked ~ .nav-dots label#img-dot-5,
+input#img-6:checked ~ .nav-dots label#img-dot-6 {
+    background: rgba(0, 0, 0, 0.8);
+}
+
+.img {
+    border-radius: 70%;
+    overflow: hidden;
+}
+
+.mypage{
+    float: right;
+}
+
+.comment-content{
+    display:inline-block;
+
+    margin: 10px;
+}
+
+.deleteOrmodify{
+    display:inline-block;
+    float: right;
+}
+
+.bookmark_img{
+    width: 30px;
+    height: 30px;
+}
+
+.button-right{
+    position: absolute;
+    right: 10px;
+    bottom: 10px;
+}
+
+
+
+#profile_img1{
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+}
+#profile_img{
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+}
+
+.comment-update-btn{
+    background-color:#817171;
+    border: none;
+    width: 3.7em;
+    height: 2.7em;
+    font-weight: bold;
+    color: white;
+    border-radius:7px;
+    font-size: 10px;
+
+}
