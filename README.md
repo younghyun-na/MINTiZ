@@ -10,6 +10,21 @@
 - Thymeleaf, CSS, Javascript, jQuery
 
 ### 💡 주요 기능 
+
+<details>
+<summary>기능 요약</summary>
+<div markdown="1">       
+ 
+- 민초단 테스트를 통해 회원 가입
+- 민초 관련 정보를 주고 받을 수 있는 커뮤니티
+- 민초 먹은 날짜를 캘린더에 표기함을 통해 평소 민초력 확인
+
+</div>
+</details>
+
+
+<br>
+
  **1. 민초단 입단 테스트**  
  : 민초단 입단 테스트를 통해 레벨 결정  
 <details>
