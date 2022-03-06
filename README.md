@@ -100,7 +100,7 @@
 
 **- 요구사항 및 화면설계**
 
-> [Notion 바로가기](https://www.notion.so/controller-e01d456057ac4c4297c3197fae2532c0)
+> [Notion 바로가기](`https://www.notion.so/controller-e01d456057ac4c4297c3197fae2532c0)
 
 
 
